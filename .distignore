@@ -1,0 +1,14 @@
+.*
+.*/
+*.lock
+*.md
+*.zip
+/build/
+/node_modules/
+composer.*
+Gruntfile.js
+package-lock.json
+package.json
+phpcs.xml
+README.md
+renovate.json
