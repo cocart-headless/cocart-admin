@@ -108,24 +108,6 @@ class PluginActionLinks {
 				) . '" target="_blank">' . esc_attr__( 'Leave a Review', 'cart-rest-api-for-woocommerce' ) . '</a>',
 			);
 
-			// Only show donate option if CoCart Pro is not activated.
-			if ( ! CoCart_Helpers::is_cocart_pro_activated() ) {
-				$donate = array(
-					'donate'   => '<a href="' . esc_url( 'https://www.buymeacoffee.com/sebastien' ) . '" aria-label="' . sprintf(
-						/* translators: %s: CoCart */
-						esc_attr__( 'Make a donation for %s', 'cart-rest-api-for-woocommerce' ),
-						'CoCart'
-					) . '" target="_blank" style="color: #399141; font-weight: 600;">' . esc_attr__( 'Donate', 'cart-rest-api-for-woocommerce' ) . '</a>',
-					'priority' => '<a href="' . CoCart_Helpers::build_shortlink( esc_url( COCART_STORE_URL . 'product/14-day-priority-support/' ) ) . '" aria-label="' . sprintf(
-						/* translators: %s: CoCart */
-						esc_attr__( 'Order priority support for %s', 'cart-rest-api-for-woocommerce' ),
-						'CoCart'
-					) . '" target="_blank" style="color: #6032b0; font-weight: 600;">' . esc_attr__( 'Priority Support', 'cart-rest-api-for-woocommerce' ) . '</a>',
-				);
-
-				$row_meta = array_merge( $donate, $row_meta );
-			}
-
 			// Only show upgrade option if CoCart Pro is not activated.
 			if ( ! CoCart_Helpers::is_cocart_pro_activated() ) {
 				$store_url = CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
