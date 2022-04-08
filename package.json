@@ -50,7 +50,7 @@
 		"grunt-dev-update": "2.3.0",
 		"grunt-rtlcss": "2.0.2",
 		"grunt-sass": "3.1.0",
-		"grunt-stylelint": "0.16.0",
+		"grunt-stylelint": "0.18.0",
 		"jshint-stylish": "2.2.1",
 		"load-grunt-tasks": "5.1.0",
 		"node-sass": "7.0.1",
