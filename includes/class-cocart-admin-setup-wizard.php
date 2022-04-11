@@ -12,6 +12,9 @@
 
 namespace CoCart\Admin;
 
+use CoCart\Help;
+use CoCart\Admin\Notices;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -410,7 +413,7 @@ class SetupWizard {
 			return;
 		}
 
-		WC_Install::background_installer( $plugin_id, $plugin_info );
+		\WC_Install::background_installer( $plugin_id, $plugin_info );
 	} // END install_plugin()
 
 	/**
@@ -451,7 +454,7 @@ class SetupWizard {
 	 */
 	public function cocart_setup_wizard_ready() {
 		// We've made it! Don't prompt the user to run the wizard again.
-		CoCart_Admin_Notices::remove_notice( 'setup_wizard', true );
+		Notices::remove_notice( 'setup_wizard', true );
 
 		$campaign_args = \CoCart\Help::cocart_campaign(
 			array(
