@@ -81,7 +81,7 @@ class Menus {
 		}
 
 		// If CoCart Pro is not active then add sub-menu to upgrade.
-		if ( ! CoCart_Helpers::is_cocart_pro_activated() ) {
+		if ( ! \CoCart\Help::is_cocart_pro_activated() ) {
 			add_submenu_page(
 				'cocart',
 				'',
@@ -93,7 +93,7 @@ class Menus {
 		}
 
 		// Register WooCommerce Admin Bar.
-		if ( CoCart_Helpers::is_wc_version_gte( '4.0' ) && function_exists( 'wc_admin_connect_page' ) ) {
+		if ( \CoCart\Help::is_wc_version_gte( '4.0' ) && function_exists( 'wc_admin_connect_page' ) ) {
 			wc_admin_connect_page(
 				array(
 					'id'        => 'cocart-getting-started',
@@ -120,7 +120,7 @@ class Menus {
 		 */
 		if ( class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) && apply_filters( 'cocart_wc_navigation', true ) ) {
 			// Add Category.
-			Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_category(
+			\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_category(
 				array(
 					'id'     => 'cocart-category',
 					'title'  => 'CoCart',
@@ -129,7 +129,7 @@ class Menus {
 			);
 
 			// Add Page.
-			Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item(
+			\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item(
 				array(
 					'id'         => 'cocart',
 					'title'      => esc_attr__( 'Getting Started', 'cart-rest-api-for-woocommerce' ),

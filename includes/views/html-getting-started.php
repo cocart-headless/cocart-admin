@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$campaign_args = CoCart_Helpers::cocart_campaign(
+$campaign_args = \CoCart\Help::cocart_campaign(
 	array(
 		'utm_content' => 'getting-started',
 	)
 );
-$store_url     = CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
+$store_url     = \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
 $addons_url    = admin_url( 'plugin-install.php?tab=cocart' );
-$pro_url       = CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
+$pro_url       = \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
 ?>
 <div class="wrap cocart getting-started">
 
@@ -127,10 +127,10 @@ $pro_url       = CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args,
 
 			<p style="text-align: center;">
 				<?php printf( '<a class="button button-primary button-large" href="%1$s" target="_blank">%2$s</a>', esc_url( COCART_DOCUMENTATION_URL ), esc_html__( 'View Documentation', 'cart-rest-api-for-woocommerce' ) ); ?> 
-				<?php printf( '<a class="button button-secondary button-large" href="%1$s" target="_blank">%2$s</a>', esc_url( CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'community/' ) ) ) ), esc_html__( 'Join Community', 'cart-rest-api-for-woocommerce' ) ); ?>
+				<?php printf( '<a class="button button-secondary button-large" href="%1$s" target="_blank">%2$s</a>', esc_url( \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'community/' ) ) ) ), esc_html__( 'Join Community', 'cart-rest-api-for-woocommerce' ) ); ?>
 			</p>
 
-			<?php if ( CoCart_Helpers::is_cocart_ps_active() ) { ?>
+			<?php if ( \CoCart\Help::is_cocart_ps_active() ) { ?>
 			<hr>
 
 			<p><?php printf( esc_html__( 'Want to find compatible plugins or extensions for CoCart. Checkout our plugin suggestions that can help enhance your development and your customers shopping experience.', 'cart-rest-api-for-woocommerce' ), 'CoCart' ); ?></p>

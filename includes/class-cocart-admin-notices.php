@@ -13,6 +13,9 @@
 
 namespace CoCart\Admin;
 
+use CoCart\Core;
+use CoCart\Help;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -77,7 +80,7 @@ class Notices {
 		add_action( 'shutdown', array( $this, 'store_notices' ) );
 
 		// If the current user has capabilities then add notices.
-		if ( CoCart_Helpers::user_has_capabilities() ) {
+		if ( \CoCart\Help::user_has_capabilities() ) {
 			add_action( 'admin_print_styles', array( $this, 'add_notices' ) );
 		}
 	} // END __construct()
@@ -198,7 +201,7 @@ class Notices {
 				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'cart-rest-api-for-woocommerce' ) );
 			}
 
-			if ( ! CoCart_Helpers::user_has_capabilities() ) {
+			if ( ! \CoCart\Help::user_has_capabilities() ) {
 				wp_die( esc_html__( 'You don&#8217;t have permission to do this.', 'cart-rest-api-for-woocommerce' ) );
 			}
 
@@ -210,7 +213,7 @@ class Notices {
 
 			do_action( 'cocart_hide_' . $hide_notice . '_notice' );
 
-			wp_safe_redirect( remove_query_arg( array( 'cocart-hide-notice', '_cocart_notice_nonce' ), CoCart_Helpers::cocart_get_current_admin_url() ) );
+			wp_safe_redirect( remove_query_arg( array( 'cocart-hide-notice', '_cocart_notice_nonce' ), \CoCart\Help::cocart_get_current_admin_url() ) );
 			exit;
 		}
 	} // END hide_notices()
@@ -235,7 +238,7 @@ class Notices {
 		}
 
 		// Notice should only show on specific pages.
-		if ( ! CoCart_Helpers::is_cocart_admin_page() ) {
+		if ( ! \CoCart\Help::is_cocart_admin_page() ) {
 			return;
 		}
 
@@ -361,8 +364,8 @@ class Notices {
 	 * @return  void
 	 */
 	public function check_php_notice() {
-		if ( ! CoCart_Helpers::is_environment_compatible() && is_plugin_active( plugin_basename( COCART_FILE ) ) ) {
-			CoCart::deactivate_plugin();
+		if ( ! \CoCart\Help::is_environment_compatible() && is_plugin_active( plugin_basename( COCART_FILE ) ) ) {
+			\CoCart\Core::deactivate_plugin();
 
 			include_once dirname( __FILE__ ) . '/views/html-notice-requirement-php.php';
 		}
@@ -378,8 +381,8 @@ class Notices {
 	 * @return  void
 	 */
 	public function check_wp_notice() {
-		if ( ! CoCart_Helpers::is_wp_version_gte( CoCart::$required_wp ) ) {
-			CoCart::deactivate_plugin();
+		if ( ! \CoCart\Help::is_wp_version_gte( \CoCart\Core::$required_wp ) ) {
+			\CoCart\Core::deactivate_plugin();
 			include_once dirname( __FILE__ ) . '/views/html-notice-requirement-wp.php';
 		}
 	} // END check_wp_notice()
@@ -394,11 +397,11 @@ class Notices {
 	public function check_woocommerce_notice() {
 		if ( ! defined( 'WC_VERSION' ) ) {
 			// Deactivate plugin.
-			CoCart::deactivate_plugin();
+			\CoCart\Core::deactivate_plugin();
 
 			// WooCommerce is Not Installed or Activated Notice.
 			include_once dirname( __FILE__ ) . '/views/html-notice-wc-not-installed.php';
-		} elseif ( version_compare( WC_VERSION, CoCart::$required_woo, '<' ) ) {
+		} elseif ( version_compare( WC_VERSION, \CoCart\Core::$required_woo, '<' ) ) {
 			/**
 			 * Displays a warning message if minimum version of WooCommerce check fails and
 			 * provides an update button if the user has admin capabilities to update the plugin.
@@ -417,7 +420,7 @@ class Notices {
 	 */
 	public function check_beta_notice() {
 		// Is this version of CoCart a pre-release?
-		if ( CoCart_Helpers::is_cocart_pre_release() ) {
+		if ( \CoCart\Help::is_cocart_pre_release() ) {
 			include_once dirname( __FILE__ ) . '/views/html-notice-trying-beta.php';
 		}
 	} // END check_beta_notice()

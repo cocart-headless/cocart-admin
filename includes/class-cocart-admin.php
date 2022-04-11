@@ -11,6 +11,8 @@
 
 namespace CoCart\Admin;
 
+use CoCart\Admin\Notices;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -22,17 +24,18 @@ class Package {
 	 * Initiate Package.
 	 *
 	 * @access public
+	 * @static
 	 */
-	public function init() {
+	public static function init() {
 		self::setup_constants();
 
-		add_action( 'init', array( $this, 'includes' ) );
-		add_action( 'current_screen', array( $this, 'conditional_includes' ) );
-		add_action( 'admin_init', array( $this, 'admin_redirects' ) );
+		add_action( 'init', array( __CLASS__, 'includes' ) );
+		add_action( 'current_screen', array( __CLASS__, 'conditional_includes' ) );
+		add_action( 'admin_init', array( __CLASS__, 'admin_redirects' ) );
 
 		// Install CoCart Plugins Action.
-		add_action( 'update-custom_install-cocart-plugin', array( $this, 'install_cocart_plugin' ) );
-		add_action( 'install_plugin_complete_actions', array( $this, 'install_plugin_complete_actions' ), 10, 3 );
+		add_action( 'update-custom_install-cocart-plugin', array( __CLASS__, 'install_cocart_plugin' ) );
+		add_action( 'install_plugin_complete_actions', array( __CLASS__, 'install_plugin_complete_actions' ), 10, 3 );
 	} // END init()
 
 	/**
@@ -42,8 +45,8 @@ class Package {
 	 * @static
 	 */
 	public static function setup_constants() {
-		self::define( 'COCART_ADMIN_URL_PATH', untrailingslashit( plugins_url( '/', COCART_FILE ) ) );
-		self::define( 'COCART_ADMIN_FILE_PATH', untrailingslashit( plugin_dir_path( COCART_FILE ) ) );
+		self::define( 'COCART_ADMIN_URL_PATH', untrailingslashit( plugins_url( '/', COCART_ADMIN_PACKAGE_FILE ) ) );
+		self::define( 'COCART_ADMIN_FILE_PATH', untrailingslashit( plugin_dir_path( COCART_ADMIN_PACKAGE_FILE ) ) );
 		self::define( 'COCART_STORE_URL', 'https://cocart.xyz/' );
 		self::define( 'COCART_PLUGIN_URL', 'https://wordpress.org/plugins/cart-rest-api-for-woocommerce/' );
 		self::define( 'COCART_SUPPORT_URL', 'https://wordpress.org/support/plugin/cart-rest-api-for-woocommerce' );
@@ -106,16 +109,17 @@ class Package {
 	 * Include any classes we need within admin.
 	 *
 	 * @access  public
+	 * @static
 	 * @since   1.2.0
 	 * @version 3.1.0
 	 */
-	public function includes() {
+	public static function includes() {
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-assets.php';           // Admin Assets.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-menus.php';            // Admin Menus.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-notices.php';          // Plugin Notices.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-search.php';    // Plugin Search.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-wc-admin-notices.php'; // WooCommerce Admin Notices.
-		include_once COCART_ABSPATH . 'includes/admin/class-cocart-wc-admin-system-status.php'; // WooCommerce System Status.
+		include_once COCART_ABSPATH . 'includes/classes/admin/class-cocart-wc-admin-system-status.php'; // WooCommerce System Status.
 
 		// Setup Wizard.
 		if ( ! empty( $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -131,9 +135,10 @@ class Package {
 	 * Include admin files conditionally.
 	 *
 	 * @access public
+	 * @static
 	 * @since  3.0.0
 	 */
-	public function conditional_includes() {
+	public static function conditional_includes() {
 		$screen = get_current_screen();
 
 		if ( ! $screen ) {
@@ -153,9 +158,10 @@ class Package {
 	 * For setup wizard, transient must be present, the user must have access rights, and we must ignore the network/bulk plugin updaters.
 	 *
 	 * @access public
+	 * @static
 	 * @since  3.1.0
 	 */
-	public function admin_redirects() {
+	public static function admin_redirects() {
 		// If WooCommerce does not exists then do nothing as we require functions from WooCommerce to function!
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			return;
@@ -191,7 +197,7 @@ class Package {
 			}
 
 			// On these pages, or during these events, disable the redirect.
-			if ( 'cocart-setup' === $current_page || ! CoCart_Admin_Notices::has_notice( 'setup_wizard' ) || apply_filters( 'cocart_prevent_automatic_wizard_redirect', false ) || isset( $_GET['activate-multi'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( 'cocart-setup' === $current_page || ! \CoCart\Admin\Notices::has_notice( 'setup_wizard' ) || apply_filters( 'cocart_prevent_automatic_wizard_redirect', false ) || isset( $_GET['activate-multi'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				delete_transient( '_cocart_activation_redirect' );
 				$do_redirect = false;
 			}
@@ -208,9 +214,10 @@ class Package {
 	 * Install CoCart Plugins.
 	 *
 	 * @access public
+	 * @static
 	 * @since  3.1.0
 	 */
-	public function install_cocart_plugin() {
+	public static function install_cocart_plugin() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to install plugins on this site.', 'cart-rest-api-for-woocommerce' ) );
 		}
@@ -259,12 +266,13 @@ class Package {
 	 * Returns install plugin complete action link if plugin was related to CoCart.
 	 *
 	 * @access public
+	 * @static
 	 * @since  3.1.0
 	 * @param array  $install_actions - Array of install actions.
 	 * @param string $api - The API URL.
 	 * @param string $plugin_file - Plugin file name.
 	 */
-	public function install_plugin_complete_actions( $install_actions, $api, $plugin_file ) {
+	public static function install_plugin_complete_actions( $install_actions, $api, $plugin_file ) {
 		if ( strstr( $plugin_file, 'cocart-' ) ) {
 			$install_actions['plugins_page'] = sprintf(
 				/* translators: 1; Admin URL, 2: Link Text */

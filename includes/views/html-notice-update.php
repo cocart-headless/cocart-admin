@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $update_url = wp_nonce_url(
-	add_query_arg( 'do_update_cocart', 'true', CoCart_Helpers::cocart_get_current_admin_url() ),
+	add_query_arg( 'do_update_cocart', 'true', \CoCart\Help::cocart_get_current_admin_url() ),
 	'cocart_db_update',
 	'cocart_db_update_nonce'
 );

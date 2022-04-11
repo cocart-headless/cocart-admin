@@ -39,12 +39,12 @@ class WCAdminNotes {
 	 */
 	public function include_notes() {
 		// Don't include notes if WC v4.0 or greater is not installed.
-		if ( ! CoCart_Helpers::is_wc_version_gte( '4.0' ) ) {
+		if ( ! \CoCart\Help::is_wc_version_gte( '4.0' ) ) {
 			return;
 		}
 
 		// Don't include notes if WC Admin is not enabled or available.
-		if ( ! CoCart_Helpers::is_wc_admin_enabled() ) {
+		if ( ! \CoCart\Help::is_wc_admin_enabled() ) {
 			return;
 		}
 
@@ -69,7 +69,7 @@ class WCAdminNotes {
 	 */
 	public static function add_note( $note_name = '', $seconds = '', $source = 'cocart' ) {
 		// Don't show the note if CoCart has not been active long enough.
-		if ( ! CoCart_Helpers::cocart_active_for( $seconds ) ) {
+		if ( ! \CoCart\Help::cocart_active_for( $seconds ) ) {
 			return;
 		}
 	} // END add_note()
@@ -106,7 +106,7 @@ class WCAdminNotes {
 		}
 
 		// Type of note.
-		$type = Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_INFORMATIONAL;
+		$type = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_INFORMATIONAL;
 
 		// Default arguments.
 		$default_args = array(
@@ -139,13 +139,13 @@ class WCAdminNotes {
 		}
 
 		// First, see if we've already created this note so we don't do it again.
-		$data_store = Automattic\WooCommerce\Admin\Notes\Notes::load_data_store();
+		$data_store = \Automattic\WooCommerce\Admin\Notes\Notes::load_data_store();
 		$note_ids   = $data_store->get_notes_with_name( $args['name'] );
 		if ( ! empty( $note_ids ) ) {
 			return;
 		}
 
-		$note = new Automattic\WooCommerce\Admin\Notes\Note();
+		$note = new \Automattic\WooCommerce\Admin\Notes\Note();
 
 		$note->set_name( $args['name'] );
 		$note->set_title( $args['title'] );
@@ -171,7 +171,7 @@ class WCAdminNotes {
 
 		// Create each action button for the note.
 		foreach ( $args['actions'] as $key => $action ) {
-			$note->add_action( $action['name'], $action['label'], empty( $action['url'] ) ? false : $action['url'], empty( $action['status'] ) ? Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_UNACTIONED : $action['status'], empty( $action['primary'] ) ? false : $action['primary'] );
+			$note->add_action( $action['name'], $action['label'], empty( $action['url'] ) ? false : $action['url'], empty( $action['status'] ) ? \Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_UNACTIONED : $action['status'], empty( $action['primary'] ) ? false : $action['primary'] );
 		}
 
 		// Save note.

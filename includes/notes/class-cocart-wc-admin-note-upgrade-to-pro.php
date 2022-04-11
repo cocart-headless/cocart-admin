@@ -11,12 +11,14 @@
  * @license GPL-2.0+
  */
 
+namespace CoCart\Admin;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class CoCart_WC_Admin_Upgrade_Pro_Note extends CoCart_WC_Admin_Notes {
+class CoCart_WC_Admin_Upgrade_Pro_Note extends WCAdminNotes {
 
 	/**
 	 * Name of the note for use in the database.
@@ -58,10 +60,10 @@ class CoCart_WC_Admin_Upgrade_Pro_Note extends CoCart_WC_Admin_Notes {
 		}
 
 		// Check if CoCart Pro is installed. If true then don't create note.
-		$is_plugin_installed = Automattic\WooCommerce\Admin\PluginsHelper::is_plugin_installed( self::PLUGIN_FILE );
+		$is_plugin_installed = \Automattic\WooCommerce\Admin\PluginsHelper::is_plugin_installed( self::PLUGIN_FILE );
 
 		if ( $is_plugin_installed ) {
-			Automattic\WooCommerce\Admin\Notes\Notes::delete_notes_with_name( $note_name );
+			\Automattic\WooCommerce\Admin\Notes\Notes::delete_notes_with_name( $note_name );
 
 			return;
 		}
@@ -81,9 +83,9 @@ class CoCart_WC_Admin_Upgrade_Pro_Note extends CoCart_WC_Admin_Notes {
 	 * @return  array
 	 */
 	public static function get_note_args() {
-		$status = Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
+		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
 
-		$campaign_args = CoCart_Helpers::cocart_campaign(
+		$campaign_args = \CoCart\Help::cocart_campaign(
 			array(
 				'utm_campaign' => 'wc-admin',
 				'utm_content'  => 'wc-inbox',
@@ -102,7 +104,7 @@ class CoCart_WC_Admin_Upgrade_Pro_Note extends CoCart_WC_Admin_Notes {
 				array(
 					'name'    => 'cocart-pro-learn-more',
 					'label'   => __( 'Learn more', 'cart-rest-api-for-woocommerce' ),
-					'url'     => CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'pro/' ) ) ),
+					'url'     => \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'pro/' ) ) ),
 					'status'  => $status,
 					'primary' => true,
 				),

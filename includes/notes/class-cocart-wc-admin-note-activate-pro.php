@@ -11,12 +11,14 @@
  * @license GPL-2.0+
  */
 
+namespace CoCart\Admin;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class CoCart_WC_Admin_Activate_Pro_Note extends CoCart_WC_Admin_Notes {
+class CoCart_WC_Admin_Activate_Pro_Note extends WCAdminNotes {
 
 	/**
 	 * Name of the note for use in the database.
@@ -64,14 +66,14 @@ class CoCart_WC_Admin_Activate_Pro_Note extends CoCart_WC_Admin_Notes {
 		}
 
 		// Check if CoCart Pro is installed. If not true then don't create note.
-		$is_plugin_installed = Automattic\WooCommerce\Admin\PluginsHelper::is_plugin_installed( self::PLUGIN_FILE );
+		$is_plugin_installed = \Automattic\WooCommerce\Admin\PluginsHelper::is_plugin_installed( self::PLUGIN_FILE );
 
 		if ( ! $is_plugin_installed ) {
 			return;
 		}
 
 		// Check if CoCart Pro is activated. If true then don't create note.
-		$pro_active = Automattic\WooCommerce\Admin\PluginsHelper::is_plugin_active( self::PLUGIN_FILE );
+		$pro_active = \Automattic\WooCommerce\Admin\PluginsHelper::is_plugin_active( self::PLUGIN_FILE );
 
 		if ( $pro_active ) {
 			$data_store = \WC_Data_Store::load( 'admin-note' );
@@ -83,10 +85,10 @@ class CoCart_WC_Admin_Activate_Pro_Note extends CoCart_WC_Admin_Notes {
 
 				$note_id = array_pop( $note_ids );
 
-				$note = Automattic\WooCommerce\Admin\Notes\Notes::get_note( $note_id );
+				$note = \Automattic\WooCommerce\Admin\Notes\Notes::get_note( $note_id );
 
-				if ( Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_ACTIONED !== $note->get_status() ) {
-					$note->set_status( Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_ACTIONED );
+				if ( \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_ACTIONED !== $note->get_status() ) {
+					$note->set_status( \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_ACTIONED );
 					$note->save();
 				}
 			}
@@ -109,7 +111,7 @@ class CoCart_WC_Admin_Activate_Pro_Note extends CoCart_WC_Admin_Notes {
 	 * @return  array
 	 */
 	public static function get_note_args() {
-		$status = Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_ACTIONED;
+		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_ACTIONED;
 
 		$args = array(
 			'title'   => sprintf(

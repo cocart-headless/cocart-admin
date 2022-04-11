@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				esc_attr( strstr( COCART_VERSION, '-', true ) )
 			);
 
-			if ( CoCart_Helpers::is_cocart_beta() ) {
+			if ( \CoCart\Help::is_cocart_beta() ) {
 				echo sprintf(
 					/* translators: %s: CoCart */
 					esc_html__( ', a beta release of %s!', 'cart-rest-api-for-woocommerce' ),
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				);
 			}
 
-			if ( CoCart_Helpers::is_cocart_rc() ) {
+			if ( \CoCart\Help::is_cocart_rc() ) {
 				echo sprintf(
 					/* translators: %s: CoCart */
 					esc_html__( ', a release candidate of %s!', 'cart-rest-api-for-woocommerce' ),
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					esc_html__( 'Give Feedback', 'cart-rest-api-for-woocommerce' )
 				);
 				?>
-			<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'cocart-hide-notice', 'check_beta', CoCart_Helpers::cocart_get_current_admin_url() ), 'cocart_hide_notices_nonce', '_cocart_notice_nonce' ) ); ?>" class="no-thanks" aria-label="<?php echo esc_html__( 'Hide this notice forever.', 'cart-rest-api-for-woocommerce' ); ?>"><?php echo esc_html__( 'Don\'t ask me again', 'cart-rest-api-for-woocommerce' ); ?></a>
+			<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'cocart-hide-notice', 'check_beta', \CoCart\Help::cocart_get_current_admin_url() ), 'cocart_hide_notices_nonce', '_cocart_notice_nonce' ) ); ?>" class="no-thanks" aria-label="<?php echo esc_html__( 'Hide this notice forever.', 'cart-rest-api-for-woocommerce' ); ?>"><?php echo esc_html__( 'Don\'t ask me again', 'cart-rest-api-for-woocommerce' ); ?></a>
 		</div>
 	</div>
 </div>

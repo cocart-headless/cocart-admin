@@ -13,14 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$campaign_args = CoCart_Helpers::cocart_campaign(
+$campaign_args = \CoCart\Help::cocart_campaign(
 	array(
 		'utm_content' => 'upgrade-cocart',
 	)
 );
-$store_url     = CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
+$store_url     = \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
 $addons_url    = admin_url( 'plugin-install.php?tab=cocart' );
-$pro_url       = CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
+$pro_url       = \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
 $star_svg      = COCART_ADMIN_URL_PATH . '/assets/images/star-filled.svg';
 ?>
 <div class="wrap cocart upgrade-cocart">

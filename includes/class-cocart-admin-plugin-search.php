@@ -287,7 +287,7 @@ class PluginSearch {
 	 * @return  array List of add-ons.
 	 */
 	public function get_addons_list() {
-		$campaign_args = CoCart_Helpers::cocart_campaign(
+		$campaign_args = \CoCart\Help::cocart_campaign(
 			array(
 				'utm_campaign' => 'install-plugin',
 				'utm_content'  => 'plugin-suggestions',
@@ -309,8 +309,8 @@ class PluginSearch {
 				'num_ratings'       => 0,
 				'active_installs'   => 0,
 				'last_updated'      => '',
-				'purchase'          => CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'pro/#pricing' ) ) ),
-				'learn_more'        => CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'add-ons/advanced-custom-fields/' ) ) ),
+				'purchase'          => \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'pro/#pricing' ) ) ),
+				'learn_more'        => \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'add-ons/advanced-custom-fields/' ) ) ),
 				'third_party'       => false,
 			),
 			'cocart-yoast-seo' => array(
@@ -327,8 +327,8 @@ class PluginSearch {
 				'num_ratings'       => 0,
 				'active_installs'   => 0,
 				'last_updated'      => '',
-				'purchase'          => CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'pro/#pricing' ) ) ),
-				'learn_more'        => CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'add-ons/yoast-seo/' ) ) ),
+				'purchase'          => \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'pro/#pricing' ) ) ),
+				'learn_more'        => \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'add-ons/yoast-seo/' ) ) ),
 				'third_party'       => false,
 			),
 		);
@@ -1019,6 +1019,6 @@ class PluginSearch {
  * If "cocart_show_plugin_search" filter is set to false,
  * the plugin search suggestions will not show on the plugin install page.
  */
-if ( is_admin() && CoCart_Helpers::is_cocart_ps_active() ) {
+if ( is_admin() && \CoCart\Help::is_cocart_ps_active() ) {
 	PluginSearch::init();
 }

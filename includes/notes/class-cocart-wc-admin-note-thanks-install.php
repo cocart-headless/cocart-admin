@@ -11,12 +11,14 @@
  * @license GPL-2.0+
  */
 
+namespace CoCart\Admin;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class CoCart_WC_Admin_Thanks_Install_Note extends CoCart_WC_Admin_Notes {
+class CoCart_WC_Admin_Thanks_Install_Note extends WCAdminNotes {
 
 	/**
 	 * Name of the note for use in the database.
@@ -52,7 +54,7 @@ class CoCart_WC_Admin_Thanks_Install_Note extends CoCart_WC_Admin_Notes {
 			return;
 		}
 
-		$data_store = Automattic\WooCommerce\Admin\Notes\Notes::load_data_store();
+		$data_store = \Automattic\WooCommerce\Admin\Notes\Notes::load_data_store();
 
 		// We already have this note? Then don't create it again.
 		$note_ids = $data_store->get_notes_with_name( self::NOTE_NAME );
@@ -75,9 +77,9 @@ class CoCart_WC_Admin_Thanks_Install_Note extends CoCart_WC_Admin_Notes {
 	 * @return  array
 	 */
 	public static function get_note_args() {
-		$status = Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
+		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
 
-		$campaign_args = CoCart_Helpers::cocart_campaign(
+		$campaign_args = \CoCart\Help::cocart_campaign(
 			array(
 				'utm_campaign' => 'wc-admin',
 				'utm_content'  => 'wc-inbox',
@@ -96,7 +98,7 @@ class CoCart_WC_Admin_Thanks_Install_Note extends CoCart_WC_Admin_Notes {
 				array(
 					'name'    => 'cocart-view-documentation',
 					'label'   => __( 'View Documentation', 'cart-rest-api-for-woocommerce' ),
-					'url'     => CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ),
+					'url'     => \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ),
 					'status'  => $status,
 					'primary' => true,
 				),

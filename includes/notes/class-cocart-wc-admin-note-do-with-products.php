@@ -11,12 +11,14 @@
  * @license GPL-2.0+
  */
 
+namespace CoCart\Admin;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class CoCart_WC_Admin_Do_With_Products_Note extends CoCart_WC_Admin_Notes {
+class CoCart_WC_Admin_Do_With_Products_Note extends WCAdminNotes {
 
 	/**
 	 * Name of the note for use in the database.
@@ -81,10 +83,10 @@ class CoCart_WC_Admin_Do_With_Products_Note extends CoCart_WC_Admin_Notes {
 	 * @return  array
 	 */
 	public static function get_note_args() {
-		$type   = Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_MARKETING;
-		$status = Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
+		$type   = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_MARKETING;
+		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
 
-		$campaign_args = CoCart_Helpers::cocart_campaign(
+		$campaign_args = \CoCart\Help::cocart_campaign(
 			array(
 				'utm_campaign' => 'wc-admin',
 				'utm_content'  => 'wc-inbox',
@@ -106,7 +108,7 @@ class CoCart_WC_Admin_Do_With_Products_Note extends CoCart_WC_Admin_Notes {
 				array(
 					'name'    => 'cocart-learn-more-products',
 					'label'   => __( 'Learn more', 'cart-rest-api-for-woocommerce' ),
-					'url'     => CoCart_Helpers::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . '6-things-you-can-do-with-cocart-products/' ) ) ),
+					'url'     => \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . '6-things-you-can-do-with-cocart-products/' ) ) ),
 					'status'  => $status,
 					'primary' => true,
 				),

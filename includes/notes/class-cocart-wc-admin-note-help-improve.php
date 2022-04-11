@@ -11,12 +11,14 @@
  * @license GPL-2.0+
  */
 
+namespace CoCart\Admin;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class CoCart_WC_Admin_Help_Improve_Note extends CoCart_WC_Admin_Notes {
+class CoCart_WC_Admin_Help_Improve_Note extends WCAdminNotes {
 
 	/**
 	 * Name of the note for use in the database.
@@ -64,7 +66,7 @@ class CoCart_WC_Admin_Help_Improve_Note extends CoCart_WC_Admin_Notes {
 	 * @return array
 	 */
 	public static function get_note_args() {
-		$status = Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
+		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
 
 		$args = array(
 			'title'   => __( 'Help improve CoCart', 'cart-rest-api-for-woocommerce' ),
