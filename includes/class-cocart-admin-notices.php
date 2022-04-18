@@ -340,7 +340,7 @@ class Notices {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		if ( CoCart_Install::needs_db_update() ) {
+		if ( CoCart\Install::needs_db_update() ) {
 			$next_scheduled_date = WC()->queue()->get_next( 'cocart_run_update_callback', null, 'cocart-db-updates' );
 
 			if ( $next_scheduled_date || ! empty( $_GET['do_update_cocart'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
