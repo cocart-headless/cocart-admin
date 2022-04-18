@@ -11,8 +11,6 @@
 
 namespace CoCart\Admin;
 
-use CoCart\Admin\Notices;
-
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
