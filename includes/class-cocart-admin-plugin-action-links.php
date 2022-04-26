@@ -55,6 +55,20 @@ class PluginActionLinks {
 			return array_merge( $action_links, $links );
 		}
 
+		if ( \CoCart\Help::is_cocart_pro_activated() ) {
+			// Remove 'deactivate' link if CoCart Pro is active as well.
+			// We don't want users to deactivate CoCart Lite when CoCart Pro is active.
+			unset( $links['deactivate'] );
+
+			$no_deactivation_explanation = '<span style="color: #initial">' . sprintf(
+				/* translators: %s expands to CoCart Pro */
+				__( 'Required by %s', 'cart-rest-api-for-woocommerce' ),
+				'CoCart Pro'
+			) . '</span>';
+
+			array_unshift( $links, $no_deactivation_explanation );
+		}
+
 		return $links;
 	} // END plugin_action_links()
 
