@@ -41,9 +41,10 @@ class PluginSuggestionsUpdater {
 	 * Fetches new plugin data, updates CoCart plugin suggestions.
 	 *
 	 * @access public
+	 * @static
 	 * @return array
 	 */
-	public function update_plugin_suggestions() {
+	public static function update_plugin_suggestions() {
 		$data = get_option(
 			'cocart_plugin_suggestions',
 			array(
