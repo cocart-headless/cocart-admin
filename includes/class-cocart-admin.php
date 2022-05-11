@@ -5,7 +5,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin
  * @since   1.2.0
- * @version 3.5.0
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -72,7 +72,6 @@ class Package {
 	 *
 	 * @access public
 	 * @static
-	 * @since  3.0.8
 	 * @return string
 	 */
 	public static function get_name() {
@@ -84,7 +83,6 @@ class Package {
 	 *
 	 * @access public
 	 * @static
-	 * @since  3.0.8
 	 * @return string
 	 */
 	public static function get_version() {
@@ -96,7 +94,6 @@ class Package {
 	 *
 	 * @access public
 	 * @static
-	 * @since  3.0.8
 	 * @return string
 	 */
 	public static function get_path() {
@@ -108,13 +105,14 @@ class Package {
 	 *
 	 * @access  public
 	 * @static
-	 * @since   1.2.0
-	 * @version 3.5.0
+	 * @since   1.2.0 Introduced.
+	 * @version 4.0.0
 	 */
 	public static function includes() {
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-assets.php';             // Admin Assets.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-menus.php';              // Admin Menus.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-notices.php';            // Plugin Notices.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-tracker.php';     // Plugin Tracker.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-suggestions.php'; // Plugin Suggestions.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-search.php';      // Plugin Search.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-wc-admin-notices.php';   // WooCommerce Admin Notices.
@@ -135,7 +133,7 @@ class Package {
 	 *
 	 * @access public
 	 * @static
-	 * @since  3.0.0
+	 * @since  3.0.0 Introduced.
 	 */
 	public static function conditional_includes() {
 		$screen = get_current_screen();
@@ -158,7 +156,7 @@ class Package {
 	 *
 	 * @access public
 	 * @static
-	 * @since  3.1.0
+	 * @since  3.1.0 Introduced.
 	 */
 	public static function admin_redirects() {
 		// If WooCommerce does not exists then do nothing as we require functions from WooCommerce to function!
@@ -214,7 +212,7 @@ class Package {
 	 *
 	 * @access public
 	 * @static
-	 * @since  3.1.0
+	 * @since  3.1.0 Introduced.
 	 */
 	public static function install_cocart_plugin() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
@@ -266,7 +264,7 @@ class Package {
 	 *
 	 * @access public
 	 * @static
-	 * @since  3.1.0
+	 * @since  3.1.0 Introduced.
 	 * @param array  $install_actions - Array of install actions.
 	 * @param string $api - The API URL.
 	 * @param string $plugin_file - Plugin file name.
