@@ -41,7 +41,7 @@ class PluginTracker {
 	 */
 	public function appsero_init_tracker() {
 		if ( ! class_exists( '\Appsero\Client' ) ) {
-			require_once untrailingslashit( plugin_dir_path( COCART_FILE ) ) . '/vendors/appsero/Client.php';
+			require_once untrailingslashit( plugin_dir_path( COCART_FILE ) ) . '/vendor/appsero/Client.php';
 		}
 
 		$client = new \Appsero\Client( '3898b319-80b0-4f93-bc96-1809486b15fd', 'CoCart - Headless ecommerce', COCART_FILE );
