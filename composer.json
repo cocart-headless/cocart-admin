@@ -32,7 +32,7 @@
 		"co-cart/cocart-sniffs": "0.0.2"
 	},
 	"require-dev": {
-		"squizlabs/php_codesniffer": "3.6.2"
+		"squizlabs/php_codesniffer": "3.7.1"
 	},
 	"scripts": {
 		"phpcs": [
@@ -49,6 +49,12 @@
 		"scripts-description": {
 			"phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
 			"phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	}
 }

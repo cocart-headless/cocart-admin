@@ -139,8 +139,8 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: '<%= dirs.css %>/admin',
 					src: [
+						'!*.min.css',
 						'*.css',
-						'!*.min.css'
 					],
 					dest: '<%= dirs.css %>/admin',
 					ext: '.min.css'
@@ -202,56 +202,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// Copies the plugin to create deployable plugin.
-		copy: {
-			build: {
-				files: [
-					{
-						expand: true,
-						src: [
-							'**',
-							'!.*',
-							'!**/*.{gif,jpg,jpeg,js,json,log,lock,md,png,scss,sh,txt,xml,zip}',
-							'!.*/**',
-							'!.DS_Store',
-							'!.htaccess',
-							'!<%= pkg.name %>-git/**',
-							'!<%= pkg.name %>-svn/**',
-							'!node_modules/**',
-							'!releases/**',
-							'!vendor/**',
-							'!unit-tests/**',
-							'readme.txt'
-						],
-						dest: 'build/',
-						dot: true
-					}
-				]
-			}
-		},
-
-		// Compresses the package folder.
-		compress: {
-			zip: {
-				options: {
-					archive: './releases/<%= pkg.name %>-v<%= pkg.version %>.zip',
-					mode: 'zip'
-				},
-				files: [
-					{
-						expand: true,
-						cwd: './build/',
-						src: '**',
-						dest: '<%= pkg.name %>'
-					}
-				]
-			}
-		},
-
-		// Deletes the build folder once zipped up.
-		clean: {
-			build: [ 'build/' ]
-		}
 	});
 
 	// Set the default grunt command to run test cases.
@@ -272,11 +222,8 @@ module.exports = function(grunt) {
 	// Update version of plugin.
 	grunt.registerTask( 'version', [ 'replace:package' ] );
 
-	// Zips up package.
-	grunt.registerTask( 'zip', [ 'copy:build', 'compress:zip', 'clean:build' ] );
-
 	// Build Plugin.
-	grunt.registerTask( 'build', [ 'version', 'css', 'js', 'zip' ] );
+	grunt.registerTask( 'build', [ 'version', 'css', 'js' ] );
 
 	// Register Watcher Tasks.
 	grunt.registerTask( 'watch-css', ['watch:css'] );
