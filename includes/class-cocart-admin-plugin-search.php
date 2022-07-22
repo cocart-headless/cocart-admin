@@ -6,7 +6,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin
  * @since   3.0.0
- * @version 3.5.0
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -821,8 +821,37 @@ class PluginSearch {
 			return false;
 		}
 
+		// Suggestions are only displayed if user can install plugins.
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			return false;
+		}
+
 		return true;
 	} // END allow_suggestions()
+
+	/**
+	 * Pull suggestion data from options. This is retrieved from a remote endpoint.
+	 *
+	 * @access public
+	 *
+	 * @static
+	 *
+	 * @return array of json API data
+	 */
+	public static function get_suggestions_api_data() {
+		$data = get_option( 'cocart_plugin_suggestions', array() );
+
+		// If the options have never been updated, or were updated over a week ago, queue update.
+		if ( empty( $data['updated'] ) || ( time() - WEEK_IN_SECONDS ) > $data['updated'] ) {
+			$next = WC()->queue()->get_next( 'cocart_update_plugin_suggestions' );
+			if ( ! $next ) {
+				WC()->queue()->cancel_all( 'cocart_update_plugin_suggestions' );
+				WC()->queue()->schedule_single( time() + DAY_IN_SECONDS, 'cocart_update_plugin_suggestions' );
+					}
+		}
+
+		return ! empty( $data['suggestions'] ) ? $data['suggestions'] : array();
+	} // END get_suggestions_api_data()
 
 } // END class
 
@@ -830,6 +859,7 @@ class PluginSearch {
  * If "cocart_show_plugin_search" filter is set to false,
  * the plugin search suggestions will not show on the plugin install page.
  */
-if ( is_admin() && \CoCart\Help::is_cocart_ps_active() ) {
+if ( is_admin() && CoCart\Help::is_cocart_ps_active() ) {
+	PluginSearch::get_suggestions_api_data();
 	PluginSearch::init();
 }

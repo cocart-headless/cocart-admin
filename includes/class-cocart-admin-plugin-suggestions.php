@@ -7,7 +7,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin
  * @since   3.5.0
- * @license GPL-2.0+
+ * @version 4.0.0
  */
 
 namespace CoCart\Admin;
@@ -20,28 +20,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 class PluginSuggestionsUpdater {
 
 	/**
-	 * Constructor
+	 * Setup.
 	 *
 	 * @access public
+	 *
+	 * @static
 	 */
-	public function __construct() {
-		add_action( 'init', array( $this, 'init' ) );
+	public static function load() {
+		add_action( 'init', array( __CLASS__, 'init' ) );
 	}
 
 	/**
 	 * Schedule events and hook appropriate actions.
 	 *
 	 * @access public
+	 *
+	 * @static
 	 */
-	public function init() {
-		add_action( 'cocart_update_plugin_suggestions', array( $this, 'update_plugin_suggestions' ) );
+	public static function init() {
+		add_action( 'cocart_update_plugin_suggestions', array( __CLASS__, 'update_plugin_suggestions' ) );
 	}
 
 	/**
 	 * Fetches new plugin data, updates CoCart plugin suggestions.
 	 *
 	 * @access public
+	 *
 	 * @static
+	 *
 	 * @return array
 	 */
 	public static function update_plugin_suggestions() {
@@ -77,7 +83,7 @@ class PluginSuggestionsUpdater {
 
 		$data['suggestions'] = $body;
 		return update_option( 'cocart_plugin_suggestions', $data, false );
-	}
+	} // END update_plugin_suggestions()
 
 	/**
 	 * Used when an error has occurred when fetching suggestions.
@@ -88,8 +94,8 @@ class PluginSuggestionsUpdater {
 	public function retry() {
 		WC()->queue()->cancel_all( 'cocart_update_plugin_suggestions' );
 		WC()->queue()->schedule_single( time() + DAY_IN_SECONDS, 'cocart_update_plugin_suggestions' );
-	}
+	} // END retry()
 
 }
 
-return new PluginSuggestionsUpdater();
+PluginSuggestionsUpdater::load();
