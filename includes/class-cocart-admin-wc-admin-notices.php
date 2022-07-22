@@ -7,7 +7,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin\WooCommerce Admin
  * @since   2.3.0
- * @version 3.2.0
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -39,12 +39,12 @@ class WCAdminNotes {
 	 */
 	public function include_notes() {
 		// Don't include notes if WC v4.0 or greater is not installed.
-		if ( ! \CoCart\Help::is_wc_version_gte( '4.0' ) ) {
+		if ( ! CoCart\Help::is_wc_version_gte( '4.0' ) ) {
 			return;
 		}
 
 		// Don't include notes if WC Admin is not enabled or available.
-		if ( ! \CoCart\Help::is_wc_admin_enabled() ) {
+		if ( ! CoCart\Help::is_wc_admin_enabled() ) {
 			return;
 		}
 
@@ -69,7 +69,7 @@ class WCAdminNotes {
 	 */
 	public static function add_note( $note_name = '', $seconds = '', $source = 'cocart' ) {
 		// Don't show the note if CoCart has not been active long enough.
-		if ( ! \CoCart\Help::cocart_active_for( $seconds ) ) {
+		if ( ! CoCart\Help::cocart_active_for( $seconds ) ) {
 			return;
 		}
 	} // END add_note()

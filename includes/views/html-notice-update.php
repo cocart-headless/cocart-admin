@@ -5,7 +5,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin\Views
  * @since   3.0.0
- * @version 3.0.7
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $update_url = wp_nonce_url(
-	add_query_arg( 'do_update_cocart', 'true', \CoCart\Help::cocart_get_current_admin_url() ),
+	add_query_arg( 'do_update_cocart', 'true', CoCart\Help::cocart_get_current_admin_url() ),
 	'cocart_db_update',
 	'cocart_db_update_nonce'
 );

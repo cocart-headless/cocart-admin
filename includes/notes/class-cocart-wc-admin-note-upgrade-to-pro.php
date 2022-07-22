@@ -7,7 +7,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin\WooCommerce Admin\Notes
  * @since   2.3.0
- * @version 3.2.0
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -85,7 +85,7 @@ class CoCart_WC_Admin_Upgrade_Pro_Note extends WCAdminNotes {
 	public static function get_note_args() {
 		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
 
-		$campaign_args = \CoCart\Help::cocart_campaign(
+		$campaign_args = CoCart\Help::cocart_campaign(
 			array(
 				'utm_campaign' => 'wc-admin',
 				'utm_content'  => 'wc-inbox',
@@ -104,7 +104,7 @@ class CoCart_WC_Admin_Upgrade_Pro_Note extends WCAdminNotes {
 				array(
 					'name'    => 'cocart-pro-learn-more',
 					'label'   => __( 'Learn more', 'cart-rest-api-for-woocommerce' ),
-					'url'     => \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'pro/' ) ) ),
+					'url'     => CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'pro/' ) ) ),
 					'status'  => $status,
 					'primary' => true,
 				),

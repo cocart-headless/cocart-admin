@@ -2,7 +2,7 @@
 /**
  * This file is designed to be used to load as package NOT a WP plugin!
  *
- * @version 1.0.0
+ * @version 4.0.0
  * @package CoCart Admin Package
  */
 
@@ -24,7 +24,7 @@ if ( ! class_exists( 'CoCart\Admin\Package', false ) ) {
  */
 if ( ! function_exists( 'cocart_admin_package' ) ) {
 	function cocart_admin_package() {
-		return \CoCart\Admin\Package::init();
+		return CoCart\Admin\Package::init();
 	}
 
 	cocart_admin_package();

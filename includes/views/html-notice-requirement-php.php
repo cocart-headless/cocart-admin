@@ -5,7 +5,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin\Views
  * @since   2.6.0
- * @version 3.1.0
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -15,5 +15,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="notice notice-error">
-	<p><?php echo esc_html( \CoCart\Help::get_environment_message() ); ?></p>
+	<p><?php echo esc_html( CoCart\Help::get_environment_message() ); ?></p>
 </div>

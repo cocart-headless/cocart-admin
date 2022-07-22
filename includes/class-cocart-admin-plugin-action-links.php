@@ -5,7 +5,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin
  * @since   1.2.0
- * @version 3.7.2
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -59,7 +59,7 @@ class PluginActionLinks {
 			return array_merge( $action_links, $links );
 		}
 
-		if ( \CoCart\Help::is_cocart_pro_activated() ) {
+		if ( CoCart\Help::is_cocart_pro_activated() ) {
 			// Remove 'deactivate' link if CoCart Pro is active as well.
 			// We don't want users to deactivate CoCart Lite when CoCart Pro is active.
 			unset( $links['deactivate'] );
@@ -96,14 +96,14 @@ class PluginActionLinks {
 			/* translators: %s: URL to author */
 			$metadata[1] = sprintf( __( 'Developed By %s', 'cart-rest-api-for-woocommerce' ), '<a href="' . $data['AuthorURI'] . '" aria-label="' . esc_attr__( 'View the developers site', 'cart-rest-api-for-woocommerce' ) . '">' . $data['Author'] . '</a>' );
 
-			if ( ! \CoCart\Help::is_cocart_pro_activated() ) {
-				$campaign_args = \CoCart\Help::cocart_campaign(
+			if ( ! CoCart\Help::is_cocart_pro_activated() ) {
+				$campaign_args = CoCart\Help::cocart_campaign(
 					array(
 						'utm_content' => 'go-pro',
 					)
 				);
 			} else {
-				$campaign_args = \CoCart\Help::cocart_campaign(
+				$campaign_args = CoCart\Help::cocart_campaign(
 					array(
 						'utm_content' => 'has-pro',
 					)
@@ -113,17 +113,17 @@ class PluginActionLinks {
 			$campaign_args['utm_campaign'] = 'plugins-row';
 
 			$row_meta = array(
-				'docs'      => '<a href="' . \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_DOCUMENTATION_URL ) ) . '" aria-label="' . sprintf(
+				'docs'      => '<a href="' . CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_DOCUMENTATION_URL ) ) . '" aria-label="' . sprintf(
 					/* translators: %s: CoCart */
 					esc_attr__( 'View %s documentation', 'cart-rest-api-for-woocommerce' ),
 					'CoCart'
 				) . '" target="_blank">' . esc_attr__( 'Documentation', 'cart-rest-api-for-woocommerce' ) . '</a>',
-				'translate' => '<a href="' . \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_TRANSLATION_URL ) ) . '" aria-label="' . sprintf(
+				'translate' => '<a href="' . CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_TRANSLATION_URL ) ) . '" aria-label="' . sprintf(
 					/* translators: %s: CoCart */
 					esc_attr__( 'Translate %s', 'cart-rest-api-for-woocommerce' ),
 					'CoCart'
 				) . '" target="_blank">' . esc_attr__( 'Translate', 'cart-rest-api-for-woocommerce' ) . '</a>',
-				'review'    => '<a href="' . \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_REVIEW_URL ) ) . '" aria-label="' . sprintf(
+				'review'    => '<a href="' . CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_REVIEW_URL ) ) . '" aria-label="' . sprintf(
 					/* translators: %s: CoCart */
 					esc_attr__( 'Review %s on WordPress.org', 'cart-rest-api-for-woocommerce' ),
 					'CoCart'
@@ -131,8 +131,8 @@ class PluginActionLinks {
 			);
 
 			// Only show upgrade option if CoCart Pro is not activated.
-			if ( ! \CoCart\Help::is_cocart_pro_activated() ) {
-				$store_url = \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
+			if ( ! CoCart\Help::is_cocart_pro_activated() ) {
+				$store_url = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
 
 				/* translators: %s: CoCart Pro */
 				$row_meta['upgrade'] = sprintf( '<a href="%1$s" aria-label="' . sprintf( esc_attr__( 'Upgrade to %s', 'cart-rest-api-for-woocommerce' ), 'CoCart Pro' ) . '" target="_blank" style="color: #c00; font-weight: 600;">%2$s</a>', esc_url( $store_url ), esc_attr__( 'Upgrade to Pro', 'cart-rest-api-for-woocommerce' ) );

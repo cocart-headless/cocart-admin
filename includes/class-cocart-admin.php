@@ -167,7 +167,7 @@ class Package {
 		if ( ! empty( $_GET['cocart-install-plugin-redirect'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$plugin_slug = wc_clean( wp_unslash( $_GET['cocart-install-plugin-redirect'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-			if ( current_user_can( 'install_plugins' ) && in_array( $plugin_slug, CoCart\Helpers::get_wporg_cocart_plugins(), true ) ) {
+			if ( current_user_can( 'install_plugins' ) && in_array( $plugin_slug, CoCart\Help::get_wporg_cocart_plugins(), true ) ) {
 				$nonce = wp_create_nonce( 'install-cocart-plugin_' . $plugin_slug );
 				$url   = self_admin_url( 'update.php?action=install-cocart-plugin&plugin=' . $plugin_slug . '&_wpnonce=' . $nonce );
 			} else {
@@ -194,7 +194,7 @@ class Package {
 			}
 
 			// On these pages, or during these events, disable the redirect.
-			if ( 'cocart-setup' === $current_page || ! \CoCart\Admin\Notices::has_notice( 'setup_wizard' ) || apply_filters( 'cocart_prevent_automatic_wizard_redirect', false ) || isset( $_GET['activate-multi'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( 'cocart-setup' === $current_page || ! CoCart\Admin\Notices::has_notice( 'setup_wizard' ) || apply_filters( 'cocart_prevent_automatic_wizard_redirect', false ) || isset( $_GET['activate-multi'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				delete_transient( '_cocart_activation_redirect' );
 				$do_redirect = false;
 			}
@@ -253,7 +253,7 @@ class Package {
 
 		$type = 'web'; // Install plugin from Web.
 
-		$upgrader = new Plugin_Upgrader( new Plugin_Installer_Skin( compact( 'title', 'url', 'nonce', 'plugin', 'api' ) ) );
+		$upgrader = new \Plugin_Upgrader( new \Plugin_Installer_Skin( compact( 'title', 'url', 'nonce', 'plugin', 'api' ) ) );
 		$upgrader->install( $api->download_link, array( 'overwrite_package' => true ) );
 
 		require_once ABSPATH . 'wp-admin/admin-footer.php';

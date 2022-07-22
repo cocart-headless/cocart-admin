@@ -5,7 +5,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin\Menus
  * @since   2.0.0
- * @version 3.1.0
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -81,7 +81,7 @@ class Menus {
 		}
 
 		// If CoCart Pro is not active then add sub-menu to upgrade.
-		if ( ! \CoCart\Help::is_cocart_pro_activated() ) {
+		if ( ! CoCart\Help::is_cocart_pro_activated() ) {
 			add_submenu_page(
 				'cocart',
 				'',
@@ -93,7 +93,7 @@ class Menus {
 		}
 
 		// Register WooCommerce Admin Bar.
-		if ( \CoCart\Help::is_wc_version_gte( '4.0' ) && function_exists( 'wc_admin_connect_page' ) ) {
+		if ( CoCart\Help::is_wc_version_gte( '4.0' ) && function_exists( 'wc_admin_connect_page' ) ) {
 			wc_admin_connect_page(
 				array(
 					'id'        => 'cocart-getting-started',

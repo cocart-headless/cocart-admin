@@ -5,7 +5,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin\Views
  * @since   1.2.0
- * @version 3.1.0
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'<strong>',
 			'</strong>',
 			'CoCart',
-			esc_html( \CoCart\Core::$required_wp )
+			esc_html( CoCart\Core::$required_wp )
 		);
 		?>
 	</p>

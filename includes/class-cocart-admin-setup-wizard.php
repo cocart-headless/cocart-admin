@@ -7,6 +7,7 @@
  * @author  Sébastien Dumont
  * @package CoCart\Admin
  * @since   3.1.0
+ * @version 4.0.0
  * @license GPL-2.0+
  */
 
@@ -173,12 +174,12 @@ class SetupWizard {
 		// Same as default WP from wp-admin/admin-header.php.
 		$wp_version_class = 'branch-' . str_replace( array( '.', ',' ), '-', floatval( get_bloginfo( 'version' ) ) );
 
-		$campaign_args = \CoCart\Help::cocart_campaign(
+		$campaign_args = CoCart\Help::cocart_campaign(
 			array(
 				'utm_content' => 'setup-wizard',
 			)
 		);
-		$store_url     = \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
+		$store_url     = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
 
 		set_current_screen();
 		?>
@@ -274,9 +275,16 @@ class SetupWizard {
 	 * New Store, Multiple Domains.
 	 *
 	 * @access public
+	 *
+	 * @since   3.1.0 Introduced.
+	 * @version 4.0.0
 	 */
 	public function cocart_setup_wizard_store_setup() {
 		$sessions_transferred = get_transient( 'cocart_setup_wizard_sessions_transferred' );
+
+		$product_count = array_sum( (array) wp_count_posts( 'product' ) );
+
+		$new_store = ( 0 === $product_count ) ? true : false;
 
 		// If setup wizard has nothing left to setup, redirect to ready step.
 		if ( $sessions_transferred && class_exists( 'CoCart_CORS' ) ) {
@@ -314,8 +322,8 @@ class SetupWizard {
 			<?php if ( ! $sessions_transferred ) { ?>
 			<label for="store_new"><?php esc_html_e( 'Is this a new store?', 'cart-rest-api-for-woocommerce' ); ?></label>
 			<select id="store_new" name="store_new" aria-label="<?php esc_attr_e( 'New Store', 'cart-rest-api-for-woocommerce' ); ?>" class="select-input dropdown">
-				<option value="no"><?php echo esc_html__( 'No', 'cart-rest-api-for-woocommerce' ); ?></option>
-				<option value="yes"><?php echo esc_html__( 'Yes', 'cart-rest-api-for-woocommerce' ); ?></option>
+				<option value="no"<?php selected( 'no', $new_store ); ?>><?php echo esc_html__( 'No', 'cart-rest-api-for-woocommerce' ); ?></option>
+				<option value="yes"<?php selected( 'yes', $new_store ); ?><?php echo esc_html__( 'Yes', 'cart-rest-api-for-woocommerce' ); ?></option>
 			</select>
 			<?php } ?>
 
@@ -427,7 +435,7 @@ class SetupWizard {
 			$this->install_plugin(
 				'cocart-cors',
 				array(
-					'name'      => 'CoCart CORS',
+					'name'      => 'CoCart - CORS Support',
 					'repo-slug' => 'cocart-cors',
 				)
 			);
@@ -456,7 +464,7 @@ class SetupWizard {
 		// We've made it! Don't prompt the user to run the wizard again.
 		Notices::remove_notice( 'setup_wizard', true );
 
-		$campaign_args = \CoCart\Help::cocart_campaign(
+		$campaign_args = CoCart\Help::cocart_campaign(
 			array(
 				'utm_content' => 'setup-wizard',
 			)
@@ -578,7 +586,7 @@ class SetupWizard {
 				</div>
 				<div class="cocart-setup-wizard-next-step-action">
 					<p class="cocart-setup-wizard-actions step">
-						<a class="button button-primary button-large" href="<?php echo esc_url( \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ) ); ?>" target="_blank">
+						<a class="button button-primary button-large" href="<?php echo esc_url( CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ) ); ?>" target="_blank">
 							<?php esc_html_e( 'View Documentation', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
 					</p>
@@ -613,7 +621,7 @@ class SetupWizard {
 						<a class="button" href="<?php echo esc_url( 'https://marketplace.visualstudio.com/items?itemName=sebastien-dumont.cocart-vscode' ); ?>" target="_blank">
 							<?php esc_html_e( 'Install CoCart VSCode Extension', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
-						<a class="button" href="<?php echo esc_url( \CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'community/' ) ) ) ); ?>" target="_blank">
+						<a class="button" href="<?php echo esc_url( CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'community/' ) ) ) ); ?>" target="_blank">
 							<?php esc_html_e( 'Join Community', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
 					</p>
