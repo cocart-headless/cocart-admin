@@ -11,6 +11,8 @@
 
 namespace CoCart\Admin;
 
+use CoCart\Help;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -43,7 +45,7 @@ class Assets {
 		$screen_id = $screen ? $screen->id : '';
 		$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		if ( in_array( $screen_id, CoCart\Help::cocart_get_admin_screens() ) ) {
+		if ( in_array( $screen_id, Help::cocart_get_admin_screens() ) ) {
 			wp_register_style( COCART_SLUG . '_admin', COCART_ADMIN_URL_PATH . '/assets/css/admin/cocart' . $suffix . '.css', array(), COCART_VERSION );
 			wp_enqueue_style( COCART_SLUG . '_admin' );
 			wp_style_add_data( COCART_SLUG . '_admin', 'rtl', 'replace' );

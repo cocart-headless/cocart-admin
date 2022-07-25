@@ -12,6 +12,8 @@
 
 namespace CoCart\Admin;
 
+use CoCart\Help;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -859,7 +861,7 @@ class PluginSearch {
  * If "cocart_show_plugin_search" filter is set to false,
  * the plugin search suggestions will not show on the plugin install page.
  */
-if ( is_admin() && CoCart\Help::is_cocart_ps_active() ) {
+if ( is_admin() && Help::is_cocart_ps_active() ) {
 	PluginSearch::get_suggestions_api_data();
 	PluginSearch::init();
 }

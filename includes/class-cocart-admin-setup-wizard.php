@@ -174,12 +174,12 @@ class SetupWizard {
 		// Same as default WP from wp-admin/admin-header.php.
 		$wp_version_class = 'branch-' . str_replace( array( '.', ',' ), '-', floatval( get_bloginfo( 'version' ) ) );
 
-		$campaign_args = CoCart\Help::cocart_campaign(
+		$campaign_args = Help::cocart_campaign(
 			array(
 				'utm_content' => 'setup-wizard',
 			)
 		);
-		$store_url     = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
+		$store_url     = Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
 
 		set_current_screen();
 		?>
@@ -464,7 +464,7 @@ class SetupWizard {
 		// We've made it! Don't prompt the user to run the wizard again.
 		Notices::remove_notice( 'setup_wizard', true );
 
-		$campaign_args = CoCart\Help::cocart_campaign(
+		$campaign_args = Help::cocart_campaign(
 			array(
 				'utm_content' => 'setup-wizard',
 			)
@@ -586,7 +586,7 @@ class SetupWizard {
 				</div>
 				<div class="cocart-setup-wizard-next-step-action">
 					<p class="cocart-setup-wizard-actions step">
-						<a class="button button-primary button-large" href="<?php echo esc_url( CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ) ); ?>" target="_blank">
+						<a class="button button-primary button-large" href="<?php echo esc_url( Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ) ); ?>" target="_blank">
 							<?php esc_html_e( 'View Documentation', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
 					</p>
@@ -621,7 +621,7 @@ class SetupWizard {
 						<a class="button" href="<?php echo esc_url( 'https://marketplace.visualstudio.com/items?itemName=sebastien-dumont.cocart-vscode' ); ?>" target="_blank">
 							<?php esc_html_e( 'Install CoCart VSCode Extension', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
-						<a class="button" href="<?php echo esc_url( CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'community/' ) ) ) ); ?>" target="_blank">
+						<a class="button" href="<?php echo esc_url( Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'community/' ) ) ) ); ?>" target="_blank">
 							<?php esc_html_e( 'Join Community', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
 					</p>

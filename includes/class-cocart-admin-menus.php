@@ -11,6 +11,8 @@
 
 namespace CoCart\Admin;
 
+use CoCart\Help;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -81,7 +83,7 @@ class Menus {
 		}
 
 		// If CoCart Pro is not active then add sub-menu to upgrade.
-		if ( ! CoCart\Help::is_cocart_pro_activated() ) {
+		if ( ! Help::is_cocart_pro_activated() ) {
 			add_submenu_page(
 				'cocart',
 				'',
@@ -93,7 +95,7 @@ class Menus {
 		}
 
 		// Register WooCommerce Admin Bar.
-		if ( CoCart\Help::is_wc_version_gte( '4.0' ) && function_exists( 'wc_admin_connect_page' ) ) {
+		if ( Help::is_wc_version_gte( '4.0' ) && function_exists( 'wc_admin_connect_page' ) ) {
 			wc_admin_connect_page(
 				array(
 					'id'        => 'cocart-getting-started',

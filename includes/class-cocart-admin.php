@@ -11,6 +11,8 @@
 
 namespace CoCart\Admin;
 
+use CoCart\Help;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -167,7 +169,7 @@ class Package {
 		if ( ! empty( $_GET['cocart-install-plugin-redirect'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$plugin_slug = wc_clean( wp_unslash( $_GET['cocart-install-plugin-redirect'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-			if ( current_user_can( 'install_plugins' ) && in_array( $plugin_slug, CoCart\Help::get_wporg_cocart_plugins(), true ) ) {
+			if ( current_user_can( 'install_plugins' ) && in_array( $plugin_slug, Help::get_wporg_cocart_plugins(), true ) ) {
 				$nonce = wp_create_nonce( 'install-cocart-plugin_' . $plugin_slug );
 				$url   = self_admin_url( 'update.php?action=install-cocart-plugin&plugin=' . $plugin_slug . '&_wpnonce=' . $nonce );
 			} else {
