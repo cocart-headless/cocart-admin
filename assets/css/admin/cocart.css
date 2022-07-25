@@ -29,8 +29,7 @@
   margin: 20px 6px;
   max-width: 800px;
   text-align: left;
-  position: absolute;
-  left: 20px;
+  float: left;
   width: calc(100% - 20px); }
   .cocart .container .content {
     padding: 40px; }
