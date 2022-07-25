@@ -284,7 +284,7 @@ class SetupWizard {
 
 		$product_count = array_sum( (array) wp_count_posts( 'product' ) );
 
-		$new_store = ( 0 === $product_count ) ? true : false;
+		$new_store = ( 0 === $product_count ) ? 'yes' : 'no';
 
 		// If setup wizard has nothing left to setup, redirect to ready step.
 		if ( $sessions_transferred && class_exists( 'CoCart_CORS' ) ) {
@@ -322,8 +322,8 @@ class SetupWizard {
 			<?php if ( ! $sessions_transferred ) { ?>
 			<label for="store_new"><?php esc_html_e( 'Is this a new store?', 'cart-rest-api-for-woocommerce' ); ?></label>
 			<select id="store_new" name="store_new" aria-label="<?php esc_attr_e( 'New Store', 'cart-rest-api-for-woocommerce' ); ?>" class="select-input dropdown">
-				<option value="no"<?php selected( 'no', $new_store ); ?>><?php echo esc_html__( 'No', 'cart-rest-api-for-woocommerce' ); ?></option>
-				<option value="yes"<?php selected( 'yes', $new_store ); ?><?php echo esc_html__( 'Yes', 'cart-rest-api-for-woocommerce' ); ?></option>
+				<option value="no"<?php selected( $new_store, 'no' ); ?>><?php echo esc_html__( 'No', 'cart-rest-api-for-woocommerce' ); ?></option>
+				<option value="yes"<?php selected( $new_store, 'yes' ); ?>><?php echo esc_html__( 'Yes', 'cart-rest-api-for-woocommerce' ); ?></option>
 			</select>
 			<?php } ?>
 
