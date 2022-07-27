@@ -21,6 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Package {
 
 	/**
+	 * Package Version
+	 *
+	 * @access public
+	 *
+	 * @static
+	 *
+	 * @var string
+	 */
+	public static $version = '4.0.0';
+
+	/**
 	 * Initiate Package.
 	 *
 	 * @access public
