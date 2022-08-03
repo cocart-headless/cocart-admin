@@ -54,13 +54,13 @@ class PluginTracker {
 		$this->insights = $client->insights();
 
 		$this->insights->add_extra(
-			[
+			array(
 				'products'       => $this->insights->get_post_count( 'product' ),
 				'orders'         => $this->get_order_count(),
 				'is_pro'         => class_exists( 'CoCart_Pro' ) ? 'Yes' : 'No',
 				'wc_version'     => function_exists( 'WC' ) ? WC()->version : WC_VERSION,
 				'cocart_version' => COCART_VERSION,
-			]
+			)
 		);
 
 		if ( class_exists( 'CoCart_Pro' ) ) {
