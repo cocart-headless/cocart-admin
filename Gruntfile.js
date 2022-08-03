@@ -1,6 +1,6 @@
 /**
  * Build automation scripts.
- * 
+ *
  * @package CoCart
  */
 
@@ -9,11 +9,11 @@ module.exports = function(grunt) {
 
 	var sass = require( 'node-sass' );
 
-	require('load-grunt-tasks')(grunt);
+	require( 'load-grunt-tasks' )( grunt );
 
 	// Project configuration.
 	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
+		pkg: grunt.file.readJSON( 'package.json' ),
 
 		// Setting folder templates.
 		dirs: {
@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 		// Check for Javascript errors.
 		jshint: {
 			options: {
-				reporter: require('jshint-stylish'),
+				reporter: require( 'jshint-stylish' ),
 				globals: {
 					"EO_SCRIPT_DEBUG": false,
 				},
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
 		postcss: {
 			options: {
 				processors: [
-					require('autoprefixer')
+					require( 'autoprefixer' )
 				]
 			},
 			dist: {

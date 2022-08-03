@@ -14,7 +14,7 @@ if ( ! defined( 'COCART_ADMIN_PACKAGE_FILE' ) ) {
 
 // Include the main CoCart Admin Package class.
 if ( ! class_exists( 'CoCart\Admin\Package', false ) ) {
-	include_once( untrailingslashit( plugin_dir_path( COCART_ADMIN_PACKAGE_FILE ) ) . '/includes/class-cocart-admin.php' );
+	include_once untrailingslashit( plugin_dir_path( COCART_ADMIN_PACKAGE_FILE ) ) . '/includes/class-cocart-admin.php';
 }
 
 /**

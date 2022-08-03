@@ -13,6 +13,7 @@ var CoCartPS = {};
 
 		/**
 		 * Get parent search hint element.
+		 *
 		 * @returns {Element | null}
 		 */
 		getSuggestion: function () {
@@ -21,6 +22,7 @@ var CoCartPS = {};
 
 		/**
 		 * Get plugin result element.
+		 *
 		 * @returns {Element | null}
 		 */
 		getCard: function () {
@@ -38,8 +40,8 @@ var CoCartPS = {};
 				var title  = hint.querySelector( '.column-name h3' );
 				var author = hint.querySelector( '.column-name h3 strong' );
 
-				$(title).after( '<strong>' + $(author).text() + '</strong>' );
-				$(author).remove();
+				$( title ).after( '<strong>' + $( author ).text() + '</strong>' );
+				$( author ).remove();
 			}
 
 			if ( 'object' === typeof card && null !== card ) {
@@ -47,10 +49,10 @@ var CoCartPS = {};
 					var title  = element.querySelector( '.column-name h3' );
 					var author = element.querySelector( 'p.authors' );
 
-					if ( $(author).length > 0 ) {
-						$(title).after( '<strong>' + $(author).text() + '</strong>' );
+					if ( $( author ).length > 0 ) {
+						$( title ).after( '<strong>' + $( author ).text() + '</strong>' );
 					}
-					$(author).remove();
+					$( author ).remove();
 				} );
 			}
 		},
@@ -65,14 +67,14 @@ var CoCartPS = {};
 			if ( 'object' === typeof hint && null !== hint ) {
 				var title = hint.querySelector( '.column-name h3 a' );
 
-				$(title).outerHTML = $(title).replaceWith( $(title).html() );
+				$( title ).outerHTML = $( title ).replaceWith( $( title ).html() );
 			}
 
 			if ( 'object' === typeof card && null !== card ) {
 				card.forEach( function( element, index ) {
 					var title = element.querySelector( '.column-name h3 a' );
 
-					$(title).outerHTML = $(title).replaceWith( $(title).html() );
+					$( title ).outerHTML = $( title ).replaceWith( $( title ).html() );
 				} );
 			}
 		},
@@ -133,8 +135,8 @@ var CoCartPS = {};
 					lastUpdated.remove();
 
 					// Move plugin requimrent if it exists.
-					if ( $(require).length > 0 ) {
-						bottomCard.append(require);
+					if ( $( require ).length > 0 ) {
+						bottomCard.append( require );
 					}
 				} );
 			}
@@ -146,7 +148,7 @@ var CoCartPS = {};
 		hideCoreCard: function ( ) {
 			var core = document.querySelector( 'body.cocart-plugin-install .plugin-card.plugin-card-cart-rest-api-for-woocommerce' );
 
-			if ( $(core).length > 0 ) {
+			if ( $( core ).length > 0 ) {
 				core.remove();
 			}
 		},
@@ -155,20 +157,21 @@ var CoCartPS = {};
 		 * Resets the plugin results.
 		 */
 		reset: function() {
-			var body = document.querySelector( 'body' );
+			var body      = document.querySelector( 'body' );
 			var dashboard = document.querySelector( '.cocart-plugin-install-dashboard' );
 
-			if ( $(body).hasClass( 'cocart-plugin-install' ) ) {
-				$(body).removeClass( 'cocart-plugin-install' );
+			if ( $( body ).hasClass( 'cocart-plugin-install' ) ) {
+				$( body ).removeClass( 'cocart-plugin-install' );
 			}
 
-			if ( $(dashboard).length > 0 ) {
-				$(dashboard).remove();
+			if ( $( dashboard ).length > 0 ) {
+				$( dashboard ).remove();
 			}
 		},
 
 		/**
 		 * Check if plugin card list nodes changed. If there's a CoCart PSH card, replace the title and the bottom row.
+		 *
 		 * @param {array} mutationsList
 		 */
 		replaceOnNewResults: function ( mutationsList ) {
