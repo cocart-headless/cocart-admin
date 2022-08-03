@@ -44,6 +44,11 @@ class PluginTracker {
 			require_once untrailingslashit( plugin_dir_path( COCART_FILE ) ) . '/vendor/appsero/Client.php';
 		}
 
+		// Should WooCommerce be deactivated by mistake, prevent site from crashing by ignoring the tracker.
+		if ( ! defined( '\WC_VERSION' ) ) {
+			return;
+		}
+
 		$client = new \Appsero\Client( '3898b319-80b0-4f93-bc96-1809486b15fd', 'CoCart - Headless ecommerce', COCART_FILE );
 
 		$this->insights = $client->insights();
