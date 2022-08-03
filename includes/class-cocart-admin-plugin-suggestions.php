@@ -12,6 +12,8 @@
 
 namespace CoCart\Admin;
 
+use \ActionScheduler;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -92,6 +94,10 @@ class PluginSuggestionsUpdater {
 	 * @access public
 	 */
 	public function retry() {
+		if ( ! \ActionScheduler::is_initialized() ) {
+			return;
+		}
+
 		WC()->queue()->cancel_all( 'cocart_update_plugin_suggestions' );
 		WC()->queue()->schedule_single( time() + DAY_IN_SECONDS, 'cocart_update_plugin_suggestions' );
 	} // END retry()

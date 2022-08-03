@@ -12,6 +12,7 @@
 
 namespace CoCart\Admin;
 
+use \ActionScheduler;
 use CoCart\Help;
 
 // Exit if accessed directly.
@@ -43,6 +44,7 @@ class PluginSearch {
 	 */
 	public function __construct() {
 		add_action( 'current_screen', array( $this, 'start' ) );
+		add_action( 'admin_init', array( $this, 'get_suggestions_api_data' ) );
 	} // END __construct()
 
 	/**
@@ -841,6 +843,10 @@ class PluginSearch {
 	 * @return array of json API data
 	 */
 	public static function get_suggestions_api_data() {
+		if ( ! \ActionScheduler::is_initialized() ) {
+			return;
+		}
+
 		$data = get_option( 'cocart_plugin_suggestions', array() );
 
 		// If the options have never been updated, or were updated over a week ago, queue update.
@@ -849,7 +855,7 @@ class PluginSearch {
 			if ( ! $next ) {
 				WC()->queue()->cancel_all( 'cocart_update_plugin_suggestions' );
 				WC()->queue()->schedule_single( time() + DAY_IN_SECONDS, 'cocart_update_plugin_suggestions' );
-					}
+			}
 		}
 
 		return ! empty( $data['suggestions'] ) ? $data['suggestions'] : array();
@@ -862,6 +868,5 @@ class PluginSearch {
  * the plugin search suggestions will not show on the plugin install page.
  */
 if ( is_admin() && Help::is_cocart_ps_active() ) {
-	PluginSearch::get_suggestions_api_data();
 	PluginSearch::init();
 }
