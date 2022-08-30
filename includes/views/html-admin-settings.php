@@ -51,6 +51,7 @@ padding-bottom: 30px;"><?php echo apply_filters( 'cocart_setting_label_' . $curr
 				submit_button( esc_attr__( 'Save Changes', 'cart-rest-api-for-woocommerce' ), 'primary', 'save', true );
 			}
 			?>
+			<input type="hidden" name="cocart-settings" value="<?php echo $current_tab; ?>" />
 			<?php wp_nonce_field( 'cocart-settings' ); ?>
 
 			</form>
