@@ -94,8 +94,8 @@ class Settings {
 	 * @return array
 	 */
 	public static function get_settings( $section ) {
-		if ( ! empty( self::$settings[$section] ) ) {
-			return self::$settings[$section]->get_settings();
+		if ( ! empty( self::$settings[ $section ] ) ) {
+			return self::$settings[ $section ]->get_settings();
 		}
 	} // END get_settings()
 
@@ -166,8 +166,8 @@ class Settings {
 			$option_name = current( array_keys( $option_array ) );
 
 			// Get value.
-			$option_values = get_option( 'cocart_settings', '' )[$section][$option_name];
-			//$option_values = $option_values[$section][$option_name];
+			$option_values = get_option( 'cocart_settings', '' )[ $section ][ $option_name ];
+			// $option_values = $option_values[$section][$option_name];
 
 			$key = key( $option_array[ $option_name ] );
 
@@ -178,15 +178,15 @@ class Settings {
 			}
 		} else {
 			// Single value.
-			$option_value = get_option( 'cocart_settings', null );
-			if ( ! is_null( $option_value ) ) {
-				$option_value = $option_value[$section][$option_name];
+			$settings = get_option( 'cocart_settings', array() );
+			if ( ! empty( $settings ) ) {
+				$option_value = $settings[ $section ][ $option_name ];
 			}
 		}
 
 		if ( is_array( $option_value ) ) {
 			$option_value = array_map( 'stripslashes', $option_value );
-		} elseif ( ! is_null( $option_value ) ) {
+		} elseif ( ! empty( $option_value ) ) {
 			$option_value = stripslashes( $option_value );
 		}
 
@@ -203,7 +203,7 @@ class Settings {
 	 * @static
 	 *
 	 * @param string $section The section ID for the admin fields.
-	 * @param array $options Opens array to output.
+	 * @param array  $options Opens array to output.
 	 */
 	public static function output_fields( $section, $options ) {
 		foreach ( $options as $key => $value ) {
@@ -239,7 +239,7 @@ class Settings {
 				$value['suffix'] = '';
 			}
 			if ( ! isset( $value['value'] ) ) {
-				$value['value'] = self::get_option( $section, $value['id'], $value['default'] );
+				$value['value'] = $value['type'] !== 'title' && $value['type'] !== 'sectionend' ? self::get_option( $section, $value['id'], $value['default'] ) : '';
 			}
 
 			$value['readonly'] = isset( $value['readonly'] ) && 'yes' === $value['readonly'] ? 'readonly' : '';
@@ -321,7 +321,10 @@ class Settings {
 								value="<?php echo sanitize_text_field( $option_value ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
-								<?php if ( $value['disabled'] ) { echo 'disabled="disabled"'; } ?>
+								<?php
+								if ( $value['disabled'] ) {
+									echo 'disabled="disabled"'; }
+								?>
 								<?php echo implode( ' ', $custom_attributes ); ?>
 								/><?php echo esc_html( $value['suffix'] ); ?> <?php echo $description; ?>
 						</td>
@@ -372,7 +375,10 @@ class Settings {
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								<?php echo implode( ' ', $custom_attributes ); ?>
 								<?php echo 'multiselect' === $value['type'] ? 'multiple="multiple"' : ''; ?>
-								<?php if ( $value['disabled'] ) { echo 'disabled="disabled"'; } ?>
+								<?php
+								if ( $value['disabled'] ) {
+									echo 'disabled="disabled"'; }
+								?>
 								>
 								<?php
 								foreach ( $value['options'] as $key => $val ) {
@@ -536,7 +542,7 @@ class Settings {
 								<?php
 								if ( ! empty( $value['options'] ) ) {
 									foreach ( $value['options'] as $option => $value ) {
-										echo '<option value="' . $value .'">' . $option . '</option>';
+										echo '<option value="' . $value . '">' . $option . '</option>';
 									}
 								}
 								?>

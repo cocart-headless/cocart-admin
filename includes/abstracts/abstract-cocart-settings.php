@@ -40,7 +40,9 @@ abstract class SettingsPage {
 	 * @access public
 	 */
 	public function __construct() {
-		add_filter( 'cocart_setting_label_' . $this->id, function() { return $this->label; });
+		add_filter( 'cocart_setting_label_' . $this->id, function() {
+			return $this->label;
+		} );
 		add_action( 'cocart_settings_' . $this->id, array( $this, 'output' ), 10 );
 	}
 
