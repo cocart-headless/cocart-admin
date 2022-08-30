@@ -97,7 +97,7 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 	 *
 	 * @param string $input
 	 * @param object $errors
-	 * @param array $setting
+	 * @param array  $setting
 	 *
 	 * @return string
 	 */
@@ -112,7 +112,7 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 	 *
 	 * @param string $input
 	 * @param object $errors
-	 * @param array $setting
+	 * @param array  $setting
 	 *
 	 * @return string
 	 */
@@ -125,9 +125,9 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 	 *
 	 * @access public
 	 *
-	 * @param mixed $input
+	 * @param mixed  $input
 	 * @param object $errors
-	 * @param array $setting
+	 * @param array  $setting
 	 *
 	 * @return array
 	 */
@@ -157,7 +157,7 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 	 *
 	 * @param string $input
 	 * @param object $errors
-	 * @param array $setting
+	 * @param array  $setting
 	 *
 	 * @return void
 	 */
@@ -172,7 +172,7 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 	 *
 	 * @param string $input
 	 * @param object $errors
-	 * @param array $setting
+	 * @param array  $setting
 	 *
 	 * @return void
 	 */
@@ -216,9 +216,9 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 		$settings_group = $request->get_param( 'settings' ); // The parameter will determine which settings to validate against.
 		$settings       = $this->get_settings( $settings_group );
 
-		//$registered_settings = $this->settings;
-		$settings_received   = $_POST;
-		$data_to_save        = get_option( 'cocart_settings', array() );
+		$settings_received = $request->get_json_params();
+
+		$data_to_save = get_option( 'cocart_settings', array() );
 
 		if ( is_array( $settings ) && ! empty( $settings ) ) {
 			foreach ( $settings as $setting ) {
@@ -235,8 +235,8 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 				// Sanitize the input.
 				$setting_type = $setting['type'];
 				$output       = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $settings_received[ $setting['id'] ], $this->errors, $setting );
-				//$output       = $this->sanitize_{$setting_type}( $settings_received[ $setting['id'] ], $this->errors, $setting );
-				//$output       = apply_filters( 'cocart_settings_sanitize_' . $setting['id'], $output, $this->errors, $setting );
+				// $output       = $this->sanitize_{$setting_type}( $settings_received[ $setting['id'] ], $this->errors, $setting );
+				// $output       = apply_filters( 'cocart_settings_sanitize_' . $setting['id'], $output, $this->errors, $setting );
 
 				if ( $setting_type == 'checkbox' && $output == false ) {
 					continue;
@@ -244,7 +244,7 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 
 				// Add the option to the list of ones that we need to save.
 				if ( ! empty( $output ) && ! is_wp_error( $output ) ) {
-					$data_to_save[ $setting['id'] ] = $output;
+					$data_to_save[ $settings_group ][ $setting['id'] ] = $output;
 				}
 			}
 		}
