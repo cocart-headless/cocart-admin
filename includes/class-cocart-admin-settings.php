@@ -10,8 +10,6 @@
 
 namespace CoCart\Admin;
 
-//use CoCart\Help;
-
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -275,7 +273,7 @@ class Settings {
 					}
 					echo '<table class="form-table" id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-settings">' . "\n\n";
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'perfect_checkout_settings_' . sanitize_title( $value['id'] ) );
+						do_action( 'cocart_settings_' . sanitize_title( $value['id'] ) );
 					}
 
 					break;
@@ -283,11 +281,11 @@ class Settings {
 				// Section Ends.
 				case 'sectionend':
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'perfect_checkout_settings_' . sanitize_title( $value['id'] ) . '_end' );
+						do_action( 'cocart_settings_' . sanitize_title( $value['id'] ) . '_end' );
 					}
 					echo '</table>';
 					if ( ! empty( $value['id'] ) ) {
-						do_action( 'perfect_checkout_settings_' . sanitize_title( $value['id'] ) . '_after' );
+						do_action( 'cocart_settings_' . sanitize_title( $value['id'] ) . '_after' );
 					}
 					break;
 
@@ -517,7 +515,7 @@ class Settings {
 						$page                = get_post( $option_value );
 						$option_display_name = sprintf(
 							/* translators: 1: page name 2: page ID */
-							__( '%1$s (ID: %2$s)', 'perfect-checkout' ),
+							__( '%1$s (ID: %2$s)', 'cart-rest-api-for-woocommerce' ),
 							$page->post_title,
 							$option_value
 						);
@@ -534,7 +532,7 @@ class Settings {
 								style="<?php echo esc_attr( $value['css'] ); ?>"
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								<?php echo implode( ' ', $custom_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-								data-placeholder="<?php esc_attr_e( 'Search for a page&hellip;', 'perfect-checkout' ); ?>"
+								data-placeholder="<?php esc_attr_e( 'Search for a page&hellip;', 'cart-rest-api-for-woocommerce' ); ?>"
 								data-allow_clear="true"
 								data-exclude="<?php echo wc_esc_json( wp_json_encode( $value['args']['exclude'] ) ); ?>"
 								>
@@ -576,7 +574,7 @@ class Settings {
 
 				// Default: run an action.
 				default:
-					do_action( 'perfect_checkout_admin_field_' . $value['type'], $value );
+					do_action( 'cocart_admin_field_' . $value['type'], $value );
 
 					break;
 			} // end switch()
