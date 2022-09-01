@@ -14,6 +14,7 @@
 namespace CoCart\Admin;
 
 use CoCart\Help;
+use CoCart\Logger;
 use CoCart\Admin\Notices;
 
 // Exit if accessed directly.
@@ -99,6 +100,10 @@ class SetupWizard {
 	 * Show the setup wizard.
 	 *
 	 * @access public
+	 *
+	 * @since   3.1.0 Introduced.
+	 * @since   4.0.0 Added settings step.
+	 * @version 4.0.0
 	 */
 	public function setup_wizard() {
 		if ( empty( $_GET['page'] ) || 'cocart-setup' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -114,6 +119,11 @@ class SetupWizard {
 				'name'    => __( 'Sessions', 'cart-rest-api-for-woocommerce' ),
 				'view'    => array( $this, 'cocart_setup_wizard_sessions' ),
 				'handler' => array( $this, 'cocart_setup_wizard_sessions_save' ),
+			),
+			'settings'    => array(
+				'name'    => __( 'Settings', 'cart-rest-api-for-woocommerce' ),
+				'view'    => array( $this, 'cocart_setup_wizard_settings' ),
+				'handler' => array( $this, 'cocart_setup_wizard_settings_save' ),
 			),
 			'ready'       => array(
 				'name'    => __( 'Ready!', 'cart-rest-api-for-woocommerce' ),
@@ -210,12 +220,16 @@ class SetupWizard {
 	public function setup_wizard_footer() {
 		$current_step = $this->step;
 
-		if ( 'store_setup' === $current_step ) :
+		switch ( $current_step ) {
+			case 'store_setup':
+				echo '<a class="cocart-setup-wizard-footer-links" href="' . esc_url( admin_url() ) . '">' . esc_html__( 'Not right now', 'cart-rest-api-for-woocommerce' ) . '</a>';
+				break;
+			case 'sessions':
+			case 'settings':
+				echo '<a class="cocart-setup-wizard-footer-links" href="' . esc_url( $this->get_next_step_link() ) . '">' . esc_html__( 'Skip this step', 'cart-rest-api-for-woocommerce' ) . '</a>';
+				break;
+			}
 			?>
-				<a class="cocart-setup-wizard-footer-links" href="<?php echo esc_url( admin_url() ); ?>"><?php esc_html_e( 'Not right now', 'cart-rest-api-for-woocommerce' ); ?></a>
-			<?php elseif ( 'sessions' === $current_step ) : ?>
-				<a class="cocart-setup-wizard-footer-links" href="<?php echo esc_url( $this->get_next_step_link() ); ?>"><?php esc_html_e( 'Skip this step', 'cart-rest-api-for-woocommerce' ); ?></a>
-			<?php endif; ?>
 
 			<?php do_action( 'cocart_setup_wizard_footer' ); ?>
 
@@ -402,6 +416,62 @@ class SetupWizard {
 
 		// Add transfer sessions to queue.
 		WC()->queue()->schedule_single( time(), 'cocart_run_transfer_sessions', array(), 'cocart-transfer-sessions' );
+
+		// Redirect to next step.
+		wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
+		exit;
+	} // END cocart_setup_wizard_sessions_save()
+
+	/**
+	 * Settings step.
+	 *
+	 * Configures a few settings for the frontend and security.
+	 *
+	 * @access public
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	public function cocart_setup_wizard_settings() {
+		?>
+		<form method="post" class="settings-step">
+			<input type="hidden" name="save_step" value="setting_setup" />
+			<?php wp_nonce_field( 'cocart-setup' ); ?>
+
+			<?php do_action( 'cocart_settings_general' ); ?>
+
+			<p class="cocart-setup-wizard-actions step">
+				<button class="button button-primary button-large" value="<?php esc_attr_e( 'Save Settings', 'cart-rest-api-for-woocommerce' ); ?>" name="save_step"><?php esc_html_e( 'Save Settings', 'cart-rest-api-for-woocommerce' ); ?></button>
+			</p>
+		</form>
+		<?php
+	} // END cocart_setup_wizard_settings()
+
+	/**
+	 * Triggers in the background transferring of sessions and redirects to the next step.
+	 *
+	 * @access public
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	public function cocart_setup_wizard_settings_save() {
+		check_admin_referer( 'cocart-setup' );
+
+		$args = array(
+			'sslverify' => false,
+			'headers' => array(
+				'Content-Type' => 'application/json; charset=utf-8',
+			),
+			'body' => wp_json_encode( $_POST ),
+			'data_format' => 'body'
+		);
+
+		$resturl  = esc_url_raw( rest_url() ) . 'cocart/settings/save?settings=general&form=post&_wpnonce=' . wp_create_nonce( 'wp_rest' );
+		$response = wp_remote_post( $resturl, $args );
+
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			Logger::log( sprintf( esc_html__( 'Something went wrong saving the settings during the CoCart Setup Wizard. Reason: %s', 'cart-rest-api-for-woocommerce' ), $error_message ), 'error' );
+		}
 
 		// Redirect to next step.
 		wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
