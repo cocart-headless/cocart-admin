@@ -56,8 +56,9 @@ class Assets {
 			wp_register_script( COCART_SLUG . '-admin', COCART_ADMIN_URL_PATH . '/assets/js/admin/settings' . $suffix . '.js', array( 'jquery' ), COCART_VERSION );
 			wp_enqueue_script( COCART_SLUG . '-admin' );
 			wp_localize_script( COCART_SLUG . '-admin', 'cocart_params', array(
-				'root'  => esc_url_raw( rest_url() ),
-				'nonce' => wp_create_nonce( 'wp_rest' ),
+				'root'          => esc_url_raw( rest_url() ),
+				'nonce'         => wp_create_nonce( 'wp_rest' ),
+				'saved_message' => esc_html__( 'Settings Saved Successfully.', 'cart-rest-api-for-woocommerce' ),
 			) );
 		}
 	} // END admin_styles()
