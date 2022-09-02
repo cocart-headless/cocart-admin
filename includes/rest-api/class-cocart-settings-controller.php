@@ -216,30 +216,51 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 		$settings_group = $request->get_param( 'settings' ); // The parameter will determine which settings to validate against.
 		$settings       = $this->get_settings( $settings_group );
 
-		$settings_received = $request->get_json_params();
+		if ( $request->get_param( 'form' ) === 'post' ) {
+			$settings_received = json_decode( $request->get_body() );
+		} else {
+			$settings_received = $request->get_json_params();
+		}
+
+		/**
+		 * Remove certain posted data since we can't unset it.
+		 */
+		$data = array();
+		foreach( $settings_received as $field => $value ) {
+			if ( in_array( $field, array( 'save_step', '_wpnonce', '_wp_http_referer') ) ) {
+				continue;
+			}
+
+			$data[$field] = $value;
+		}
 
 		$data_to_save = get_option( 'cocart_settings', array() );
 
 		if ( is_array( $settings ) && ! empty( $settings ) ) {
 			foreach ( $settings as $setting ) {
 				// Skip if no setting type.
-				if ( ! $setting['type'] ) {
+				if ( ! $setting['type'] || $setting['type'] === 'title' || $setting['type'] === 'sectionend' ) {
 					continue;
 				}
 
 				// Skip if the ID doesn't exist in the data received.
-				if ( ! array_key_exists( $setting['id'], $settings_received ) ) {
+				if ( ! array_key_exists( $setting['id'], $data ) ) {
 					continue;
 				}
 
 				// Sanitize the input.
 				$setting_type = $setting['type'];
-				$output       = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $settings_received[ $setting['id'] ], $this->errors, $setting );
-				// $output       = $this->sanitize_{$setting_type}( $settings_received[ $setting['id'] ], $this->errors, $setting );
+				$output       = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $data[ $setting['id'] ], $this->errors, $setting );
+				// $output       = $this->sanitize_{$setting_type}( $data[ $setting['id'] ], $this->errors, $setting );
 				// $output       = apply_filters( 'cocart_settings_sanitize_' . $setting['id'], $output, $this->errors, $setting );
 
 				if ( $setting_type == 'checkbox' && $output == false ) {
 					continue;
+				}
+
+				// Encrypt salt key.
+				if ( $setting['id'] === 'salt_key' ) {
+					$output = md5( $output );
 				}
 
 				// Add the option to the list of ones that we need to save.

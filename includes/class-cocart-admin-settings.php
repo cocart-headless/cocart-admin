@@ -178,7 +178,7 @@ class Settings {
 			// Single value.
 			$settings = get_option( 'cocart_settings', array() );
 			if ( ! empty( $settings ) ) {
-				$option_value = $settings[ $section ][ $option_name ];
+				$option_value = isset( $settings[ $section ][ $option_name ] ) ? $settings[ $section ][ $option_name ] : null;
 			}
 		}
 
@@ -304,6 +304,12 @@ class Settings {
 				case 'tel':
 					$option_value = $value['value'];
 
+					$salt_key_defined = defined( 'COCART_SALT_KEY' ) && ! empty( COCART_SALT_KEY ) ? true : false;
+
+					if ( $value['id'] === 'salt_key' ) {
+						$option_value = $salt_key_defined ? md5( COCART_SALT_KEY ) : $value['value'];
+					}
+
 					$show_label = empty( $value['title'] ) ? ' style="width:0% !important;"' : '';
 					$no_padding = ! empty( $show_label ) ? ' style="padding-left:0px !important; padding-right:0px !important;"' : '';
 					?><tr valign="top">
@@ -320,7 +326,7 @@ class Settings {
 								class="<?php echo esc_attr( $value['class'] ); ?>"
 								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
 								<?php
-								if ( $value['disabled'] ) {
+								if ( $value['disabled'] || $value['id'] === 'salt_key' && $salt_key_defined ) {
 									echo 'disabled="disabled"'; }
 								?>
 								<?php echo implode( ' ', $custom_attributes ); ?>
