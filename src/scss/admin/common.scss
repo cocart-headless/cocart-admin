@@ -11,9 +11,9 @@
 
 	#wpcontent,
 	#wpbody-content {
-		padding: 0;
-		overflow-x: hidden !important;
 		min-height: calc(100vh - 32px);
+		overflow-x: hidden !important;
+		padding: 0;
 	}
 
 	.woocommerce-layout__header-breadcrumbs {
@@ -31,13 +31,13 @@
 	.container {
 		background-color: $white;
 		border: 1px solid $lightgrey;
-		box-shadow: 0 2px 30px $shadow;
 		-webkit-box-shadow: 0 2px 30px $shadow;
+		box-shadow: 0 2px 30px $shadow;
 		color: $black;
+		float: left;
 		margin: 20px 6px;
 		max-width: 800px;
 		text-align: left;
-		float: left;
 		width: calc(100% - 20px);
 
 		.content {
@@ -58,7 +58,7 @@
 				margin-top: 0;
 			}
 
-			p:not(.notice p) {
+			p:not( .notice p ) {
 				color: #333;
 				font-size: 16px;
 				font-weight: 400;
@@ -77,8 +77,8 @@
 			a.button.button-large,
 			button.button-large {
 				font-size: 24px;
-				line-height: 54px;
 				height: 60px;
+				line-height: 54px;
 				padding: 0 20px;
 			}
 
@@ -86,8 +86,8 @@
 			button.button-medium {
 				font-size: 18px;
 				font-weight: 600;
-				line-height: 36px;
 				height: 40px;
+				line-height: 36px;
 			}
 
 			a.button.upgrade {
@@ -102,42 +102,42 @@
 			}
 
 			p.price-tag {
-				font-size: 69px;
 				color: $cocart;
-				line-height: 66px;
+				font-size: 69px;
 				font-weight: 700;
+				line-height: 66px;
 				margin: 20px auto;
 				text-align: center;
 
 				sub {
-					margin-top: 18px;
 					display: inline-block;
 					font-size: 30px;
 					line-height: 8px;
-					vertical-align: top;
 					margin-right: 2px;
+					margin-top: 18px;
+					vertical-align: top;
 				}
 
 				sup {
 					display: inline-block;
 					font-size: 18px;
 					line-height: 16px;
-					vertical-align: bottom;
 					margin-left: 2px;
+					vertical-align: bottom;
 				}
 			}
 
 			img.emoji {
-				display: inline !important;
-				border: none !important;
-				height: auto;
-				width: 1em;
-				margin: 0 0.07em !important;
-				vertical-align: -0.1em !important;
 				background: none !important;
-				padding: 0 !important;
+				border: none !important;
 				-webkit-box-shadow: none !important;
 				box-shadow: none !important;
+				display: inline !important;
+				height: auto;
+				margin: 0 0.07em !important;
+				padding: 0 !important;
+				vertical-align: -0.1em !important;
+				width: 1em;
 			}
 
 		}

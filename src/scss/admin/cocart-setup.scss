@@ -2,9 +2,9 @@
 @import 'engage';
 
 body {
-	margin: 65px auto 24px;
-	box-shadow: none;
 	background: #f1f1f1;
+	box-shadow: none;
+	margin: 65px auto 24px;
 	padding: 0;
 }
 
@@ -24,31 +24,31 @@ body {
 }
 
 .cocart-setup-wizard-content {
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
-	padding: 2em;
-	margin: 0 0 20px;
 	background: $white;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+	margin: 0 0 20px;
 	overflow: hidden;
-	zoom: 1;
+	padding: 2em;
 	text-align: left;
+	zoom: 1;
 
 	h1,
 	h2,
 	h3,
 	table {
-		margin: 0 0 20px;
 		border: 0;
-		padding: 0;
-		color: #666;
 		clear: none;
+		color: #666;
 		font-weight: 500;
+		margin: 0 0 20px;
+		padding: 0;
 	}
 
 	p {
-		margin: 20px 0;
+		color: #666;
 		font-size: 1em;
 		line-height: 1.75;
-		color: #666;
+		margin: 20px 0;
 	}
 
 	p:first-of-type {
@@ -60,9 +60,9 @@ body {
 	}
 
 	table {
+		color: #666;
 		font-size: 1em;
 		line-height: 1.75;
-		color: #666;
 	}
 
 	a {
@@ -76,9 +76,9 @@ body {
 
 	.form-table {
 		th {
-			width: 35%;
-			vertical-align: top;
 			font-weight: 400;
+			vertical-align: top;
+			width: 35%;
 		}
 
 		td {
@@ -86,8 +86,8 @@ body {
 
 			select,
 			input {
-				width: 100%;
 				box-sizing: border-box;
+				width: 100%;
 			}
 
 			input[size] {
@@ -95,28 +95,28 @@ body {
 			}
 
 			.description {
-				line-height: 1.5;
-				display: block;
-				margin-top: 0.25em;
 				color: #999;
+				display: block;
 				font-style: italic;
+				line-height: 1.5;
+				margin-top: 0.25em;
 			}
 
 			.input-checkbox,
 			.input-radio {
-				width: auto;
-				box-sizing: inherit;
-				padding: inherit;
-				margin: 0 0.5em 0 0;
 				box-shadow: none;
+				box-sizing: inherit;
+				margin: 0 0.5em 0 0;
+				padding: inherit;
+				width: auto;
 			}
 		}
 
 		th,
 		td {
-			padding: 12px 0;
-			margin: 0;
 			border: 0;
+			margin: 0;
+			padding: 12px 0;
 
 			&:first-child {
 				padding-right: 1em;
@@ -136,30 +136,30 @@ body {
 }
 
 .cocart-setup-wizard-steps {
-	padding: 0 0 24px;
-	margin: 0;
-	list-style: none outside;
-	overflow: hidden;
 	color: #ccc;
-	width: 100%;
 	display: inline-flex;
+	list-style: none outside;
+	margin: 0;
+	overflow: hidden;
+	padding: 0 0 24px;
+	width: 100%;
 
 	li {
-		width: 100%;
-		float: left;
-		padding: 0 0 0.8em;
-		margin: 0;
-		text-align: center;
-		position: relative;
 		border-bottom: 4px solid #ccc;
+		float: left;
 		line-height: 1.4;
+		margin: 0;
+		padding: 0 0 0.8em;
+		position: relative;
+		text-align: center;
+		width: 100%;
 
 		a {
 			color: $cocart;
-			text-decoration: none;
-			padding: 1.5em;
 			margin: -1.5em;
+			padding: 1.5em;
 			position: relative;
+			text-decoration: none;
 			z-index: 1;
 
 			&:hover,
@@ -171,17 +171,17 @@ body {
 	}
 
 	li::before {
-		content: '';
+		background: $white;
 		border: 4px solid #ccc;
 		border-radius: 100%;
-		width: 4px;
-		height: 4px;
-		position: absolute;
 		bottom: 0;
+		content: '';
+		height: 4px;
 		left: 50%;
-		margin-left: -6px;
 		margin-bottom: -8px;
-		background: $white;
+		margin-left: -6px;
+		position: absolute;
+		width: 4px;
 	}
 
 	li.active {
@@ -199,29 +199,29 @@ body {
 		color: $cocart;
 
 		&::before {
-			border-color: $cocart;
 			background: $cocart;
+			border-color: $cocart;
 		}
 	}
 }
 
 .cocart-setup-wizard .cocart-setup-wizard-actions {
-	overflow: hidden;
 	margin: 20px 0 0;
+	overflow: hidden;
 	position: relative;
 
 	.button {
-		font-weight: 300;
-		font-size: 16px;
-		padding: 1em 2em;
-		box-shadow: none;
-		min-width: 12em;
-		margin-top: 10px;
-		line-height: 1;
-		margin-right: 0.5em;
-		margin-bottom: 2px;
-		height: auto;
 		border-radius: 4px;
+		box-shadow: none;
+		font-size: 16px;
+		font-weight: 300;
+		height: auto;
+		line-height: 1;
+		margin-bottom: 2px;
+		margin-right: 0.5em;
+		margin-top: 10px;
+		min-width: 12em;
+		padding: 1em 2em;
 	
 		&:focus,
 		&:hover,
@@ -237,10 +237,10 @@ body {
 }
 
 .cocart-setup-wizard-footer-links {
-	font-size: 0.85em;
 	color: #7b7b7b;
-	margin: 1.18em auto;
 	display: flow-root;
+	font-size: 0.85em;
+	margin: 1.18em auto;
 	text-align: center;
 }
 
@@ -254,29 +254,29 @@ body {
 
 label {
 	color: #666;
+	display: inline-block;
 	font-size: 13px;
 	font-weight: 500;
 	margin-bottom: 0.5em;
 	margin-top: 0.85em;
-	display: inline-block;
 }
 
 .select-input {
+	background-color: $white;
 	border: 1px solid #aaa;
 	border-color: #ddd;
 	border-radius: 4px;
+	color: #444;
+	display: block;
+	font-size: 16px;
 	height: 30px;
-	width: calc(100% - 8px - 8px - 2px);
 	padding-left: 8px;
 	padding-right: 8px;
-	font-size: 16px;
-	color: #444;
-	background-color: $white;
-	display: block;
+	width: calc(100% - 8px - 8px - 2px);
 
 	&.dropdown {
-		width: 100%;
 		max-width: 100%;
+		width: 100%;
 	}
 }
 
@@ -284,17 +284,17 @@ label {
 	display: flex;
 
 	.newsletter-form-email {
+		background-color: $white;
 		border: 1px solid #aaa;
 		border-color: #ddd;
 		border-radius: 4px;
-		height: 42px;
-		padding: 0 8px;
-		font-size: 16px;
 		color: #666;
-		background-color: $white;
 		display: inline-block;
-		margin-right: 6px;
 		flex-grow: 1;
+		font-size: 16px;
+		height: 42px;
+		margin-right: 6px;
+		padding: 0 8px;
 	}
 
 	.newsletter-form-button-container {
@@ -304,20 +304,20 @@ label {
 
 .cocart-setup-wizard .cocart-setup-wizard-actions .button.newsletter-form-button {
 	height: 42px;
-	padding: 0 1em;
 	margin: 0;
+	padding: 0 1em;
 }
 
 .cocart-error {
 	background: #ffe6e5;
 	border-color: #ffc5c2;
-	padding: 1em;
 	margin-bottom: 1em;
+	padding: 1em;
 
 	p {
-		margin-top: 0;
-		margin-bottom: 0.5em;
 		color: #444;
+		margin-bottom: 0.5em;
+		margin-top: 0;
 	}
 
 	a {
