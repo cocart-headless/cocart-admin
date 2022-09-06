@@ -10,8 +10,8 @@ body.cocart-plugin-install .plugin-card {
     min-height: 36px; }
 
 .plugin-card .plugin-card-bottom .plugin-requirement {
-  float: left;
-  clear: left; }
+  clear: left;
+  float: left; }
 
 .plugin-card.plugin-card-cocart-plugin-search {
   border: 2px solid #6032b0; }
@@ -29,9 +29,9 @@ body.cocart-plugin-install .plugin-card {
 
 .plugin-card-cocart-plugin-search .plugin-action-buttons {
   margin: 0;
-  width: 100%;
   text-align: right;
-  white-space: nowrap; }
+  white-space: nowrap;
+  width: 100%; }
 
 @media screen and (max-width: 1100px) and (min-width: 782px), (max-width: 480px) {
   .plugin-card-cocart-plugin-search .action-links {
@@ -45,8 +45,8 @@ body.cocart-plugin-install .plugin-card {
 .plugin-card .plugin-action-buttons .cocart-plugin-primary {
   background: #6032b0;
   border-color: #9b50e3;
-  color: #fff;
-  box-shadow: 0 1px 0 #d8c3e2; }
+  box-shadow: 0 1px 0 #d8c3e2;
+  color: #fff; }
 
 .plugin-card .plugin-action-buttons .cocart-plugin-primary:hover {
   background: #9b50e3;
@@ -57,14 +57,15 @@ body.cocart-plugin-install .plugin-card {
   display: none; }
 
 .cocart-plugin-search__bottom {
-  display: flex;
-  align-items: center;
   align-content: space-between;
-  clear: both;
-  padding: 12px 20px;
+  align-items: center;
   background-color: #fafafa;
   border-top: 1px solid #ddd;
-  overflow: hidden; }
+  -webkit-box-align: center;
+  clear: both;
+  display: flex;
+  overflow: hidden;
+  padding: 12px 20px; }
 
 .cocart-plugin-search__text {
   flex: 1;

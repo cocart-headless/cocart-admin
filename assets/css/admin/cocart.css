@@ -7,9 +7,9 @@
 
 .cocart #wpcontent,
 .cocart #wpbody-content {
-  padding: 0;
+  min-height: calc(100vh - 32px);
   overflow-x: hidden !important;
-  min-height: calc(100vh - 32px); }
+  padding: 0; }
 
 .cocart .woocommerce-layout__header-breadcrumbs {
   margin: 0; }
@@ -24,12 +24,11 @@
   background-color: #fff;
   border: 1px solid #e5e5e5;
   box-shadow: 0 2px 30px rgba(0, 0, 0, 0.04);
-  -webkit-box-shadow: 0 2px 30px rgba(0, 0, 0, 0.04);
   color: #292929;
+  float: left;
   margin: 20px 6px;
   max-width: 800px;
   text-align: left;
-  float: left;
   width: calc(100% - 20px); }
   .cocart .container .content {
     padding: 40px; }
@@ -57,15 +56,15 @@
     .cocart .container .content a.button.button-large,
     .cocart .container .content button.button-large {
       font-size: 24px;
-      line-height: 54px;
       height: 60px;
+      line-height: 54px;
       padding: 0 20px; }
     .cocart .container .content a.button.button-medium,
     .cocart .container .content button.button-medium {
       font-size: 18px;
       font-weight: 600;
-      line-height: 36px;
-      height: 40px; }
+      height: 40px;
+      line-height: 36px; }
     .cocart .container .content a.button.upgrade {
       background-color: #6032b0;
       border-color: #6032b0;
@@ -75,42 +74,42 @@
       background-color: #6131af;
       border-color: #6131af; }
     .cocart .container .content p.price-tag {
-      font-size: 69px;
       color: #6032b0;
-      line-height: 66px;
+      font-size: 69px;
       font-weight: 700;
+      line-height: 66px;
       margin: 20px auto;
       text-align: center; }
       .cocart .container .content p.price-tag sub {
-        margin-top: 18px;
         display: inline-block;
         font-size: 30px;
         line-height: 8px;
-        vertical-align: top;
-        margin-right: 2px; }
+        margin-right: 2px;
+        margin-top: 18px;
+        vertical-align: top; }
       .cocart .container .content p.price-tag sup {
         display: inline-block;
         font-size: 18px;
         line-height: 16px;
-        vertical-align: bottom;
-        margin-left: 2px; }
+        margin-left: 2px;
+        vertical-align: bottom; }
     .cocart .container .content img.emoji {
-      display: inline !important;
-      border: none !important;
-      height: auto;
-      width: 1em;
-      margin: 0 0.07em !important;
-      vertical-align: -0.1em !important;
       background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      display: inline !important;
+      height: auto;
+      margin: 0 0.07em !important;
       padding: 0 !important;
-      box-shadow: none !important; }
+      vertical-align: -0.1em !important;
+      width: 1em; }
 
 .founder-row {
   height: 60px;
   margin-bottom: 2rem; }
   .founder-row .founder-image {
-    width: 4.6rem;
-    float: left; }
+    float: left;
+    width: 4.6rem; }
   .founder-row .founder-details {
     float: left;
     width: calc( 100% - 4.6rem); }
@@ -118,13 +117,13 @@
       margin: 0; }
 
 .cocart-newsletter {
-  padding: 24px 24px 0;
-  overflow: hidden;
   background: #f5f5f5;
-  clear: both; }
+  clear: both;
+  overflow: hidden;
+  padding: 24px 24px 0; }
   .cocart-newsletter p {
-    padding: 0;
-    margin: 0 0 12px; }
+    margin: 0 0 12px;
+    padding: 0; }
   .cocart-newsletter form,
   .cocart-newsletter p:last-child {
     margin: 0 0 24px; }
@@ -134,14 +133,14 @@ ul.cocart-setup-wizard-next-steps {
   border-radius: 4px;
   list-style: none outside;
   margin: 0;
-  padding: 0;
-  overflow: hidden; }
+  overflow: hidden;
+  padding: 0; }
   ul.cocart-setup-wizard-next-steps h2 {
     margin-bottom: 12px; }
   ul.cocart-setup-wizard-next-steps h3.next-step-description {
-    margin: 0;
     font-size: 16px;
-    font-weight: 600; }
+    font-weight: 600;
+    margin: 0; }
   ul.cocart-setup-wizard-next-steps li {
     padding: 0; }
     ul.cocart-setup-wizard-next-steps li a {
@@ -149,27 +148,27 @@ ul.cocart-setup-wizard-next-steps {
       padding: 0 0 0.75em; }
     ul.cocart-setup-wizard-next-steps li a::before {
       color: #82878c;
+      display: inline-block;
       font: 400 20px/1 dashicons;
       /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
-      speak: none;
-      display: inline-block;
       padding: 0 10px 0 0;
-      top: 1px;
       position: relative;
+      speak: none;
       text-decoration: none !important;
+      top: 1px;
       vertical-align: top; }
   ul.cocart-setup-wizard-next-steps .cocart-setup-wizard-next-step-item {
-    display: flex;
-    border-top: 1px solid #eee; }
+    border-top: 1px solid #eee;
+    display: flex; }
     ul.cocart-setup-wizard-next-steps .cocart-setup-wizard-next-step-item:first-child {
       border-top: 0; }
   ul.cocart-setup-wizard-next-steps .cocart-setup-wizard-next-step-description {
     flex-grow: 1;
     margin: 1.5em; }
   ul.cocart-setup-wizard-next-steps .cocart-setup-wizard-next-step-action {
-    flex-grow: 0;
+    align-items: center;
     display: flex;
-    align-items: center; }
+    flex-grow: 0; }
     ul.cocart-setup-wizard-next-steps .cocart-setup-wizard-next-step-action .button {
       margin: 1em 1.5em !important; }
   ul.cocart-setup-wizard-next-steps .cocart-setup-wizard-additional-steps {
@@ -184,35 +183,35 @@ ul.cocart-setup-wizard-next-steps {
 
 p.next-steps-help-text {
   color: #9f9f9f !important;
+  font-size: 0.9em !important;
   padding: 0 2em;
-  text-align: center;
-  font-size: 0.9em !important; }
+  text-align: center; }
 
 p.next-step-heading {
-  margin: 0 !important;
   font-size: 0.95em;
+  font-variant: all-petite-caps;
   font-weight: 400;
-  font-variant: all-petite-caps; }
+  margin: 0 !important; }
 
 p.next-step-extra-info {
   margin: 0 !important; }
 
 .tweet-share {
-  display: flex;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
   align-content: center;
-  flex-wrap: nowrap; }
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding: 0; }
 
 @media only screen and (max-width: 400px) {
   .cocart-newsletter .newsletter-form-container {
     display: block; }
     .cocart-newsletter .newsletter-form-container .newsletter-form-email {
-      display: block;
       box-sizing: border-box;
-      width: 100%;
-      margin-bottom: 10px; }
+      display: block;
+      margin-bottom: 10px;
+      width: 100%; }
     .cocart-newsletter .newsletter-form-container .button.newsletter-form-button {
       float: left; }
   .cocart-setup-wizard-next-steps .cocart-setup-wizard-next-step-item {
@@ -247,8 +246,8 @@ p.next-step-extra-info {
     color: #444; }
 
 .notice.cocart-notice p {
-  padding: 0;
-  margin: 0; }
+  margin: 0;
+  padding: 0; }
 
 .notice.cocart-notice h3 {
   margin: 0 0 5px; }
@@ -299,9 +298,35 @@ body.cocart .error {
   .notice.cocart-notice .cocart-notice-inner .cocart-notice-icon {
     display: none; }
   .notice.cocart-notice .cocart-notice-inner .cocart-action {
-    margin-top: 20px;
     display: block;
+    margin-top: 20px;
     text-align: left; }
   .notice.cocart-notice .cocart-notice-inner .no-thanks {
     display: inline-block;
     margin-left: 15px; } }
+
+.cocart.settings-page {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 0;
+  width: 100%; }
+  .cocart.settings-page header {
+    background-color: #6032b0;
+    height: 120px;
+    width: 100%; }
+  .cocart.settings-page .container {
+    border: none;
+    margin: 0;
+    max-width: 100%;
+    width: 100%; }
+  .cocart.settings-page .content {
+    padding: 30px 38px; }
+  .cocart.settings-page h2 {
+    border-bottom: 1px solid #ddd;
+    font-size: 23px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    margin-left: 40px;
+    margin-top: 30px;
+    padding-bottom: 30px; }
