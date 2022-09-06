@@ -14,29 +14,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $current_tab;
-
-$campaign_args = CoCart\Help::cocart_campaign(
-	array(
-		'utm_content' => 'settings-page',
-	)
-);
 ?>
-<div class="wrap cocart settings-page" style="margin: 0; padding: 0; position: relative; top: 0; width: 100%;">
+<div class="wrap cocart settings-page">
 
-	<header class="logo" style="height: 120px; width: 100%; background: #6032af url(<?php echo esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/header-logo-small.png' ); ?>) 2rem center no-repeat;">
+	<header class="logo" style="background: #6032b0 url(<?php echo esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/header-logo-small.png' ); ?>) 2rem center no-repeat;">
 	</header>
 
-	<div class="container" style="border: none; margin: 0; max-width: 100%; width:100%;">
+	<div class="container">
 
-		<h2 style="border-bottom: 1px solid #ddd;
-font-size: 23px;
-font-weight: 300;
-margin-bottom: 10px;
-margin-left: 40px;
-margin-top: 30px;
-padding-bottom: 30px;"><?php echo apply_filters( 'cocart_setting_label_' . $current_tab, esc_html__( 'Headless Settings', 'cart-rest-api-for-woocommerce' ) ); ?></h2>
+		<h2><?php echo apply_filters( 'cocart_setting_label_' . $current_tab, esc_html__( 'Headless Settings', 'cart-rest-api-for-woocommerce' ) ); ?></h2>
 
-		<div class="content" style="padding: 30px 38px;">
+		<div class="content">
 
 			<form method="post" id="settings-form" action="" enctype="multipart/form-data">
 
