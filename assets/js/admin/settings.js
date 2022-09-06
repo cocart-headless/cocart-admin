@@ -45,9 +45,13 @@
 				data: JSON.stringify( formData, null, ' ' ),
 				dataType: 'json',
 				contentType: 'application/json; charset=utf-8',
-				success: function() {
+				success: function( response ) {
 					$('.save-results').html('<div class="notice notice-success"></div>');
 					$('.notice-success').append("<p><strong>" + cocart_params.saved_message + "</strong></p>").show();
+
+					if ( settings === 'general' && typeof response['general']['salt_key'] !== "undefined" ) {
+						$('input[type="text"]#salt_key').val( response['general']['salt_key'] );
+					}
 				},
 				error: function( xhr ) {
 					var errorMessage = xhr.status + ': ' + xhr.statusText;
