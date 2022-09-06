@@ -28,6 +28,8 @@ global $current_tab;
 
 			<form method="post" id="settings-form" action="" enctype="multipart/form-data">
 
+			<div class="save-results"></div>
+
 			<?php
 			CoCart\Admin\Settings::show_messages();
 
