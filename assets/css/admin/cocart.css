@@ -306,8 +306,8 @@ body.cocart .error {
     margin-left: 15px; } }
 
 .cocart.settings-page {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   position: relative;
   top: 0;
   width: 100%; }
