@@ -10,6 +10,9 @@
 
 namespace CoCart\Admin;
 
+use \CoCart\Help;
+use \CoCart\Status;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -49,17 +52,33 @@ class PluginTracker {
 			return;
 		}
 
-		$client = new \Appsero\Client( '3898b319-80b0-4f93-bc96-1809486b15fd', 'CoCart - Headless ecommerce', COCART_FILE );
+		$client = Help::appsero_client();
 
 		$this->insights = $client->insights();
 
+		// WordPress 5.5+ environment type specification.
+		// 'production' is the default in WP, thus using it as a default here, too.
+		$environment_type = 'production';
+		if ( function_exists( 'wp_get_environment_type' ) ) {
+			$environment_type = wp_get_environment_type();
+		}
+
 		$this->insights->add_extra(
 			array(
-				'products'       => $this->insights->get_post_count( 'product' ),
-				'orders'         => $this->get_order_count(),
-				'is_pro'         => class_exists( 'CoCart_Pro' ) ? 'Yes' : 'No',
-				'wc_version'     => function_exists( 'WC' ) ? WC()->version : WC_VERSION,
-				'cocart_version' => COCART_VERSION,
+				'products'          => $this->insights->get_post_count( 'product' ),
+				'orders'            => $this->get_order_count(),
+				'cocart_version'    => COCART_VERSION,
+				'is_pro'            => class_exists( 'CoCart_Pro' ) ? 'Yes' : 'No',
+				'wc_version'        => function_exists( 'WC' ) ? WC()->version : WC_VERSION,
+				'user_language'     => Help::get_user_language(),
+				'multisite'         => Status::is_multi_network() ? 'Yes' : 'No',
+				'environment_type'  => $environment_type,
+				'days_active'       => Help::get_days_active(),
+				'is_offline_mode'   => Status::is_offline_mode() ? 'Yes' : 'No',
+				'is_local_site'     => Status::is_local_site() ? 'Yes' : 'No',
+				'is_staging_site'   => Status::is_staging_site() ? 'Yes' : 'No',
+				'is_vip_site'       => Status::is_vip_site() ? 'Yes' : 'No',
+				'is_white_labelled' => Help::is_white_labelled() ? 'Yes' : 'No',
 			)
 		);
 
