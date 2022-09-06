@@ -46,13 +46,14 @@ class GeneralSettings extends Page {
 		);
 
 		$settings[] = array(
-			'title'    => esc_html__( 'Front-end site URL', 'cart-rest-api-for-woocommerce' ),
-			'id'       => 'frontend_url',
-			'type'     => 'url',
-			'default'  => '',
-			'css'      => 'width:25em;',
-			'desc'     => esc_html__( 'The full URL to your headless front-end, including https://. This is used for rewriting product permalinks to point to your front-end site.', 'cart-rest-api-for-woocommerce' ),
-			'autoload' => false,
+			'title'       => esc_html__( 'Front-end site URL', 'cart-rest-api-for-woocommerce' ),
+			'id'          => 'frontend_url',
+			'type'        => 'url',
+			'default'     => '',
+			'placeholder' => 'https://',
+			'css'         => 'width:25em;',
+			'desc'        => esc_html__( 'The full URL to your headless front-end, including https://. This is used for rewriting product permalinks to point to your front-end site.', 'cart-rest-api-for-woocommerce' ),
+			'autoload'    => false,
 		);
 
 		$settings[] = array(
@@ -61,7 +62,7 @@ class GeneralSettings extends Page {
 			'type'     => 'text',
 			'default'  => '',
 			'css'      => 'width:25em;',
-			'desc'     => esc_html__( 'This key is used to protect certain features from being misused.', 'cart-rest-api-for-woocommerce' ),
+			'desc'     => esc_html__( 'This key is used to protect certain features from being misused. Enter a plain word or phrase.', 'cart-rest-api-for-woocommerce' ),
 			'autoload' => false,
 		);
 
