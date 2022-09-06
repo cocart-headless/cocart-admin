@@ -36,7 +36,7 @@ global $current_tab;
 
 			<?php
 			if ( ! empty( CoCart\Admin\Settings::get_settings( $current_tab ) ) ) {
-				submit_button( esc_attr__( 'Save Changes', 'cart-rest-api-for-woocommerce' ), 'primary', 'save', true );
+				submit_button( esc_attr__( 'Save Changes', 'cart-rest-api-for-woocommerce' ), 'primary', 'save-cocart', true );
 			}
 			?>
 			<input type="hidden" name="cocart-settings" value="<?php echo $current_tab; ?>" />
