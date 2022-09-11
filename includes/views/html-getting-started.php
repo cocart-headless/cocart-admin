@@ -14,14 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$campaign_args = CoCart\Help::cocart_campaign(
+$campaign_args    = CoCart\Help::cocart_campaign(
 	array(
 		'utm_content' => 'getting-started',
 	)
 );
-$store_url     = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
-$addons_url    = admin_url( 'plugin-install.php?tab=cocart' );
-$pro_url       = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
+$store_url        = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
+$addons_url       = admin_url( 'plugin-install.php?tab=cocart' );
+$pro_url          = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
+$dev_hub_url      = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://cocart.dev/' ) ) );
 ?>
 <div class="wrap cocart getting-started">
 
@@ -47,7 +48,7 @@ $pro_url       = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, CO
 				<?php
 				printf(
 					/* translators: 1: CoCart, 2: WooCommerce */
-					esc_html__( 'Thank you for choosing %1$s - the #1 REST API that handles the frontend of %2$s.', 'cart-rest-api-for-woocommerce' ),
+					esc_html__( 'Thank you for choosing %1$s - the #1 customizable WordPress REST API for %2$s that lets you build headless ecommerce using your favorite technologies.', 'cart-rest-api-for-woocommerce' ),
 					'CoCart',
 					'WooCommerce'
 				);
@@ -57,9 +58,10 @@ $pro_url       = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, CO
 			<p>
 				<?php
 				printf(
-					/* translators: 1: CoCart */
-					esc_html__( '%s focuses on the front-end of the store helping you to manage shopping carts and allows developers to build a headless store in any framework of their choosing. No local storing required.', 'cart-rest-api-for-woocommerce' ),
-					'CoCart'
+					/* translators: 1: CoCart, 2: WooCommerce */
+					esc_html__( '%1$s provides support for managing the user session, alternative options for doing this task do exist; however, their usage can be limited to applications of the same origin as the WordPress installation. This is due to %2$s using cookies to store user session tokens.', 'cart-rest-api-for-woocommerce' ),
+					'CoCart',
+					'WooCommerce'
 				);
 				?>
 			</p>
@@ -68,17 +70,7 @@ $pro_url       = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, CO
 				<?php
 				printf(
 					/* translators: %s: CoCart */
-					esc_html__( 'Now that you have %1$s installed, your ready to start developing your headless store.', 'cart-rest-api-for-woocommerce' ),
-					'CoCart'
-				);
-				?>
-			</p>
-
-			<p>
-				<?php
-				printf(
-					/* translators: %s: CoCart */
-					esc_html__( 'In the documentation you will find the API routes available along with over 100+ action hooks and filters for developers to customise API responses or change how %1$s operates.', 'cart-rest-api-for-woocommerce' ),
+					esc_html__( '%s provides the utilities to change this behavior during any cart request and passes the required information to HTTP Header so it can be cached client-side. The use of an HTTP Authorization header is optional allowing users to shop as a guest.', 'cart-rest-api-for-woocommerce' ),
 					'CoCart'
 				);
 				?>
@@ -88,8 +80,24 @@ $pro_url       = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, CO
 				<?php
 				echo wp_kses_post(
 					sprintf(
-						__( 'There is also a <a href="%1$s" target="_blank">developers hub</a> where you can find all the resources you need to be productive with CoCart and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
-						'https://cocart.dev'
+						/* translators: %s: CoCart */
+						__( 'Now that you have %s installed your ready to start developing your headless store. We recommend that you have <code>WP_DEBUG</code> enabled to help you while testing.', 'cart-rest-api-for-woocommerce' ),
+						'CoCart'
+					)
+				);
+				?>
+			</p>
+
+			<p><?php esc_html_e( 'In the API reference you will find the API routes available with examples in a few languages.', 'cart-rest-api-for-woocommerce' ); ?></p>
+
+			<p>
+				<?php
+				echo wp_kses_post(
+					sprintf(
+						/* translators: 1: Developers Hub link, 2: CoCart */
+						__( 'At the <a href="%s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
+						$dev_hub_url,
+						'CoCart'
 					)
 				);
 				?>
@@ -97,16 +105,17 @@ $pro_url       = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, CO
 
 			<p>
 				<?php
-				esc_html_e( 'It also provides answers to most common questions should you find that you need help. This is best place to look at first before contacting for support.', 'cart-rest-api-for-woocommerce' );
+				esc_html_e( 'It also provides answers to most common questions should you find that you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
 				?>
 			</p>
 
 			<p>
 				<?php
 				printf(
-					/* translators: %s: CoCart */
-					esc_html__( 'If you do need support or simply want to talk to other developers about taking your WooCommerce store headless, come join the %s community.', 'cart-rest-api-for-woocommerce' ),
-					'CoCart'
+					/* translators: 1: CoCart, 2: WooCommerce */
+					esc_html__( 'If you do need support or simply want to talk to other developers about taking your %2$s store headless, come join the %s community.', 'cart-rest-api-for-woocommerce' ),
+					'CoCart',
+					'WooCommerce'
 				);
 				?>
 			</p>
@@ -126,7 +135,7 @@ $pro_url       = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, CO
 			</div>
 
 			<p style="text-align: center;">
-				<?php printf( '<a class="button button-primary button-large" href="%1$s" target="_blank">%2$s</a>', esc_url( COCART_DOCUMENTATION_URL ), esc_html__( 'View Documentation', 'cart-rest-api-for-woocommerce' ) ); ?> 
+				<?php printf( '<a class="button button-primary button-large" href="%1$s" target="_blank">%2$s</a>', esc_url( COCART_DOCUMENTATION_URL ), esc_html__( 'View API Reference', 'cart-rest-api-for-woocommerce' ) ); ?> 
 				<?php printf( '<a class="button button-secondary button-large" href="%1$s" target="_blank">%2$s</a>', esc_url( CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( COCART_STORE_URL . 'community/' ) ) ) ), esc_html__( 'Join Community', 'cart-rest-api-for-woocommerce' ) ); ?>
 			</p>
 

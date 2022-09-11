@@ -586,10 +586,12 @@ class SetupWizard {
 
 		<p>
 		<?php
-		printf(
-			/* translators: %s: CoCart */
-			esc_html__( 'Now that you have %1$s installed, your ready to start developing your headless store.', 'cart-rest-api-for-woocommerce' ),
-			'CoCart'
+		echo wp_kses_post(
+			sprintf(
+				/* translators: %s: CoCart */
+				__( 'Now that you have %s installed your ready to start developing your headless store. We recommend that you have <code>WP_DEBUG</code> enabled to help you while testing.', 'cart-rest-api-for-woocommerce' ),
+				'CoCart'
+			)
 		);
 		?>
 		</p>
@@ -600,9 +602,10 @@ class SetupWizard {
 			<?php
 			echo wp_kses_post(
 				sprintf(
-					/* translators: %1$s: Developers Hub link */
-					__( 'At the <a href="%1$s" target="_blank">developers hub</a> you can find all the resources you need to be productive with CoCart and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
-					$docs_url
+					/* translators: 1: Developers Hub link, 2: CoCart */
+					__( 'At the <a href="%1$s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
+					$docs_url,
+					'CoCart'
 				)
 			);
 			?>
@@ -610,16 +613,17 @@ class SetupWizard {
 
 		<p>
 			<?php
-			esc_html_e( 'It also provides answers to most common questions should you find that you need help and is the best place to look at first before contacting for support.', 'cart-rest-api-for-woocommerce' );
+			esc_html_e( 'It also provides answers to most common questions should you find that you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
 			?>
 		</p>
 
 		<p>
 			<?php
 			printf(
-				/* translators: %s: CoCart */
-				esc_html__( 'If you do need support or simply want to talk to other developers about taking your WooCommerce store headless, come join the %s community.', 'cart-rest-api-for-woocommerce' ),
-				'CoCart'
+				/* translators: 1: CoCart, 2: WooCommerce */
+				esc_html__( 'If you do need support or simply want to talk to other developers about taking your %2$s store headless, come join the %s community.', 'cart-rest-api-for-woocommerce' ),
+				'CoCart',
+				'WooCommerce'
 			);
 			?>
 		</p>
@@ -680,7 +684,7 @@ class SetupWizard {
 				</div>
 				<div class="cocart-setup-wizard-next-step-action">
 					<p class="cocart-setup-wizard-actions step">
-						<a class="button button-primary button-large" href="<?php echo esc_url( Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ) ); ?>" target="_blank">
+						<a class="button button-primary button-large" href="<?php echo esc_url( COCART_DOCUMENTATION_URL ); ?>" target="_blank">
 							<?php esc_html_e( 'View API Reference', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
 					</p>

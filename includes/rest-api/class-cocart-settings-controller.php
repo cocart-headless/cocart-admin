@@ -226,12 +226,12 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 		 * Remove certain posted data since we can't unset it.
 		 */
 		$data = array();
-		foreach( $settings_received as $field => $value ) {
-			if ( in_array( $field, array( 'save_step', '_wpnonce', '_wp_http_referer') ) ) {
+		foreach ( $settings_received as $field => $value ) {
+			if ( in_array( $field, array( 'save_step', '_wpnonce', '_wp_http_referer' ) ) ) {
 				continue;
 			}
 
-			$data[$field] = $value;
+			$data[ $field ] = $value;
 		}
 
 		$data_to_save = get_option( 'cocart_settings', array() );

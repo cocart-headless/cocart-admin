@@ -49,7 +49,7 @@ class Package {
 		add_filter( 'cocart_rest_api_get_rest_namespaces', array( __CLASS__, 'add_rest_namespace' ) );
 		add_filter( 'cocart_send_cache_control_patterns', function( $patterns ) {
 			$patterns[] = '#^/cocart/settings/get?#';
-		
+
 			return $patterns;
 		});
 
