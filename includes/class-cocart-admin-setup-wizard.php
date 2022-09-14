@@ -191,7 +191,7 @@ class SetupWizard {
 		);
 		$store_url     = Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
 
-		set_current_screen();
+		set_current_screen( 'cocart-setup-wizard' );
 		?>
 		<!DOCTYPE html>
 		<html <?php language_attributes(); ?>>
