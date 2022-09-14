@@ -14,15 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$campaign_args    = CoCart\Help::cocart_campaign(
+$campaign_args = CoCart\Help::cocart_campaign(
 	array(
 		'utm_content' => 'getting-started',
 	)
 );
-$store_url        = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
-$addons_url       = admin_url( 'plugin-install.php?tab=cocart' );
-$pro_url          = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
-$dev_hub_url      = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://cocart.dev/' ) ) );
+$store_url     = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
+$addons_url    = admin_url( 'plugin-install.php?tab=cocart' );
+$pro_url       = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL . 'pro/' ) );
+$dev_hub_url   = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://cocart.dev/' ) ) );
 ?>
 <div class="wrap cocart getting-started">
 
