@@ -13,8 +13,6 @@
 
 namespace CoCart\Admin;
 
-use CoCart\Help;
-
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -75,18 +73,11 @@ class CoCart_WC_Admin_Thanks_Install_Note extends WCAdminNotes {
 	 * @static
 	 * @since   2.3.0 Introduced.
 	 * @since   3.2.0 Dropped support for WooCommerce less than version 4.8
-	 * @version 3.2.0
+	 * @version 4.0.0
 	 * @return  array
 	 */
 	public static function get_note_args() {
 		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;
-
-		$campaign_args = Help::cocart_campaign(
-			array(
-				'utm_campaign' => 'wc-admin',
-				'utm_content'  => 'wc-inbox',
-			)
-		);
 
 		$args = array(
 			'title'   => sprintf(
@@ -94,13 +85,19 @@ class CoCart_WC_Admin_Thanks_Install_Note extends WCAdminNotes {
 				esc_attr__( 'Thank you for installing %s!', 'cart-rest-api-for-woocommerce' ),
 				'CoCart'
 			),
-			'content' => __( 'Now you are ready to start developing your headless store. Visit the documentation site to learn how to access the API, view examples and find many action hooks and filters and more.', 'cart-rest-api-for-woocommerce' ),
+			'content' => wp_kses_post(
+				sprintf(
+					/* translators: %s: CoCart */
+					__( 'Now that you have %s installed your ready to start developing your headless store. We recommend that you have <code>WP_DEBUG</code> enabled to help you while testing. In the API reference you will find the API routes available with examples in a few languages.', 'cart-rest-api-for-woocommerce' ),
+					'CoCart'
+				)
+			),
 			'name'    => self::NOTE_NAME,
 			'actions' => array(
 				array(
-					'name'    => 'cocart-view-documentation',
-					'label'   => __( 'View Documentation', 'cart-rest-api-for-woocommerce' ),
-					'url'     => Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ),
+					'name'    => 'cocart-view-api-reference',
+					'label'   => __( 'View API Reference', 'cart-rest-api-for-woocommerce' ),
+					'url'     => esc_url( COCART_DOCUMENTATION_URL ),
 					'status'  => $status,
 					'primary' => true,
 				),
