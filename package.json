@@ -54,7 +54,7 @@
 		"node-sass": "7.0.1",
 		"postcss": "8.4.14",
 		"prettier-stylelint": "0.4.2",
-		"stylelint-config-prettier": "9.0.3",
+		"stylelint-config-prettier": "9.0.4",
 		"stylelint-order": "5.0.0"
 	},
 	"dependencies": {
