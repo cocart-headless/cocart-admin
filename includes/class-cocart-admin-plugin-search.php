@@ -843,7 +843,7 @@ class PluginSearch {
 	 * @return array of json API data
 	 */
 	public static function get_suggestions_api_data() {
-		if ( ! \ActionScheduler::is_initialized() ) {
+		if ( ! class_exists( '\ActionScheduler' ) || ! \ActionScheduler::is_initialized() ) {
 			return;
 		}
 
