@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $current_tab;
 ?>
 <div class="wrap cocart settings-page">
 

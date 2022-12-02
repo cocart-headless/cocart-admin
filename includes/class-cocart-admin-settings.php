@@ -156,6 +156,10 @@ class Settings {
 	 * @return string
 	 */
 	public static function get_option( $section, $option_name, $default = '' ) {
+		if ( ! $option_name ) {
+			return $default;
+		}
+
 		// Array value.
 		if ( strstr( $option_name, '[' ) ) {
 			parse_str( $option_name, $option_array );
@@ -177,18 +181,17 @@ class Settings {
 		} else {
 			// Single value.
 			$settings = get_option( 'cocart_settings', array() );
-			if ( ! empty( $settings ) ) {
-				$option_value = isset( $settings[ $section ][ $option_name ] ) ? $settings[ $section ][ $option_name ] : null;
-			}
+
+			$option_value = ! empty( $settings ) && isset( $settings[ $section ][ $option_name ] ) ? $settings[ $section ][ $option_name ] : null;
 		}
 
 		if ( is_array( $option_value ) ) {
-			$option_value = array_map( 'stripslashes', $option_value );
-		} elseif ( ! empty( $option_value ) ) {
+			$option_value = wp_unslash( $option_value );
+		} elseif ( ! is_null( $option_value ) ) {
 			$option_value = stripslashes( $option_value );
 		}
 
-		return null === $option_value ? $default : $option_value;
+		return ( null === $option_value ) ? $default : $option_value;
 	} // END get_option()
 
 	/**

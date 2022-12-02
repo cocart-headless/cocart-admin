@@ -168,9 +168,13 @@ class Menus {
 	 * @version 4.0.0
 	 */
 	public static function cocart_page() {
-		$section = ! isset( $_GET['section'] ) ? 'getting-started' : trim( sanitize_key( wp_unslash( $_GET['section'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		global $current_section, $current_tab;
 
-		switch ( $section ) {
+		// Get current tab/section.
+		$current_tab     = empty( $_GET['tab'] ) ? 'general' : sanitize_title( wp_unslash( $_GET['tab'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$current_section = empty( $_REQUEST['section'] ) ? 'getting-started' : sanitize_title( wp_unslash( $_REQUEST['section'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		switch ( $current_section ) {
 			case 'getting-started':
 				self::getting_started_content();
 				break;
@@ -184,7 +188,7 @@ class Menus {
 				break;
 
 			default:
-				do_action( 'cocart_page_section_' . strtolower( str_replace( '-', '_', $section ) ) );
+				do_action( 'cocart_page_section_' . strtolower( str_replace( '-', '_', $current_section ) ) );
 				break;
 		}
 	} // END cocart_page()
@@ -213,6 +217,8 @@ class Menus {
 	 * @since 4.0.0 Introduced.
 	 */
 	public static function settings_page() {
+		global $current_section, $current_tab;
+
 		include_once dirname( __FILE__ ) . '/views/html-admin-settings.php';
 	} // END settings_page()
 
