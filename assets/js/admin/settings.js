@@ -30,12 +30,19 @@
 			}
 
 			// Prepare posted data.
+			var ignore_fields = [ 'cocart-settings', '_wpnonce', '_wp_http_referer' ];
 			var formData = $( '#settings-form' ).serializeArray().reduce((obj, field) => {
-				if ( field.name !== 'cocart-settings' && field.name !== '_wpnonce' && field.name !== '_wp_http_referer' && ( field.name === 'salt_key' && skip_salt === false ) ) {
-					obj[field.name] = field.value;
+				if ( $.inArray( field.name, ignore_fields ) === -1 ) {
+					if ( field.name === 'salt_key' && skip_salt === true ) {
+						console.log( 'Salt key has not changed!' );
+					} else {
+						obj[field.name] = field.value;
+					}
 				}
+
 				return obj;
 			}, {});
+
 			var settings = $( 'input[name="cocart-settings"]' ).val();
 
 			// Save settings.
@@ -43,8 +50,8 @@
 				method: 'POST',
 				url: cocart_params.root + 'cocart/settings/save?settings=' + settings + '&_wpnonce=' + cocart_params.nonce,
 				data: JSON.stringify( formData, null, ' ' ),
-				dataType: 'json',
 				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
 				success: function( response ) {
 					$( '.save-results' ).html( '<div class="notice notice-success"></div>' );
 					$( '.notice-success' ).append( "<p><strong>" + cocart_params.saved_message + "</strong></p>" ).show();
