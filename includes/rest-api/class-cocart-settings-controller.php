@@ -1,8 +1,6 @@
 <?php
 /**
- * REST API: CoCart Settings Controller.
- *
- * Handles requests to the /settings/ endpoint.
+ * REST API: CoCart_REST_Settings_Controller class.
  *
  * @author  Sébastien Dumont
  * @package CoCart\RESTAPI\Admin\Settings
@@ -14,9 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * CoCart REST API v2 - Products controller class.
+ * Controller for CoCart Settings.
  *
- * @package CoCart Products/API
+ * This REST API controller handles requests to the "cocart/settings/" endpoint.
+ *
+ * @since 4.0.0 Introduced.
+ *
  * @extends WP_Rest_Controller
  */
 class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
@@ -227,7 +228,7 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 		 */
 		$data = array();
 		foreach ( $settings_received as $field => $value ) {
-			if ( in_array( $field, array( 'save_step', '_wpnonce', '_wp_http_referer' ) ) ) {
+			if ( in_array( $field, array( 'cocart-settings', 'save_step', '_wpnonce', '_wp_http_referer' ) ) ) {
 				continue;
 			}
 
@@ -251,8 +252,6 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 				// Sanitize the input.
 				$setting_type = $setting['type'];
 				$output       = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $data[ $setting['id'] ], $this->errors, $setting );
-				// $output       = $this->sanitize_{$setting_type}( $data[ $setting['id'] ], $this->errors, $setting );
-				// $output       = apply_filters( 'cocart_settings_sanitize_' . $setting['id'], $output, $this->errors, $setting );
 
 				if ( $setting_type == 'checkbox' && $output == false ) {
 					continue;
