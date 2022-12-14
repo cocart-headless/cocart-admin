@@ -3,8 +3,8 @@
 	margin-bottom: 2rem;
 
 	.founder-image {
-		width: 4.6rem;
 		float: left;
+		width: 4.6rem;
 	}
 
 	.founder-details {
@@ -18,14 +18,14 @@
 }
 
 .cocart-newsletter {
-	padding: 24px 24px 0;
-	overflow: hidden;
 	background: #f5f5f5;
 	clear: both;
+	overflow: hidden;
+	padding: 24px 24px 0;
 
 	p {
-		padding: 0;
 		margin: 0 0 12px;
+		padding: 0;
 	}
 
 	form,
@@ -39,8 +39,8 @@ ul.cocart-setup-wizard-next-steps {
 	border-radius: 4px;
 	list-style: none outside;
 	margin: 0;
-	padding: 0;
 	overflow: hidden;
+	padding: 0;
 
 	h2 {
 		margin-bottom: 12px;
@@ -48,9 +48,9 @@ ul.cocart-setup-wizard-next-steps {
 
 	h3 {
 		&.next-step-description {
-			margin: 0;
 			font-size: 16px;
 			font-weight: 600;
+			margin: 0;
 		}
 	}
 
@@ -64,20 +64,20 @@ ul.cocart-setup-wizard-next-steps {
 
 		a::before {
 			color: #82878c;
-			font: 400 20px/1 dashicons; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
-			speak: none;
 			display: inline-block;
+			font: 400 20px/1 dashicons; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
 			padding: 0 10px 0 0;
-			top: 1px;
 			position: relative;
+			speak: none;
 			text-decoration: none !important;
+			top: 1px;
 			vertical-align: top;
 		}
 	}
 
 	.cocart-setup-wizard-next-step-item {
-		display: flex;
 		border-top: 1px solid #eee;
+		display: flex;
 
 		&:first-child {
 			border-top: 0;
@@ -90,9 +90,9 @@ ul.cocart-setup-wizard-next-steps {
 	}
 
 	.cocart-setup-wizard-next-step-action {
-		flex-grow: 0;
-		display: flex;
 		align-items: center;
+		display: flex;
+		flex-grow: 0;
 
 		.button {
 			margin: 1em 1.5em !important;
@@ -120,16 +120,16 @@ ul.cocart-setup-wizard-next-steps {
 p {
 	&.next-steps-help-text {
 		color: #9f9f9f !important;
+		font-size: 0.9em !important;
 		padding: 0 2em;
 		text-align: center;
-		font-size: 0.9em !important;
 	}
 
 	&.next-step-heading {
-		margin: 0 !important;
 		font-size: 0.95em;
-		font-weight: 400;
 		font-variant: all-petite-caps;
+		font-weight: 400;
+		margin: 0 !important;
 	}
 
 	&.next-step-extra-info {
@@ -138,12 +138,12 @@ p {
 }
 
 .tweet-share {
-	display: flex;
-	padding: 0;
-	align-items: center;
-	justify-content: center;
 	align-content: center;
+	align-items: center;
+	display: flex;
 	flex-wrap: nowrap;
+	justify-content: center;
+	padding: 0;
 }
 
 @media only screen and (max-width: 400px) {
@@ -152,10 +152,10 @@ p {
 			display: block;
 
 			.newsletter-form-email {
-				display: block;
 				box-sizing: border-box;
-				width: 100%;
+				display: block;
 				margin-bottom: 10px;
+				width: 100%;
 			}
 
 			.button.newsletter-form-button {

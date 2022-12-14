@@ -30,8 +30,8 @@ body.cocart-plugin-install {
 	.plugin-card-bottom {
 
 		.plugin-requirement {
-			float: right;
 			clear: right;
+			float: right;
 		}
 
 	}
@@ -60,9 +60,9 @@ body.cocart-plugin-install {
 
 	.plugin-action-buttons {
 		margin: 0;
-		width: 100%;
 		text-align: left;
 		white-space: nowrap;
+		width: 100%;
 	}
 
 }
@@ -86,8 +86,8 @@ body.cocart-plugin-install {
 		.cocart-plugin-primary {
 			background: $cocart;
 			border-color: #9b50e3;
-			color: $white;
 			box-shadow: 0 1px 0 #d8c3e2;
+			color: $white;
 		}
 
 		.cocart-plugin-primary:hover {
@@ -105,16 +105,16 @@ body.cocart-plugin-install {
 }
 
 .cocart-plugin-search__bottom {
-	display: -webkit-box;
-	display: flex;
-	-webkit-box-align: center;
-	align-items: center;
 	align-content: space-between;
-	clear: both;
-	padding: 12px 20px;
+	align-items: center;
 	background-color: #fafafa;
 	border-top: 1px solid #ddd;
+	-webkit-box-align: center;
+	clear: both;
+	display: -webkit-box;
+	display: flex;
 	overflow: hidden;
+	padding: 12px 20px;
 }
 
 .cocart-plugin-search__text {

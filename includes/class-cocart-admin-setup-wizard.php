@@ -14,6 +14,7 @@
 namespace CoCart\Admin;
 
 use CoCart\Help;
+use CoCart\Logger;
 use CoCart\Admin\Notices;
 
 // Exit if accessed directly.
@@ -99,6 +100,10 @@ class SetupWizard {
 	 * Show the setup wizard.
 	 *
 	 * @access public
+	 *
+	 * @since   3.1.0 Introduced.
+	 * @since   4.0.0 Added settings step.
+	 * @version 4.0.0
 	 */
 	public function setup_wizard() {
 		if ( empty( $_GET['page'] ) || 'cocart-setup' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -114,6 +119,11 @@ class SetupWizard {
 				'name'    => __( 'Sessions', 'cart-rest-api-for-woocommerce' ),
 				'view'    => array( $this, 'cocart_setup_wizard_sessions' ),
 				'handler' => array( $this, 'cocart_setup_wizard_sessions_save' ),
+			),
+			'settings'    => array(
+				'name'    => __( 'Settings', 'cart-rest-api-for-woocommerce' ),
+				'view'    => array( $this, 'cocart_setup_wizard_settings' ),
+				'handler' => array( $this, 'cocart_setup_wizard_settings_save' ),
 			),
 			'ready'       => array(
 				'name'    => __( 'Ready!', 'cart-rest-api-for-woocommerce' ),
@@ -181,14 +191,20 @@ class SetupWizard {
 		);
 		$store_url     = Help::build_shortlink( add_query_arg( $campaign_args, COCART_STORE_URL ) );
 
-		set_current_screen();
+		set_current_screen( 'cocart-setup-wizard' );
 		?>
 		<!DOCTYPE html>
 		<html <?php language_attributes(); ?>>
 		<head>
 			<meta name="viewport" content="width=device-width" />
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-			<title><?php esc_html_e( 'CoCart &rsaquo; Setup Wizard', 'cart-rest-api-for-woocommerce' ); ?></title>
+			<title><?php
+			printf(
+				/* translators: %s: CoCart */
+				esc_html__( '%s &rsaquo; Setup Wizard', 'cart-rest-api-for-woocommerce' ),
+				'CoCart'
+			);
+			?></title>
 			<?php do_action( 'admin_enqueue_scripts' ); ?>
 			<?php do_action( 'admin_print_styles' ); ?>
 			<?php do_action( 'admin_head' ); ?>
@@ -210,12 +226,16 @@ class SetupWizard {
 	public function setup_wizard_footer() {
 		$current_step = $this->step;
 
-		if ( 'store_setup' === $current_step ) :
-			?>
-				<a class="cocart-setup-wizard-footer-links" href="<?php echo esc_url( admin_url() ); ?>"><?php esc_html_e( 'Not right now', 'cart-rest-api-for-woocommerce' ); ?></a>
-			<?php elseif ( 'sessions' === $current_step ) : ?>
-				<a class="cocart-setup-wizard-footer-links" href="<?php echo esc_url( $this->get_next_step_link() ); ?>"><?php esc_html_e( 'Skip this step', 'cart-rest-api-for-woocommerce' ); ?></a>
-			<?php endif; ?>
+		switch ( $current_step ) {
+			case 'store_setup':
+				echo '<a class="cocart-setup-wizard-footer-links" href="' . esc_url( admin_url() ) . '">' . esc_html__( 'Not right now. Go back to Dashboard.', 'cart-rest-api-for-woocommerce' ) . '</a>';
+				break;
+			case 'sessions':
+			case 'settings':
+				echo '<a class="cocart-setup-wizard-footer-links" href="' . esc_url( $this->get_next_step_link() ) . '">' . esc_html__( 'Skip this step.', 'cart-rest-api-for-woocommerce' ) . '</a>';
+				break;
+		}
+		?>
 
 			<?php do_action( 'cocart_setup_wizard_footer' ); ?>
 
@@ -296,11 +316,21 @@ class SetupWizard {
 			<input type="hidden" name="save_step" value="store_setup" />
 			<?php wp_nonce_field( 'cocart-setup' ); ?>
 
+			<h1>
+			<?php
+			printf(
+				/* translators: %s: CoCart */
+				esc_html__( 'Welcome to %s', 'cart-rest-api-for-woocommerce' ),
+				'CoCart'
+			);
+			?>
+			</h1>
+
 			<p>
 			<?php
 			printf(
 				/* translators: 1: CoCart, 2: WooCommerce */
-				esc_html__( 'Thank you for choosing %1$s - the #1 REST API that handles the frontend of %2$s.', 'cart-rest-api-for-woocommerce' ),
+				esc_html__( 'Thank you for choosing %1$s - the #1 customizable WordPress REST API for %2$s that lets you build headless ecommerce using your favorite technologies.', 'cart-rest-api-for-woocommerce' ),
 				'CoCart',
 				'WooCommerce'
 			);
@@ -309,15 +339,21 @@ class SetupWizard {
 
 			<p>
 			<?php
+				esc_html_e( 'This quick setup wizard will help you to configure the basic settings and you will have the API ready in no time.', 'cart-rest-api-for-woocommerce' );
+			?>
+			</p>
+
+			<p>
+			<?php
 			printf(
-				/* translators: %s: CoCart */
-				esc_html__( '%s focuses on the front-end of the store helping you to manage shopping carts and allows developers to build a headless store in any framework of their choosing. No local storing required.', 'cart-rest-api-for-woocommerce' ),
+				/* translators: 1: CoCart */
+				esc_html__( 'It’s completely optional as %1$s is already ready to start using. The wizard is here to help you configure %1$s to your needs.', 'cart-rest-api-for-woocommerce' ),
 				'CoCart'
 			);
 			?>
 			</p>
 
-			<p><?php esc_html_e( 'The following wizard will help you configure CoCart for your headless store.', 'cart-rest-api-for-woocommerce' ); ?></p>
+			<p><?php esc_html_e( 'If you don’t want to go through the wizard right now, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'cart-rest-api-for-woocommerce' ); ?></p>
 
 			<?php if ( ! $sessions_transferred ) { ?>
 			<label for="store_new"><?php esc_html_e( 'Is this a new store?', 'cart-rest-api-for-woocommerce' ); ?></label>
@@ -334,7 +370,7 @@ class SetupWizard {
 			</select>
 
 			<p class="cocart-setup-wizard-actions step">
-				<button class="button button-primary button-large" value="<?php esc_attr_e( "Let's go!", 'cart-rest-api-for-woocommerce' ); ?>" name="save_step"><?php esc_html_e( "Let's go!", 'cart-rest-api-for-woocommerce' ); ?></button>
+				<button class="button button-primary button-large" value="<?php esc_attr_e( 'Continue', 'cart-rest-api-for-woocommerce' ); ?>" name="save_step"><?php esc_html_e( 'Continue', 'cart-rest-api-for-woocommerce' ); ?></button>
 			</p>
 		</form>
 		<?php
@@ -383,6 +419,8 @@ class SetupWizard {
 			<input type="hidden" name="save_step" value="session_setup" />
 			<?php wp_nonce_field( 'cocart-setup' ); ?>
 
+			<h1><?php esc_html_e( 'Sessions', 'cart-rest-api-for-woocommerce' ); ?></h1>
+
 			<p><?php esc_html_e( 'Your current WooCommerce sessions will be transferred over to CoCart session table. This will run in the background until completed. Once transferred, all customers carts will be accessible again.', 'cart-rest-api-for-woocommerce' ); ?></p>
 
 			<p class="cocart-setup-wizard-actions step">
@@ -402,6 +440,76 @@ class SetupWizard {
 
 		// Add transfer sessions to queue.
 		WC()->queue()->schedule_single( time(), 'cocart_run_transfer_sessions', array(), 'cocart-transfer-sessions' );
+
+		// Redirect to next step.
+		wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
+		exit;
+	} // END cocart_setup_wizard_sessions_save()
+
+	/**
+	 * Settings step.
+	 *
+	 * Configures a few settings for the frontend and security.
+	 *
+	 * @access public
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	public function cocart_setup_wizard_settings() {
+		?>
+		<form method="post" class="settings-step">
+			<input type="hidden" name="save_step" value="setting_setup" />
+			<?php wp_nonce_field( 'cocart-setup' ); ?>
+
+			<h1><?php esc_html_e( 'Settings', 'cart-rest-api-for-woocommerce' ); ?></h1>
+
+			<?php do_action( 'cocart_settings_general' ); ?>
+
+			<p><em>
+			<?php
+			echo wp_kses_post(
+				sprintf(
+					/* translators: %s: Link to settings page. */
+					__( 'You can fetch your encrypted salt key from the <a href="%s" target="_blank">settings page</a> any time. You can also update the salt key and immediately get the new encryption salt key once saved.', 'cart-rest-api-for-woocommerce' ),
+					esc_url( admin_url( 'admin.php?page=cocart&section=settings' ) )
+				)
+			);
+			?>
+			</em></p>
+
+			<p class="cocart-setup-wizard-actions step">
+				<button class="button button-primary button-large" value="<?php esc_attr_e( 'Save Settings', 'cart-rest-api-for-woocommerce' ); ?>" name="save_step"><?php esc_html_e( 'Save Settings', 'cart-rest-api-for-woocommerce' ); ?></button>
+			</p>
+		</form>
+		<?php
+	} // END cocart_setup_wizard_settings()
+
+	/**
+	 * Triggers in the background transferring of sessions and redirects to the next step.
+	 *
+	 * @access public
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	public function cocart_setup_wizard_settings_save() {
+		check_admin_referer( 'cocart-setup' );
+
+		$args = array(
+			'sslverify'   => false,
+			'headers'     => array(
+				'Content-Type' => 'application/json; charset=utf-8',
+			),
+			'body'        => wp_json_encode( $_POST ),
+			'data_format' => 'body',
+		);
+
+		$resturl  = esc_url_raw( rest_url() ) . 'cocart/settings/save?settings=general&form=post&_wpnonce=' . wp_create_nonce( 'wp_rest' );
+		$response = wp_remote_post( $resturl, $args );
+
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			Logger::log( sprintf( esc_html__( 'Something went wrong saving the settings during the CoCart Setup Wizard. Reason: %s', 'cart-rest-api-for-woocommerce' ), $error_message ), 'error' );
+		}
 
 		// Redirect to next step.
 		wp_safe_redirect( esc_url_raw( $this->get_next_step_link() ) );
@@ -484,31 +592,26 @@ class SetupWizard {
 
 		<p>
 		<?php
-		printf(
-			/* translators: %s: CoCart */
-			esc_html__( 'Now that you have %1$s installed, your ready to start developing your headless store.', 'cart-rest-api-for-woocommerce' ),
-			'CoCart'
+		echo wp_kses_post(
+			sprintf(
+				/* translators: %s: CoCart */
+				__( 'Now that you have %s installed your ready to start developing your headless store. We recommend that you have <code>WP_DEBUG</code> enabled to help you while testing.', 'cart-rest-api-for-woocommerce' ),
+				'CoCart'
+			)
 		);
 		?>
 		</p>
 
-		<p>
-			<?php
-			printf(
-				/* translators: %s: CoCart */
-				esc_html__( 'In the documentation you will find the API routes available along with over 100+ action hooks and filters for developers to customise API responses or change how %1$s operates.', 'cart-rest-api-for-woocommerce' ),
-				'CoCart'
-			);
-			?>
-		</p>
+		<p><?php esc_html_e( 'In the API reference you will find the API routes available with examples in a few languages.', 'cart-rest-api-for-woocommerce' ); ?></p>
 
 		<p>
 			<?php
 			echo wp_kses_post(
 				sprintf(
-					/* translators: %1$s: Developers Hub link */
-					__( 'There is also a <a href="%1$s" target="_blank">developers hub</a> where you can find all the resources you need to be productive with CoCart and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
-					$docs_url
+					/* translators: 1: Developers Hub link, 2: CoCart */
+					__( 'At the <a href="%1$s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
+					$docs_url,
+					'CoCart'
 				)
 			);
 			?>
@@ -516,16 +619,17 @@ class SetupWizard {
 
 		<p>
 			<?php
-			esc_html_e( 'It also provides answers to most common questions should you find that you need help. This is best place to look at first before contacting for support.', 'cart-rest-api-for-woocommerce' );
+			esc_html_e( 'It also provides answers to most common questions should you find that you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
 			?>
 		</p>
 
 		<p>
 			<?php
 			printf(
-				/* translators: %s: CoCart */
-				esc_html__( 'If you do need support or simply want to talk to other developers about taking your WooCommerce store headless, come join the %s community.', 'cart-rest-api-for-woocommerce' ),
-				'CoCart'
+				/* translators: 1: CoCart, 2: WooCommerce */
+				esc_html__( 'If you do need support or simply want to talk to other developers about taking your %2$s store headless, come join the %s community.', 'cart-rest-api-for-woocommerce' ),
+				'CoCart',
+				'WooCommerce'
 			);
 			?>
 		</p>
@@ -586,8 +690,8 @@ class SetupWizard {
 				</div>
 				<div class="cocart-setup-wizard-next-step-action">
 					<p class="cocart-setup-wizard-actions step">
-						<a class="button button-primary button-large" href="<?php echo esc_url( Help::build_shortlink( add_query_arg( $campaign_args, esc_url( 'https://docs.cocart.xyz' ) ) ) ); ?>" target="_blank">
-							<?php esc_html_e( 'View Documentation', 'cart-rest-api-for-woocommerce' ); ?>
+						<a class="button button-primary button-large" href="<?php echo esc_url( COCART_DOCUMENTATION_URL ); ?>" target="_blank">
+							<?php esc_html_e( 'View API Reference', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
 					</p>
 				</div>

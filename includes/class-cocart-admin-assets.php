@@ -38,7 +38,7 @@ class Assets {
 	 *
 	 * @access  public
 	 * @since   1.2.0
-	 * @version 3.0.17
+	 * @version 4.0.0
 	 */
 	public function admin_styles() {
 		$screen    = get_current_screen();
@@ -52,9 +52,14 @@ class Assets {
 			if ( $suffix ) {
 				wp_style_add_data( COCART_SLUG . '_admin', 'suffix', '.min' );
 			}
-		}
-		if ( $suffix ) {
-			wp_style_add_data( COCART_SLUG . '_admin', 'suffix', '.min' );
+
+			wp_register_script( COCART_SLUG . '-admin', COCART_ADMIN_URL_PATH . '/assets/js/admin/settings' . $suffix . '.js', array( 'jquery' ), COCART_VERSION );
+			wp_enqueue_script( COCART_SLUG . '-admin' );
+			wp_localize_script( COCART_SLUG . '-admin', 'cocart_params', array(
+				'root'          => esc_url_raw( rest_url() ),
+				'nonce'         => wp_create_nonce( 'wp_rest' ),
+				'saved_message' => esc_html__( 'Settings Saved Successfully.', 'cart-rest-api-for-woocommerce' ),
+			) );
 		}
 	} // END admin_styles()
 

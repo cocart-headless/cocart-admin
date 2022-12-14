@@ -41,8 +41,17 @@ class Package {
 		self::setup_constants();
 		self::includes();
 
+		// Admin screens.
 		add_action( 'current_screen', array( __CLASS__, 'conditional_includes' ) );
 		add_action( 'admin_init', array( __CLASS__, 'admin_redirects' ) );
+
+		// REST API.
+		add_filter( 'cocart_rest_api_get_rest_namespaces', array( __CLASS__, 'add_rest_namespace' ) );
+		add_filter( 'cocart_send_cache_control_patterns', function( $patterns ) {
+			$patterns[] = '#^/cocart/settings/get?#';
+
+			return $patterns;
+		});
 
 		// Install CoCart Plugins Action.
 		add_action( 'update-custom_install-cocart-plugin', array( __CLASS__, 'install_cocart_plugin' ) );
@@ -128,6 +137,7 @@ class Package {
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-tracker.php';     // Plugin Tracker.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-suggestions.php'; // Plugin Suggestions.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-search.php';      // Plugin Search.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php';           // Plugin Settings.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-wc-admin-notices.php';   // WooCommerce Admin Notices.
 		include_once COCART_ABSPATH . 'includes/classes/admin/class-cocart-wc-admin-system-status.php'; // WooCommerce System Status.
 
@@ -300,5 +310,20 @@ class Package {
 
 		return $install_actions;
 	} // END install_plugin_complete_actions()
+
+	/**
+	 * Adds the REST API namespace.
+	 *
+	 * @access public
+	 * @static
+	 * @return array
+	 */
+	public static function add_rest_namespace( $namespaces ) {
+		$namespaces['cocart/settings'] = array(
+			'cocart-settings' => 'CoCart_REST_Settings_Controller',
+		);
+
+		return $namespaces;
+	} // END add_rest_namespace()
 
 } // END class

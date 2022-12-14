@@ -64,7 +64,7 @@ class CoCart_WC_Admin_Need_Help_Note extends WCAdminNotes {
 	 * @static
 	 * @since   2.3.0 Introduced.
 	 * @since   3.2.0 Dropped support for WooCommerce less than version 4.8
-	 * @version 3.2.0
+	 * @version 4.0.0
 	 * @return  array
 	 */
 	public static function get_note_args() {
@@ -79,7 +79,7 @@ class CoCart_WC_Admin_Need_Help_Note extends WCAdminNotes {
 
 		$args = array(
 			'title'   => __( 'Need help with CoCart?', 'cart-rest-api-for-woocommerce' ),
-			'content' => __( 'You can ask a question on the support forum, discuss with other CoCart developers in the Slack community or get priority support.', 'cart-rest-api-for-woocommerce' ),
+			'content' => __( 'You can ask a question on the support forum or discuss with other CoCart developers in the Slack community.', 'cart-rest-api-for-woocommerce' ),
 			'name'    => self::NOTE_NAME,
 			'actions' => array(
 				array(
