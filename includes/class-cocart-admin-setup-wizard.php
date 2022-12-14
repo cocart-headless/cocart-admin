@@ -198,13 +198,15 @@ class SetupWizard {
 		<head>
 			<meta name="viewport" content="width=device-width" />
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-			<title><?php
+			<title>
+			<?php
 			printf(
 				/* translators: %s: CoCart */
 				esc_html__( '%s &rsaquo; Setup Wizard', 'cart-rest-api-for-woocommerce' ),
 				'CoCart'
 			);
-			?></title>
+			?>
+			</title>
 			<?php do_action( 'admin_enqueue_scripts' ); ?>
 			<?php do_action( 'admin_print_styles' ); ?>
 			<?php do_action( 'admin_head' ); ?>
