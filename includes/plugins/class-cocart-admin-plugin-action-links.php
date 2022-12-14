@@ -83,7 +83,7 @@ class PluginActionLinks {
 	 *
 	 * @access  public
 	 * @since   2.0.0
-	 * @version 3.7.2
+	 * @version 4.0.0
 	 * @param   array  $metadata An array of the plugin's metadata.
 	 * @param   string $file     Path to the plugin file.
 	 * @param   array  $data     Plugin Information.
@@ -115,17 +115,17 @@ class PluginActionLinks {
 			$campaign_args['utm_campaign'] = 'plugins-row';
 
 			$row_meta = array(
-				'docs'      => '<a href="' . Help::build_shortlink( add_query_arg( $campaign_args, COCART_DOCUMENTATION_URL ) ) . '" aria-label="' . sprintf(
+				'docs'      => '<a href="' . esc_url( COCART_DOCUMENTATION_URL ) . '" aria-label="' . sprintf(
 					/* translators: %s: CoCart */
-					esc_attr__( 'View %s documentation', 'cart-rest-api-for-woocommerce' ),
+					esc_attr__( 'View %s API Reference', 'cart-rest-api-for-woocommerce' ),
 					'CoCart'
-				) . '" target="_blank">' . esc_attr__( 'Documentation', 'cart-rest-api-for-woocommerce' ) . '</a>',
+				) . '" target="_blank">' . esc_attr__( 'API Reference', 'cart-rest-api-for-woocommerce' ) . '</a>',
 				'translate' => '<a href="' . Help::build_shortlink( add_query_arg( $campaign_args, COCART_TRANSLATION_URL ) ) . '" aria-label="' . sprintf(
 					/* translators: %s: CoCart */
 					esc_attr__( 'Translate %s', 'cart-rest-api-for-woocommerce' ),
 					'CoCart'
 				) . '" target="_blank">' . esc_attr__( 'Translate', 'cart-rest-api-for-woocommerce' ) . '</a>',
-				'review'    => '<a href="' . Help::build_shortlink( add_query_arg( $campaign_args, COCART_REVIEW_URL ) ) . '" aria-label="' . sprintf(
+				'review'    => '<a href="' . esc_url( COCART_REVIEW_URL ) . '" aria-label="' . sprintf(
 					/* translators: %s: CoCart */
 					esc_attr__( 'Review %s on WordPress.org', 'cart-rest-api-for-woocommerce' ),
 					'CoCart'

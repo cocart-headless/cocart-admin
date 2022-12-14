@@ -144,9 +144,10 @@ class Package {
 	/**
 	 * Include admin files conditionally.
 	 *
-	 * @access public
+	 * @access  public
 	 * @static
-	 * @since  3.0.0 Introduced.
+	 * @since   3.0.0 Introduced.
+	 * @version 4.0.0
 	 */
 	public static function conditional_includes() {
 		$screen = get_current_screen();
@@ -157,7 +158,8 @@ class Package {
 
 		switch ( $screen->id ) {
 			case 'plugins':
-				include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-action-links.php'; // Plugin Action Links.
+				include_once dirname( __FILE__ ) . '/plugins/class-cocart-admin-plugin-extras.php'; // Plugin Extras.
+				include_once dirname( __FILE__ ) . '/plugins/class-cocart-admin-plugin-action-links.php'; // Plugin Action Links.
 				break;
 		}
 	} // END conditional_includes()
