@@ -213,7 +213,7 @@ class PluginExtras {
 		}
 
 		// Clear the plugins list if it is our status.
-		if ( $_REQUEST['plugin_status'] === 'cocart_addons' ) {
+		elseif ( isset( $_REQUEST['plugin_status'] ) && $_REQUEST['plugin_status'] === 'cocart_addons' ) {
 			$plugins = array();
 		}
 
