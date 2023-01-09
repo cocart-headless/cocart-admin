@@ -10,6 +10,8 @@
 
 namespace CoCart\Admin;
 
+use CoCart\Help;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -167,12 +169,11 @@ class PluginExtras {
 			}
 			switch ( $type ) {
 				case 'cocart_addons':
-					/* translators: %s: Number of add-ons. */
-					$text = _n(
-						'CoCart Add-ons <span class="count">(%s)</span>',
-						'CoCart Add-ons <span class="count">(%s)</span>',
-						$count,
-						'cocart-pro'
+					$label = Help::is_white_labelled() ? esc_html__( 'Headless Add-ons', 'cart-rest-api-for-woocommerce' ) : esc_html__( 'CoCart Add-ons', 'cart-rest-api-for-woocommerce' );
+					$text  = sprintf(
+						'%1$s <span class="count">(%2$s)</span>',
+						$label,
+						$count
 					);
 			}
 

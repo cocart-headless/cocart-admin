@@ -28,8 +28,10 @@ class Notices {
 	 * Activation date.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @var    string
+	 *
+	 * @var string
 	 */
 	public static $install_date;
 
@@ -37,9 +39,12 @@ class Notices {
 	 * Stores notices.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.0.0
-	 * @var    array
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var array
 	 */
 	public static $notices = array();
 
@@ -47,9 +52,12 @@ class Notices {
 	 * Array of notices - name => callback.
 	 *
 	 * @access private
+	 *
 	 * @static
-	 * @since  3.0.0
-	 * @var    array
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var array
 	 */
 	private static $core_notices = array(
 		'update_db'           => 'update_db_notice',
@@ -65,7 +73,8 @@ class Notices {
 	/**
 	 * Constructor
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   1.2.0
 	 * @version 3.1.0
 	 */
@@ -90,8 +99,10 @@ class Notices {
 	 * Store notices to DB.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
 	 */
 	public static function store_notices() {
 		update_option( 'cocart_admin_notices', self::get_notices() );
@@ -101,8 +112,11 @@ class Notices {
 	 * Get notices
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
+	 *
 	 * @return array
 	 */
 	public static function get_notices() {
@@ -113,8 +127,10 @@ class Notices {
 	 * Remove all notices.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
 	 */
 	public static function remove_all_notices() {
 		self::$notices = array();
@@ -124,7 +140,8 @@ class Notices {
 	 * Reset notices for when new version of CoCart is installed.
 	 *
 	 * @access public
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
 	 */
 	public function reset_admin_notices() {
 		self::add_notice( 'check_php' );
@@ -137,10 +154,13 @@ class Notices {
 	 * Show a notice.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.0.0
-	 * @param  string $name Notice name.
-	 * @param  bool   $force_save Force saving inside this method instead of at the 'shutdown'.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $name Notice name.
+	 * @param bool   $force_save Force saving inside this method instead of at the 'shutdown'.
 	 */
 	public static function add_notice( $name, $force_save = false ) {
 		self::$notices = array_unique( array_merge( self::get_notices(), array( $name ) ) );
@@ -155,10 +175,13 @@ class Notices {
 	 * Remove a notice from being displayed.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.0.0
-	 * @param  string $name Notice name.
-	 * @param  bool   $force_save Force saving inside this method instead of at the 'shutdown'.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $name Notice name.
+	 * @param bool   $force_save Force saving inside this method instead of at the 'shutdown'.
 	 */
 	public static function remove_notice( $name, $force_save = false ) {
 		$notices = self::get_notices();
@@ -179,12 +202,15 @@ class Notices {
 	/**
 	 * See if a notice is being shown.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @static
 	 * @since   3.0.0
 	 * @version 3.1.0
-	 * @param   string $name Notice name.
-	 * @return  boolean
+	 *
+	 * @param string $name Notice name.
+	 *
+	 * @return boolean
 	 */
 	public static function has_notice( $name ) {
 		return in_array( $name, self::get_notices(), true );
@@ -194,7 +220,8 @@ class Notices {
 	 * Hide a notice if the GET variable is set.
 	 *
 	 * @access public
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
 	 */
 	public function hide_notices() {
 		if ( isset( $_GET['cocart-hide-notice'] ) && isset( $_GET['_cocart_notice_nonce'] ) ) {
@@ -222,7 +249,8 @@ class Notices {
 	/**
 	 * Add notices.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.0.17
 	 */
@@ -256,10 +284,13 @@ class Notices {
 	 * Add a custom notice.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.0.0
-	 * @param  string $name        Notice name.
-	 * @param  string $notice_html Notice HTML.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $name        Notice name.
+	 * @param string $notice_html Notice HTML.
 	 */
 	public static function add_custom_notice( $name, $notice_html ) {
 		self::add_notice( $name );
@@ -270,7 +301,9 @@ class Notices {
 	 * Output any stored custom notices.
 	 *
 	 * @access public
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
+	 *
 	 * @return void
 	 */
 	public function output_custom_notices() {
@@ -293,7 +326,9 @@ class Notices {
 	 * Notice about base tables missing.
 	 *
 	 * @access public
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
+	 *
 	 * @return void
 	 */
 	public function base_tables_missing_notice() {
@@ -312,10 +347,12 @@ class Notices {
 	/**
 	 * Shows a notice asking the user for a review of CoCart.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.2.0
-	 * @return  void
+	 *
+	 * @return void
 	 */
 	public function timed_notices() {
 		// Add review notice first. We will remove it after if already dismissed.
@@ -334,8 +371,10 @@ class Notices {
 	 * If we need to update the database, include a message with the DB update button.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
 	 */
 	public static function update_db_notice() {
 		$screen    = get_current_screen();
@@ -359,10 +398,12 @@ class Notices {
 	 *
 	 * Shows the PHP requirement notice if minimum requirement does not meet.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   2.6.0
 	 * @version 3.0.0
-	 * @return  void
+	 *
+	 * @return void
 	 */
 	public function check_php_notice() {
 		if ( ! Help::is_environment_compatible() && is_plugin_active( plugin_basename( COCART_FILE ) ) ) {
@@ -376,10 +417,12 @@ class Notices {
 	 * Checks that the WordPress version meets the plugin requirement before deciding
 	 * to deactivate the plugin and show the WordPress requirement notice if it doesn't meet.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   1.2.0
 	 * @version 3.0.0
-	 * @return  void
+	 *
+	 * @return void
 	 */
 	public function check_wp_notice() {
 		if ( ! Help::is_wp_version_gte( Core::$required_wp ) ) {
@@ -392,7 +435,9 @@ class Notices {
 	 * Check WooCommerce Dependency.
 	 *
 	 * @access public
-	 * @since  3.0.0
+	 *
+	 * @since 3.0.0
+	 *
 	 * @return void
 	 */
 	public function check_woocommerce_notice() {
@@ -414,10 +459,12 @@ class Notices {
 	/**
 	 * Displays notice if user is testing pre-release version of the plugin.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   1.2.0
 	 * @version 3.0.0
-	 * @return  void
+	 *
+	 * @return void
 	 */
 	public function check_beta_notice() {
 		// Is this version of CoCart a pre-release?
@@ -431,10 +478,12 @@ class Notices {
 	 *
 	 * Shown after 2 weeks or more from the time the plugin was installed.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   1.2.0
 	 * @version 3.0.0
-	 * @return  void
+	 *
+	 * @return void
 	 */
 	public function plugin_review_notice() {
 		// If it has been 2 weeks or more since activating the plugin then display the review notice.
@@ -449,7 +498,9 @@ class Notices {
 	 * Shows only for those new to CoCart or setup wizard has not be done.
 	 *
 	 * @access public
-	 * @since  3.1.0
+	 *
+	 * @since 3.1.0
+	 *
 	 * @return void
 	 */
 	public function setup_wizard_notice() {

@@ -28,7 +28,8 @@ class SetupWizard {
 	 * Current step
 	 *
 	 * @access private
-	 * @var    string
+	 *
+	 * @var string
 	 */
 	private $step = '';
 
@@ -36,7 +37,8 @@ class SetupWizard {
 	 * Steps for the setup wizard
 	 *
 	 * @access private
-	 * @var    array
+	 *
+	 * @var array
 	 */
 	private $steps = array();
 
@@ -44,7 +46,8 @@ class SetupWizard {
 	 * Tweets user can optionally send after setup.
 	 *
 	 * @access private
-	 * @var    array
+	 *
+	 * @var array
 	 */
 	private $tweets = array(
 		'Cha ching. I just set up a headless store with @WooCommerce and @cocartapi!',
@@ -67,7 +70,7 @@ class SetupWizard {
 
 		// Run transfer sessions in the background when called.
 		add_action( 'cocart_run_transfer_sessions', 'cocart_transfer_sessions' );
-	}
+	} // END __construct()
 
 	/**
 	 * Add admin menus/screens.
@@ -76,7 +79,7 @@ class SetupWizard {
 	 */
 	public function admin_menus() {
 		add_dashboard_page( '', '', 'manage_options', 'cocart-setup', '' );
-	}
+	} // END admin_menus()
 
 	/**
 	 * Register/enqueue scripts and styles for the Setup Wizard.
@@ -94,16 +97,15 @@ class SetupWizard {
 		if ( $suffix ) {
 			wp_style_add_data( 'cocart-setup', 'suffix', '.min' );
 		}
-	}
+	} // END enqueue_scripts()
 
 	/**
 	 * Show the setup wizard.
 	 *
 	 * @access public
 	 *
-	 * @since   3.1.0 Introduced.
-	 * @since   4.0.0 Added settings step.
-	 * @version 4.0.0
+	 * @since 3.1.0 Introduced.
+	 * @since 4.0.0 Added settings step.0
 	 */
 	public function setup_wizard() {
 		if ( empty( $_GET['page'] ) || 'cocart-setup' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -151,10 +153,12 @@ class SetupWizard {
 	 * Get the URL for the next step's screen.
 	 *
 	 * @access public
-	 * @param  string $step  slug (default: current step).
-	 * @return string       URL for next step if a next step exists.
-	 *                      Admin URL if it's the last step.
-	 *                      Empty string on failure.
+	 *
+	 * @param string $step slug (default: current step).
+	 *
+	 * @return string URL for next step if a next step exists.
+	 *                Admin URL if it's the last step.
+	 *                Empty string on failure.
 	 */
 	public function get_next_step_link( $step = '' ) {
 		if ( ! $step ) {
@@ -522,8 +526,10 @@ class SetupWizard {
 	 * Helper method to queue the background install of a plugin.
 	 *
 	 * @access protected
-	 * @param  string $plugin_id  Plugin id used for background install.
-	 * @param  array  $plugin_info Plugin info array containing name and repo-slug, and optionally file if different from [repo-slug].php.
+	 *
+	 * @param string $plugin_id   Plugin id used for background install.
+	 * @param array  $plugin_info Plugin info array containing name and repo-slug,
+	 *                            and optionally file if different from [repo-slug].php.
 	 */
 	protected function install_plugin( $plugin_id, $plugin_info ) {
 		$plugin_file = isset( $plugin_info['file'] ) ? $plugin_info['file'] : $plugin_info['repo-slug'] . '.php';
@@ -556,6 +562,7 @@ class SetupWizard {
 	 * Helper method to retrieve the current user's email address.
 	 *
 	 * @access protected
+	 *
 	 * @return string Email address
 	 */
 	protected function get_current_user_email() {

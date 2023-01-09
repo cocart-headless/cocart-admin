@@ -26,7 +26,9 @@ class Menus {
 	 * @access public
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		if ( ! Help::is_white_labelled() ) {
+			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		}
 		add_filter( 'parent_file', array( $this, 'highlight_submenu' ) );
 	} // END __construct()
 
@@ -134,7 +136,11 @@ class Menus {
 		 *
 		 * @since 3.0.0
 		 */
-		if ( class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) && apply_filters( 'cocart_wc_navigation', true ) ) {
+		if (
+			method_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu', 'add_plugin_category' ) &&
+			method_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu', 'add_plugin_item' ) &&
+			apply_filters( 'cocart_wc_navigation', true )
+		) {
 			// Add Category.
 			\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_category(
 				array(
@@ -144,7 +150,7 @@ class Menus {
 				)
 			);
 
-			// Add Page.
+			// Getting Started.
 			\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item(
 				array(
 					'id'         => 'cocart',
@@ -154,6 +160,43 @@ class Menus {
 					'parent'     => 'cocart-category',
 				)
 			);
+
+			// Settings
+			\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item(
+				array(
+					'id'         => 'cocart-settings',
+					'title'      => esc_attr__( 'Settings', 'cart-rest-api-for-woocommerce' ),
+					'capability' => apply_filters( 'cocart_screen_capability', 'manage_options' ),
+					'url'        => 'cocart&section=settings',
+					'parent'     => 'cocart-category',
+				)
+			);
+
+			// Setup Wizard
+			if ( apply_filters( 'cocart_enable_setup_wizard', true ) ) {
+				\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item(
+					array(
+						'id'         => 'cocart-setup-wizard',
+						'title'      => esc_attr__( 'Setup Wizard', 'cart-rest-api-for-woocommerce' ),
+						'capability' => apply_filters( 'cocart_screen_capability', 'manage_options' ),
+						'url'        => admin_url( 'admin.php?page=cocart-setup' ),
+						'parent'     => 'cocart-category',
+					)
+				);
+			}
+
+			// Upgrade
+			if ( ! Help::is_cocart_pro_activated() ) {
+				\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item(
+					array(
+						'id'         => 'cocart-upgrade',
+						'title'      => esc_attr__( 'Upgrade', 'cart-rest-api-for-woocommerce' ),
+						'capability' => apply_filters( 'cocart_screen_capability', 'manage_options' ),
+						'url'        => 'cocart&section=upgrade',
+						'parent'     => 'cocart-category',
+					)
+				);
+			}
 		}
 	} // END admin_menu()
 

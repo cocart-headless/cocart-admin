@@ -50,6 +50,8 @@ class PluginSearch {
 	/**
 	 * Add actions and filters only if this is the plugin installation screen.
 	 *
+	 * @access public
+	 *
 	 * @param object $screen WP Screen object.
 	 */
 	public function start( $screen ) {
@@ -67,20 +69,22 @@ class PluginSearch {
 			add_filter( 'install_plugins_table_api_args_cocart', array( $this, 'plugin_list_args' ) );
 			add_action( 'install_plugins_cocart', array( $this, 'cocart_plugin_dashboard' ) );
 		}
-	}
+	} // END start()
 
 	/**
 	 * Add CoCart plugin tab.
 	 *
 	 * @access public
-	 * @param  array $tabs Default plugin tabs.
+	 *
+	 * @param array $tabs Default plugin tabs.
+	 *
 	 * @return array $tabs Altered plugin tabs.
 	 */
 	public function plugins_tab( $tabs ) {
 		return array_merge(
 			$tabs,
 			array(
-				'cocart' => 'CoCart',
+				'cocart' => Help::is_white_labelled() ? esc_html_( 'Headless', 'cart-rest-api-for-woocommerce' ) : 'CoCart',
 			)
 		);
 	} // END plugins_tab()
@@ -92,7 +96,9 @@ class PluginSearch {
 	 * action hook to return our results.
 	 *
 	 * @access public
-	 * @param  object $args Default arguments.
+	 *
+	 * @param object $args Default arguments.
+	 *
 	 * @return object $args
 	 */
 	public function plugin_list_args( $args ) {
@@ -121,6 +127,7 @@ class PluginSearch {
 	 * installed plugins.
 	 *
 	 * @access protected
+	 *
 	 * @return array
 	 */
 	protected function get_installed_plugins() {
@@ -148,10 +155,10 @@ class PluginSearch {
 	/**
 	 * Displays our own plugin dashboard on the plugin install page.
 	 *
-	 * @access  public
-	 * @since   3.0.0
-	 * @since   3.5.0 Added condition to only show suggestions if allowed.
-	 * @version 3.1.0
+	 * @access public
+	 *
+	 * @since 3.0.0
+	 * @since 3.5.0 Added condition to only show suggestions if allowed.
 	 */
 	public function cocart_plugin_dashboard() {
 		if ( self::is_airplane_mode_enabled() === 'on' ) {
@@ -173,7 +180,7 @@ class PluginSearch {
 					<?php
 					echo sprintf(
 						/* translators: %1$s: https://cocart.xyz/add-ons/, %2$s: https://cocart.xyz/woocommerce-extensions/ */
-						__( 'These plugins are supported, extend and expand the functionality of CoCart. You may learn more about each of the <a href="%1$s" target="_blank">CoCart add-ons</a> and <a href="%2$s" target="_blank">WooCommerce extensions</a> from CoCart.xyz', 'cart-rest-api-for-woocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						__( 'These plugins support, extend and expand the functionality of CoCart while other plugins provide tools for your headless needs. You may learn more about each of the <a href="%1$s" target="_blank">CoCart add-ons</a> and <a href="%2$s" target="_blank">WooCommerce extensions</a> from CoCart\'s official website.', 'cart-rest-api-for-woocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						esc_url( COCART_STORE_URL . 'add-ons/' ),
 						esc_url( COCART_STORE_URL . 'woocommerce-extensions/' )
 					);
@@ -207,7 +214,8 @@ class PluginSearch {
 	/**
 	 * Load the search scripts and CSS for Plugin Search Suggestion and tweaks.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.0.17
 	 */
@@ -244,7 +252,9 @@ class PluginSearch {
 	 * Get the plugin repo's data for CoCart to populate the fields with.
 	 *
 	 * @access public
+	 *
 	 * @static
+	 *
 	 * @return array|mixed|object|WP_Error
 	 */
 	public static function get_cocart_plugin_data() {
@@ -277,8 +287,11 @@ class PluginSearch {
 	 * Get the plugin data from WP.org to populate fields with.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @param  string $slug Plugin slug.
+	 *
+	 * @param string $slug Plugin slug.
+	 *
 	 * @return array|mixed|object|WP_Error
 	 */
 	public static function get_wporg_plugin_data( $slug = '' ) {
@@ -305,8 +318,10 @@ class PluginSearch {
 	 * Returns all plugin suggestions.
 	 *
 	 * @access public
-	 * @since  3.1.0 Introduced
-	 * @since  3.5.0 Changed to fetch cached data or request new data if out of date.
+	 *
+	 * @since 3.1.0 Introduced
+	 * @since 3.5.0 Changed to fetch cached data or request new data if out of date.
+	 *
 	 * @return array
 	 */
 	public function get_suggestions() {
@@ -323,12 +338,15 @@ class PluginSearch {
 	/**
 	 * Gets data to inject results.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.1.0
-	 * @param   array $inject Plugin information from WordPress.org.
-	 * @param   array $data   Plugin information from CoCart.
-	 * @return  array         Plugin results to inject.
+	 *
+	 * @param array $inject Plugin information from WordPress.org.
+	 * @param array $data   Plugin information from CoCart.
+	 *
+	 * @return array Plugin results to inject.
 	 */
 	public function get_inject_data( $inject, $data ) {
 		return array(
@@ -365,13 +383,16 @@ class PluginSearch {
 	/**
 	 * Filter plugin fetching API results to inject CoCart add-ons.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.1.0
-	 * @param   object|WP_Error $result Response object or WP_Error.
-	 * @param   string          $action The type of information being requested from the Plugin Install API.
-	 * @param   object          $args   Plugin API arguments.
-	 * @return  array           $result Updated array of results.
+	 *
+	 * @param object|WP_Error $result Response object or WP_Error.
+	 * @param string          $action The type of information being requested from the Plugin Install API.
+	 * @param object          $args   Plugin API arguments.
+	 *
+	 * @return array           $result Updated array of results.
 	 */
 	public function inject_cocart_suggestion( $result, $action, $args ) {
 		// Return current results if we are not searching for suggestion.
@@ -450,12 +471,15 @@ class PluginSearch {
 	 * Filter plugin fetching API results to return CoCart add-ons.
 	 *
 	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.1.0
-	 * @param   object|WP_Error $result Response object or WP_Error.
-	 * @param   string          $action The type of information being requested from the Plugin Install API.
-	 * @param   object          $args   Plugin API arguments.
-	 * @return  array           $result Updated array of results.
+	 *
+	 * @param object|WP_Error $result Response object or WP_Error.
+	 * @param string          $action The type of information being requested from the Plugin Install API.
+	 * @param object          $args   Plugin API arguments.
+	 *
+	 * @return array $result Updated array of results.
 	 */
 	public function cocart_plugins( $result, $action, $args ) {
 		// If we are not browsing just CoCart then return results.
@@ -513,7 +537,9 @@ class PluginSearch {
 	 * easy to work with.
 	 *
 	 * @access private
-	 * @param  string $term The raw search term.
+	 *
+	 * @param string $term The raw search term.
+	 *
 	 * @return string A simplified/sanitized version.
 	 */
 	private function sanitize_search_term( $term ) {
@@ -532,6 +558,7 @@ class PluginSearch {
 	 * Returns allowed html tags.
 	 *
 	 * @access public
+	 *
 	 * @return array
 	 */
 	public function plugins_allowedtags() {
@@ -558,12 +585,15 @@ class PluginSearch {
 	/**
 	 * Put some more appropriate links on our custom result cards.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.1.0
-	 * @param   array $links Related links.
-	 * @param   array $plugin Plugin result information.
-	 * @return  array $links Returns our related links or falls back to default.
+	 *
+	 * @param array $links Related links.
+	 * @param array $plugin Plugin result information.
+	 *
+	 * @return array $links Returns our related links or falls back to default.
 	 */
 	public function insert_related_links( $links, $plugin ) {
 		if ( isset( $_GET['tab'] ) && 'cocart' === $_GET['tab'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -605,12 +635,15 @@ class PluginSearch {
 	/**
 	 * Returns related links for each CoCart plugin.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.1.0
-	 * @param   array $plugin Plugin details.
-	 * @param   array $links  Related links before change.
-	 * @return  array $links  Related links after change.
+	 *
+	 * @param array $plugin Plugin details.
+	 * @param array $links  Related links before change.
+	 *
+	 * @return array $links  Related links after change.
 	 */
 	public function get_related_links( $plugin, $links ) {
 		return self::get_action_links( $plugin, $links );
@@ -619,11 +652,14 @@ class PluginSearch {
 	/**
 	 * Returns related links for suggested plugin.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.1.0
-	 * @param   array $plugin Plugin details.
-	 * @return  array $links  Related links after change.
+	 *
+	 * @param array $plugin Plugin details.
+	 *
+	 * @return array $links  Related links after change.
 	 */
 	public function get_suggestion_links( $plugin ) {
 		$links = array();
@@ -634,12 +670,15 @@ class PluginSearch {
 	/**
 	 * Returns action links.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   3.0.0
 	 * @version 3.1.0
-	 * @param   array $plugin Plugin details.
-	 * @param   array $links  Related links before change.
-	 * @return  array $links  Related links after change.
+	 *
+	 * @param array $plugin Plugin details.
+	 * @param array $links  Related links before change.
+	 *
+	 * @return array $links Related links after change.
 	 */
 	public function get_action_links( $plugin, $links = array() ) {
 		$plugins_allowed_tags = self::plugins_allowedtags();
@@ -786,7 +825,9 @@ class PluginSearch {
 	 * Checks if Airplane mode is enabled.
 	 *
 	 * @access public
-	 * @since  3.1.0
+	 *
+	 * @since 3.1.0
+	 *
 	 * @return string Status of Airplane mode.
 	 */
 	public function is_airplane_mode_enabled() {
@@ -806,7 +847,9 @@ class PluginSearch {
 	 * Should suggestions be displayed?
 	 *
 	 * @access public
-	 * @since  3.5.0 Introduced.
+	 *
+	 * @since 3.5.0 Introduced.
+	 *
 	 * @return bool
 	 */
 	public function allow_suggestions() {
@@ -843,7 +886,7 @@ class PluginSearch {
 	 * @return array of json API data
 	 */
 	public static function get_suggestions_api_data() {
-		if ( ! class_exists( '\ActionScheduler' ) || ! \ActionScheduler::is_initialized() ) {
+		if ( ! \ActionScheduler::is_initialized() ) {
 			return;
 		}
 

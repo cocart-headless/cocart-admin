@@ -36,7 +36,8 @@ class Assets {
 	/**
 	 * Registers and enqueue Stylesheets.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   1.2.0
 	 * @version 4.0.0
 	 */
@@ -66,11 +67,14 @@ class Assets {
 	/**
 	 * Adds admin body class for CoCart page.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @since   1.2.0
 	 * @version 3.0.7
-	 * @param   string $classes - Classes already registered.
-	 * @return  string $classes - All classes registered.
+	 *
+	 * @param string $classes - Classes already registered.
+	 *
+	 * @return string $classes - All classes registered.
 	 */
 	public function admin_body_class( $classes ) {
 		$screen    = get_current_screen();

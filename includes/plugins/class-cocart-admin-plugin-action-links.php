@@ -33,10 +33,13 @@ class PluginActionLinks {
 	/**
 	 * Plugin action links.
 	 *
-	 * @access  public
-	 * @since   2.0.0
+	 * @access public
+	 *
+	 * @since   2.0.0 Introduced.
 	 * @version 3.7.2
-	 * @param   array $links An array of plugin links.
+	 *
+	 * @param array $links An array of plugin links.
+	 *
 	 * @return  array $links
 	 */
 	public function plugin_action_links( $links ) {
@@ -81,13 +84,15 @@ class PluginActionLinks {
 	/**
 	 * Plugin row meta links
 	 *
-	 * @access  public
-	 * @since   2.0.0
-	 * @version 4.0.0
-	 * @param   array  $metadata An array of the plugin's metadata.
-	 * @param   string $file     Path to the plugin file.
-	 * @param   array  $data     Plugin Information.
-	 * @return  array  $metadata
+	 * @access public
+	 *
+	 * @since 2.0.0 Introduced.
+	 *
+	 * @param array  $metadata An array of the plugin's metadata.
+	 * @param string $file     Path to the plugin file.
+	 * @param array  $data     Plugin Information.
+	 *
+	 * @return array $metadata
 	 */
 	public function plugin_row_meta( $metadata, $file, $data ) {
 		if ( version_compare( get_option( 'cocart_version' ), COCART_VERSION, '<' ) ) {

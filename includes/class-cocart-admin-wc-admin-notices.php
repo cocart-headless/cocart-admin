@@ -29,15 +29,15 @@ class WCAdminNotes {
 	 */
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'include_notes' ), 15 );
-	}
+	} // END __construct()
 
 	/**
 	 * Include the notes to create.
 	 *
-	 * @access  public
-	 * @since   2.3.0
-	 * @since   3.2.0 Check if WC Admin is enabled or available.
-	 * @version 3.2.0
+	 * @access public
+	 *
+	 * @since 2.3.0 Introduced.
+	 * @since 3.2.0 Check if WC Admin is enabled or available.
 	 */
 	public function include_notes() {
 		// Don't include notes if WC v4.0 or greater is not installed.
@@ -61,13 +61,16 @@ class WCAdminNotes {
 	/**
 	 * Add note.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @static
+	 *
 	 * @since   2.3.0
 	 * @version 2.4.0
-	 * @param   string $note_name  Note name.
-	 * @param   string $seconds    How many seconds since CoCart was installed before the notice is shown.
-	 * @param   string $source     Source of the note.
+	 *
+	 * @param string $note_name Note name.
+	 * @param string $seconds   How many seconds since CoCart was installed before the notice is shown.
+	 * @param string $source    Source of the note.
 	 */
 	public static function add_note( $note_name = '', $seconds = '', $source = 'cocart' ) {
 		// Don't show the note if CoCart has not been active long enough.
@@ -79,14 +82,17 @@ class WCAdminNotes {
 	/**
 	 * Create a new note.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @static
-	 * @param   array $args - Arguments to create the note.
-	 * @since   2.3.0
-	 * @since   3.2.0 Dropped support for WooCommerce less than version 4.8
-	 * @since   3.2.0 Added filter to prevent note from being created.
-	 * @version 3.2.0
-	 * @return  object
+	 *
+	 * @since 2.3.0
+	 * @since 3.2.0 Dropped support for WooCommerce less than version 4.8
+	 * @since 3.2.0 Added filter to prevent note from being created.
+	 *
+	 * @param array $args Arguments to create the note.
+	 *
+	 * @return object
 	 */
 	public static function create_new_note( $args = array() ) {
 		/**

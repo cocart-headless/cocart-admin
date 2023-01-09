@@ -40,6 +40,7 @@ class PluginTracker {
 	 * Initialize the Appsero plugin tracker.
 	 *
 	 * @access public
+	 *
 	 * @return void
 	 */
 	public function appsero_init_tracker() {
@@ -96,7 +97,9 @@ class PluginTracker {
 	 * Get number of orders
 	 *
 	 * @access protected
+	 *
 	 * @global wpdb $wpdb WordPress database abstraction object.
+	 *
 	 * @return int Number of orders.
 	 */
 	protected function get_order_count() {

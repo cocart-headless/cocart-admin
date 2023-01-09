@@ -35,6 +35,7 @@ class Package {
 	 * Initiate Package.
 	 *
 	 * @access public
+	 *
 	 * @static
 	 */
 	public static function init() {
@@ -62,6 +63,7 @@ class Package {
 	 * Setup Constants
 	 *
 	 * @access public
+	 *
 	 * @static
 	 */
 	public static function setup_constants() {
@@ -79,9 +81,11 @@ class Package {
 	 * Define constant if not already set.
 	 *
 	 * @access private
+	 *
 	 * @static
-	 * @param  string      $name Name of constant.
-	 * @param  string|bool $value Value of constant.
+	 *
+	 * @param string      $name Name of constant.
+	 * @param string|bool $value Value of constant.
 	 */
 	private static function define( $name, $value ) {
 		if ( ! defined( $name ) ) {
@@ -93,7 +97,9 @@ class Package {
 	 * Return the name of the package.
 	 *
 	 * @access public
+	 *
 	 * @static
+	 *
 	 * @return string
 	 */
 	public static function get_name() {
@@ -104,7 +110,9 @@ class Package {
 	 * Return the version of the package.
 	 *
 	 * @access public
+	 *
 	 * @static
+	 *
 	 * @return string
 	 */
 	public static function get_version() {
@@ -115,7 +123,9 @@ class Package {
 	 * Return the path to the package.
 	 *
 	 * @access public
+	 *
 	 * @static
+	 *
 	 * @return string
 	 */
 	public static function get_path() {
@@ -125,20 +135,22 @@ class Package {
 	/**
 	 * Include any classes we need within admin.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @static
+	 *
 	 * @since   1.2.0 Introduced.
 	 * @version 4.0.0
 	 */
 	public static function includes() {
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-assets.php';             // Admin Assets.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-menus.php';              // Admin Menus.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-notices.php';            // Plugin Notices.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-tracker.php';     // Plugin Tracker.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-suggestions.php'; // Plugin Suggestions.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-search.php';      // Plugin Search.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php';           // Plugin Settings.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-wc-admin-notices.php';   // WooCommerce Admin Notices.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-assets.php';                            // Admin Assets.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-menus.php';                             // Admin Menus.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-notices.php';                           // Plugin Notices.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-tracker.php';                    // Plugin Tracker.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-suggestions.php';                // Plugin Suggestions.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-search.php';                     // Plugin Search.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php';                          // Plugin Settings.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-wc-admin-notices.php';                  // WooCommerce Admin Notices.
 		include_once COCART_ABSPATH . 'includes/classes/admin/class-cocart-wc-admin-system-status.php'; // WooCommerce System Status.
 
 		// Setup Wizard.
@@ -154,10 +166,11 @@ class Package {
 	/**
 	 * Include admin files conditionally.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @static
-	 * @since   3.0.0 Introduced.
-	 * @version 4.0.0
+	 *
+	 * @since 3.0.0 Introduced.
 	 */
 	public static function conditional_includes() {
 		$screen = get_current_screen();
@@ -168,7 +181,7 @@ class Package {
 
 		switch ( $screen->id ) {
 			case 'plugins':
-				include_once dirname( __FILE__ ) . '/plugins/class-cocart-admin-plugin-extras.php'; // Plugin Extras.
+				include_once dirname( __FILE__ ) . '/plugins/class-cocart-admin-plugin-extras.php';       // Plugin Extras.
 				include_once dirname( __FILE__ ) . '/plugins/class-cocart-admin-plugin-action-links.php'; // Plugin Action Links.
 				break;
 		}
@@ -177,11 +190,15 @@ class Package {
 	/**
 	 * Handle redirects to setup/welcome page after install and updates.
 	 *
-	 * For setup wizard, transient must be present, the user must have access rights, and we must ignore the network/bulk plugin updaters.
+	 * For setup wizard, transient must be present,
+	 * the user must have access rights,
+	 * and we must ignore the network/bulk plugin updaters.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.1.0 Introduced.
+	 *
+	 * @since 3.1.0 Introduced.
 	 */
 	public static function admin_redirects() {
 		// If WooCommerce does not exists then do nothing as we require functions from WooCommerce to function!
@@ -236,8 +253,10 @@ class Package {
 	 * Install CoCart Plugins.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.1.0 Introduced.
+	 *
+	 * @since 3.1.0 Introduced.
 	 */
 	public static function install_cocart_plugin() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
@@ -288,11 +307,14 @@ class Package {
 	 * Returns install plugin complete action link if plugin was related to CoCart.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since  3.1.0 Introduced.
-	 * @param array  $install_actions - Array of install actions.
-	 * @param string $api - The API URL.
-	 * @param string $plugin_file - Plugin file name.
+	 *
+	 * @since 3.1.0 Introduced.
+	 *
+	 * @param array  $install_actions Array of install actions.
+	 * @param string $api The API URL.
+	 * @param string $plugin_file Plugin file name.
 	 */
 	public static function install_plugin_complete_actions( $install_actions, $api, $plugin_file ) {
 		if ( strstr( $plugin_file, 'cocart-' ) ) {
@@ -315,7 +337,9 @@ class Package {
 	 * Adds the REST API namespace.
 	 *
 	 * @access public
+	 *
 	 * @static
+	 *
 	 * @return array
 	 */
 	public static function add_rest_namespace( $namespaces ) {
