@@ -882,8 +882,6 @@ class PluginSearch {
 	 * @access public
 	 *
 	 * @static
-	 *
-	 * @return array of json API data
 	 */
 	public static function get_suggestions_api_data() {
 		if ( ! \ActionScheduler::is_initialized() ) {
@@ -900,8 +898,6 @@ class PluginSearch {
 				WC()->queue()->schedule_single( time() + DAY_IN_SECONDS, 'cocart_update_plugin_suggestions' );
 			}
 		}
-
-		return ! empty( $data['suggestions'] ) ? $data['suggestions'] : array();
 	} // END get_suggestions_api_data()
 
 } // END class
