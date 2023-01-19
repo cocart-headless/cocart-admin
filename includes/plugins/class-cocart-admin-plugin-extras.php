@@ -143,10 +143,6 @@ class PluginExtras {
 	 * @return array $status_links Plugin statuses after.
 	 */
 	public function cocart_addons_plugin_status_link( $status_links ) {
-		if ( ! current_user_can( 'update_plugins' ) ) {
-			return $status_links;
-		}
-
 		// If status link already exists then don't add one.
 		if ( in_array( 'cocart_addons', $status_links ) ) {
 			return $status_links;
