@@ -37,7 +37,7 @@
 	},
 	"devDependencies": {
 		"@lodder/grunt-postcss": "3.1.1",
-		"@wordpress/stylelint-config": "21.5.0",
+		"@wordpress/stylelint-config": "21.8.0",
 		"grunt": "1.5.3",
 		"grunt-contrib-cssmin": "4.0.0",
 		"grunt-contrib-jshint": "3.2.0",
@@ -51,7 +51,7 @@
 		"grunt-stylelint": "0.18.0",
 		"jshint-stylish": "2.2.1",
 		"load-grunt-tasks": "5.1.0",
-		"node-sass": "7.0.1",
+		"node-sass": "8.0.0",
 		"postcss": "8.4.21",
 		"prettier-stylelint": "0.4.2",
 		"stylelint-config-prettier": "9.0.4",
@@ -60,7 +60,7 @@
 	"dependencies": {
 		"autoprefixer": "^10.4.4",
 		"postcss-scss": "^4.0.3",
-		"stylelint": "14.15.0"
+		"stylelint": "14.16.1"
 	},
 	"engines": {
 		"node": ">=16.14",
