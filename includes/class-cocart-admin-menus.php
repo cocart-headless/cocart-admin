@@ -207,8 +207,8 @@ class Menus {
 	 *
 	 * @static
 	 *
-	 * @since   2.0.1 Introduced.
-	 * @version 4.0.0
+	 * @since 2.0.1 Introduced.
+	 * @since 4.0.0 Added global `$current_section` and `$current_tab`
 	 */
 	public static function cocart_page() {
 		global $current_section, $current_tab;
@@ -231,6 +231,11 @@ class Menus {
 				break;
 
 			default:
+				/**
+				 * Triggers when the current section specified is custom.
+				 *
+				 * @since 2.0.1 Introduced.
+				 */
 				do_action( 'cocart_page_section_' . strtolower( str_replace( '-', '_', $current_section ) ) );
 				break;
 		}

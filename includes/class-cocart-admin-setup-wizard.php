@@ -105,7 +105,7 @@ class SetupWizard {
 	 * @access public
 	 *
 	 * @since 3.1.0 Introduced.
-	 * @since 4.0.0 Added settings step.0
+	 * @since 4.0.0 Added settings step.
 	 */
 	public function setup_wizard() {
 		if ( empty( $_GET['page'] ) || 'cocart-setup' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended

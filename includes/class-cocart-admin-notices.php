@@ -42,7 +42,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @var array
 	 */
@@ -55,7 +55,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @var array
 	 */
@@ -75,7 +75,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   1.2.0
+	 * @since   1.2.0 Introduced.
 	 * @version 3.1.0
 	 */
 	public function __construct() {
@@ -102,7 +102,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 */
 	public static function store_notices() {
 		update_option( 'cocart_admin_notices', self::get_notices() );
@@ -115,7 +115,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @return array
 	 */
@@ -130,7 +130,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 */
 	public static function remove_all_notices() {
 		self::$notices = array();
@@ -141,7 +141,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 */
 	public function reset_admin_notices() {
 		self::add_notice( 'check_php' );
@@ -157,7 +157,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @param string $name Notice name.
 	 * @param bool   $force_save Force saving inside this method instead of at the 'shutdown'.
@@ -178,7 +178,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @param string $name Notice name.
 	 * @param bool   $force_save Force saving inside this method instead of at the 'shutdown'.
@@ -205,7 +205,8 @@ class Notices {
 	 * @access public
 	 *
 	 * @static
-	 * @since   3.0.0
+	 *
+	 * @since   3.0.0 Introduced.
 	 * @version 3.1.0
 	 *
 	 * @param string $name Notice name.
@@ -221,7 +222,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 */
 	public function hide_notices() {
 		if ( isset( $_GET['cocart-hide-notice'] ) && isset( $_GET['_cocart_notice_nonce'] ) ) {
@@ -251,7 +252,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.0.17
 	 */
 	public function add_notices() {
@@ -287,7 +288,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @param string $name        Notice name.
 	 * @param string $notice_html Notice HTML.
@@ -302,7 +303,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @return void
 	 */
@@ -327,7 +328,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @return void
 	 */
@@ -349,7 +350,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.2.0
 	 *
 	 * @return void
@@ -374,7 +375,7 @@ class Notices {
 	 *
 	 * @static
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 */
 	public static function update_db_notice() {
 		$screen    = get_current_screen();
@@ -400,7 +401,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   2.6.0
+	 * @since   2.6.0 Introduced.
 	 * @version 3.0.0
 	 *
 	 * @return void
@@ -419,7 +420,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   1.2.0
+	 * @since   1.2.0 Introduced.
 	 * @version 3.0.0
 	 *
 	 * @return void
@@ -436,7 +437,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 *
 	 * @return void
 	 */
@@ -461,7 +462,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   1.2.0
+	 * @since   1.2.0 Introduced.
 	 * @version 3.0.0
 	 *
 	 * @return void
@@ -480,7 +481,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   1.2.0
+	 * @since   1.2.0 Introduced.
 	 * @version 3.0.0
 	 *
 	 * @return void
@@ -499,7 +500,7 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since 3.1.0
+	 * @since 3.1.0 Introduced.
 	 *
 	 * @return void
 	 */
