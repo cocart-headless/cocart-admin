@@ -330,3 +330,7 @@ body.cocart .error {
     margin-right: 40px;
     margin-top: 30px;
     padding-bottom: 30px; }
+  .cocart.settings-page .notice p {
+    font-size: inherit;
+    line-height: inherit;
+    margin-bottom: 0.5em; }

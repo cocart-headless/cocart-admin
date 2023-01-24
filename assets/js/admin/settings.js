@@ -31,7 +31,7 @@
 
 			// Prepare posted data.
 			var ignore_fields = [ 'cocart-settings', '_wpnonce', '_wp_http_referer' ];
-			var formData = $( '#settings-form' ).serializeArray().reduce((obj, field) => {
+			var formData      = $( '#settings-form' ).serializeArray().reduce((obj, field) => {
 				if ( $.inArray( field.name, ignore_fields ) === -1 ) {
 					if ( field.name === 'salt_key' && skip_salt === true ) {
 						console.log( 'Salt key has not changed!' );
@@ -39,7 +39,6 @@
 						obj[field.name] = field.value;
 					}
 				}
-
 				return obj;
 			}, {});
 
