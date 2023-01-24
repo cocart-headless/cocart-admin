@@ -12,6 +12,8 @@
 		"color-hex-case": "lower",
 		"color-no-invalid-hex": true,
 
+		"font-family-name-quotes": null,
+		"font-family-no-missing-generic-family-keyword": null,
 		"font-weight-notation": null,
 
 		"function-calc-no-unspaced-operator": true,

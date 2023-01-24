@@ -1,0 +1,7 @@
+{
+    "esversion": 11,
+    "sub": true,
+    "globals": {
+        "jQuery": true
+    }
+}

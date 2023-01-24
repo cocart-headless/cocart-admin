@@ -71,6 +71,7 @@ module.exports = function(grunt) {
 				globals: {
 					"EO_SCRIPT_DEBUG": false,
 				},
+				"jshintrc": true,
 				'-W099': true, // Mixed spaces and tabs
 				'-W083': true, // Fix functions within loop
 				'-W082': true, // Declarations should not be placed in blocks
@@ -197,7 +198,7 @@ module.exports = function(grunt) {
 					{
 						from: /@version .*$/m,
 						to: "@version <%= pkg.version %>"
-					},
+				},
 				]
 			}
 		},
