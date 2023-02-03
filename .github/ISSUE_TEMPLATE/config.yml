@@ -2,7 +2,7 @@ blank_issues_enabled: true
 contact_links:
   - name: ☀️ Core Issue
     url: https://github.com/co-cart/co-cart
-    about: If you have issues related to the core of CoCart, please report them to this repository.
+    about: If you have issues related to the core of CoCart or the Cart API, please report them to this repository.
 
   - name: 🍦 Products API Issue
     url: https://github.com/co-cart/cocart-products-api
@@ -11,6 +11,10 @@ contact_links:
   - name: 🔌 Compatibility Issue
     url: https://github.com/co-cart/cocart-compatibility
     about: If you have a compatibility issue specifically with a certain plugin and WooCommerce extension, please report them to this repository.
+
+  - name: 📂 Third Party Issue
+    url: https://github.com/co-cart/cocart-third-party
+    about: If you have a compatibility issue specifically with support for specific plugins, WooCommerce extensions and web hosts, please report them to this repository.
 
   - name: 📈 Sessions API
     url: https://github.com/co-cart/cocart-session-api
