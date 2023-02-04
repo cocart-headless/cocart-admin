@@ -19,7 +19,7 @@
 		"url": "https://github.com/co-cart/cocart-admin/issues"
 	},
 	"license": "GPL-3.0",
-	"copyright": "Copyright (c) 2022, Sébastien Dumont",
+	"copyright": "Copyright (c) 2023, Sébastien Dumont",
 	"description": "Contains the administrator features for WordPress dashboard as a package.",
 	"tags": "",
 	"keywords": [
@@ -38,7 +38,7 @@
 	"devDependencies": {
 		"@lodder/grunt-postcss": "3.1.1",
 		"@wordpress/stylelint-config": "21.8.0",
-		"grunt": "1.5.3",
+		"grunt": "1.6.1",
 		"grunt-contrib-cssmin": "4.0.0",
 		"grunt-contrib-jshint": "3.2.0",
 		"grunt-contrib-sass": "2.0.0",
