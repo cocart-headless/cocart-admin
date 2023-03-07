@@ -55,7 +55,7 @@
 		"postcss": "8.4.21",
 		"prettier-stylelint": "0.4.2",
 		"stylelint-config-prettier": "9.0.4",
-		"stylelint-order": "6.0.1"
+		"stylelint-order": "6.0.3"
 	},
 	"dependencies": {
 		"autoprefixer": "^10.4.4",
