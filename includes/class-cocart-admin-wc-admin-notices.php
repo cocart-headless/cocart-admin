@@ -6,7 +6,7 @@
  *
  * @author  Sébastien Dumont
  * @package CoCart\Admin\WooCommerce Admin
- * @since   2.3.0
+ * @since   2.3.0 Introduced.
  * @version 4.0.0
  * @license GPL-2.0+
  */
@@ -65,7 +65,7 @@ class WCAdminNotes {
 	 *
 	 * @static
 	 *
-	 * @since   2.3.0
+	 * @since   2.3.0 Introduced.
 	 * @version 2.4.0
 	 *
 	 * @param string $note_name Note name.
@@ -86,7 +86,7 @@ class WCAdminNotes {
 	 *
 	 * @static
 	 *
-	 * @since 2.3.0
+	 * @since 2.3.0 Introduced.
 	 * @since 3.2.0 Dropped support for WooCommerce less than version 4.8
 	 * @since 3.2.0 Added filter to prevent note from being created.
 	 *

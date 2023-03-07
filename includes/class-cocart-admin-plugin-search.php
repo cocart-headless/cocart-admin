@@ -5,7 +5,7 @@
  *
  * @author  Sébastien Dumont
  * @package CoCart\Admin
- * @since   3.0.0
+ * @since   3.0.0 Introduced.
  * @version 4.0.0
  * @license GPL-2.0+
  */
@@ -157,7 +157,7 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since 3.0.0
+	 * @since 3.0.0 Introduced.
 	 * @since 3.5.0 Added condition to only show suggestions if allowed.
 	 */
 	public function cocart_plugin_dashboard() {
@@ -216,7 +216,7 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.0.17
 	 */
 	public function load_plugins_search_script() {
@@ -340,7 +340,7 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.1.0
 	 *
 	 * @param array $inject Plugin information from WordPress.org.
@@ -385,14 +385,14 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.1.0
 	 *
 	 * @param object|WP_Error $result Response object or WP_Error.
 	 * @param string          $action The type of information being requested from the Plugin Install API.
 	 * @param object          $args   Plugin API arguments.
 	 *
-	 * @return array           $result Updated array of results.
+	 * @return array $result Updated array of results.
 	 */
 	public function inject_cocart_suggestion( $result, $action, $args ) {
 		// Return current results if we are not searching for suggestion.
@@ -472,7 +472,7 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.1.0
 	 *
 	 * @param object|WP_Error $result Response object or WP_Error.
@@ -587,7 +587,7 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.1.0
 	 *
 	 * @param array $links Related links.
@@ -637,13 +637,13 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.1.0
 	 *
 	 * @param array $plugin Plugin details.
 	 * @param array $links  Related links before change.
 	 *
-	 * @return array $links  Related links after change.
+	 * @return array $links Related links after change.
 	 */
 	public function get_related_links( $plugin, $links ) {
 		return self::get_action_links( $plugin, $links );
@@ -654,12 +654,12 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.1.0
 	 *
 	 * @param array $plugin Plugin details.
 	 *
-	 * @return array $links  Related links after change.
+	 * @return array $links Related links after change.
 	 */
 	public function get_suggestion_links( $plugin ) {
 		$links = array();
@@ -672,7 +672,7 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0
+	 * @since   3.0.0 Introduced.
 	 * @version 3.1.0
 	 *
 	 * @param array $plugin Plugin details.
@@ -826,7 +826,7 @@ class PluginSearch {
 	 *
 	 * @access public
 	 *
-	 * @since 3.1.0
+	 * @since 3.1.0 Introduced.
 	 *
 	 * @return string Status of Airplane mode.
 	 */

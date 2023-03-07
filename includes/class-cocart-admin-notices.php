@@ -6,7 +6,7 @@
  *
  * @author  Sébastien Dumont
  * @package CoCart\Admin\Notices
- * @since   1.2.0
+ * @since   1.2.0 Introduced.
  * @version 4.0.0
  * @license GPL-2.0+
  */
