@@ -1,4 +1,18 @@
 .cocart {
+	#wpcontent {
+		min-height: auto;
+	}
+
+	#wpfooter {
+		display: grid;
+		position: relative;
+		text-align: center;
+	}
+
+	.woocommerce-layout__header h1.woocommerce-layout__header-heading {
+		opacity: 0;
+	}
+
 	&.settings-page {
 		margin: 0 !important;
 		padding: 0 !important;
@@ -7,12 +21,86 @@
 		width: 100%;
 
 		header {
-			background-color: $cocart;
-			height: 120px;
-			width: 100%;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+			margin-bottom: 20px;
+			position: fixed;
+			top: 36px;
+			z-index: 9999;
+
+			.page-title {
+				align-items: center;
+				display: flex;
+				font-size: 14px;
+				padding: 0 20px;
+
+				@include media('<=phone') {
+					display: block;
+					padding-top: 20px;
+				}
+
+				.logo-image {
+					align-items: center;
+					justify-content: center;
+				}
+
+				.logo-sep {
+					margin: 0 15px;
+
+					@include media('<=phone') {
+						display: none;
+					}
+				}
+
+				a.tab {
+					border-bottom: 4px solid #fff;
+					box-shadow: none;
+					color: #787c82;
+					display: inline-block;
+					font-weight: $medium-weight;
+					margin-right: 30px;
+					margin-top: -4px;
+					padding: 20px 0 18px;
+					text-decoration: none;
+
+					&.active {
+						border-color: $cocart;
+						color: #2c3338;
+
+						&:hover {
+							border-color: $cocart_hovered;
+						}
+					}
+
+					&:hover {
+						border-color: #a7aaad;
+					}
+				}
+
+				a.action {
+					color: #fff;
+					font-weight: 600;
+					line-height: 28px;
+					margin: 14px 0 14px 10px;
+					min-height: 30px;
+					vertical-align: top;
+
+					@include media('<=phone') {
+						margin-left: 0;
+					}
+				}
+
+				.page-title {
+					background-color: #fff;
+					display: inline-block;
+					font-size: 23px;
+					margin: 0;
+					padding: 20px 20px 20px 0;
+				}
+			}
 		}
 
 		.container {
+			background-color: transparent;
 			border: none;
 			margin: 0;
 			max-width: 100%;
@@ -20,7 +108,8 @@
 		}
 
 		.content {
-			padding: 30px 38px;
+			padding: 0;
+			padding-left: 32px;
 		}
 
 		h2 {
@@ -28,7 +117,6 @@
 			font-size: 23px;
 			font-weight: 300;
 			margin-bottom: 10px;
-			margin-left: 40px;
 			margin-top: 30px;
 			padding-bottom: 30px;
 		}
