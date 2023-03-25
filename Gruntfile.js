@@ -182,8 +182,9 @@ module.exports = function(grunt) {
 			options: {
 				configFile: '.stylelintrc'
 			},
-			all: [
+			src: [
 				'<%= dirs.scss %>/**/*.scss',
+				'!<%= dirs.scss %>/**/_*.scss',
 			]
 		},
 
