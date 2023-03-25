@@ -45,21 +45,21 @@
 		"grunt-contrib-uglify": "5.2.2",
 		"grunt-contrib-watch": "1.1.0",
 		"grunt-dev-update": "2.3.0",
-		"grunt-text-replace": "0.4.0",
 		"grunt-rtlcss": "2.0.2",
 		"grunt-sass": "3.1.0",
 		"grunt-stylelint": "0.18.0",
+		"grunt-text-replace": "0.4.0",
 		"jshint-stylish": "2.2.1",
 		"load-grunt-tasks": "5.1.0",
 		"node-sass": "8.0.0",
 		"postcss": "8.4.21",
 		"prettier-stylelint": "0.4.2",
-		"stylelint-config-prettier": "9.0.4",
-		"stylelint-order": "6.0.1"
+		"stylelint-config-prettier": "9.0.5",
+		"stylelint-order": "6.0.3"
 	},
 	"dependencies": {
-		"autoprefixer": "^10.4.4",
-		"postcss-scss": "^4.0.3",
+		"autoprefixer": "^10.4.14",
+		"postcss-scss": "^4.0.6",
 		"stylelint": "14.16.1"
 	},
 	"engines": {
