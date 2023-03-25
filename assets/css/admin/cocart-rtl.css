@@ -305,6 +305,17 @@ body.cocart .error {
     display: inline-block;
     margin-right: 15px; } }
 
+.cocart #wpcontent {
+  min-height: auto; }
+
+.cocart #wpfooter {
+  display: grid;
+  position: relative;
+  text-align: center; }
+
+.cocart .woocommerce-layout__header h1.woocommerce-layout__header-heading {
+  opacity: 0; }
+
 .cocart.settings-page {
   margin: 0 !important;
   padding: 0 !important;
@@ -312,22 +323,75 @@ body.cocart .error {
   top: 0;
   width: 100%; }
   .cocart.settings-page header {
-    background-color: #6032b0;
-    height: 120px;
-    width: 100%; }
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    position: fixed;
+    top: 36px;
+    z-index: 9999; }
+    .cocart.settings-page header .page-title {
+      align-items: center;
+      display: flex;
+      font-size: 14px;
+      padding: 0 20px; }
+      @media (max-width: 320px) {
+        .cocart.settings-page header .page-title {
+          display: block;
+          padding-top: 20px; } }
+      .cocart.settings-page header .page-title .logo-image {
+        align-items: center;
+        justify-content: center; }
+      .cocart.settings-page header .page-title .logo-sep {
+        margin: 0 15px; }
+        @media (max-width: 320px) {
+          .cocart.settings-page header .page-title .logo-sep {
+            display: none; } }
+      .cocart.settings-page header .page-title a.tab {
+        border-bottom: 4px solid #fff;
+        box-shadow: none;
+        color: #787c82;
+        display: inline-block;
+        font-weight: 600;
+        margin-left: 30px;
+        margin-top: -4px;
+        padding: 20px 0 18px;
+        text-decoration: none; }
+        .cocart.settings-page header .page-title a.tab.active {
+          border-color: #6032b0;
+          color: #2c3338; }
+          .cocart.settings-page header .page-title a.tab.active:hover {
+            border-color: #6131af; }
+        .cocart.settings-page header .page-title a.tab:hover {
+          border-color: #a7aaad; }
+      .cocart.settings-page header .page-title a.action {
+        color: #fff;
+        font-weight: 600;
+        line-height: 28px;
+        margin: 14px 10px 14px 0;
+        min-height: 30px;
+        vertical-align: top; }
+        @media (max-width: 320px) {
+          .cocart.settings-page header .page-title a.action {
+            margin-right: 0; } }
+      .cocart.settings-page header .page-title .page-title {
+        background-color: #fff;
+        display: inline-block;
+        font-size: 23px;
+        margin: 0;
+        padding: 20px 0 20px 20px; }
   .cocart.settings-page .container {
+    background-color: transparent;
     border: none;
     margin: 0;
     max-width: 100%;
     width: 100%; }
   .cocart.settings-page .content {
-    padding: 30px 38px; }
+    padding: 0;
+    padding-right: 32px; }
   .cocart.settings-page h2 {
     border-bottom: 1px solid #ddd;
     font-size: 23px;
     font-weight: 300;
     margin-bottom: 10px;
-    margin-right: 40px;
     margin-top: 30px;
     padding-bottom: 30px; }
   .cocart.settings-page .notice p {
