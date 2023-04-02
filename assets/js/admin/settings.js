@@ -37,6 +37,14 @@
 	});
 
 	$( document ).ready( function(){
+		var formChanged = false;
+
+		$( '#settings-form' ).on( 'keyup change paste', 'input, select, textarea', function(){
+			formChanged = true;
+
+			$( 'input[type="submit"]#save-cocart' ).addClass( 'active' );
+		});
+
 		$( 'input[type="submit"]#save-cocart' ).click( function(e){
 			// Prevent Default functionality
 			e.preventDefault();
@@ -105,7 +113,7 @@
 				},
 				complete: function() {
 					// Re-enable save button now Ajax is complete.
-					$( 'input[type="submit"]#save-cocart' ).prop( 'disabled', false );
+					$( 'input[type="submit"]#save-cocart' ).prop( 'disabled', false ).removeClass( 'active' );
 
 					// Hide notice after 5 seconds.
 					setTimeout( function() {
