@@ -73,7 +73,7 @@ class Settings {
 			include_once dirname( __FILE__ ) . '/abstracts/abstract-cocart-settings.php';
 
 			$settings = array(
-				'general' => include dirname( __FILE__ ) . '/settings/class-cocart-admin-settings-general.php'
+				'general' => include dirname( __FILE__ ) . '/settings/class-cocart-admin-settings-general.php',
 			);
 
 			self::$settings = apply_filters( 'cocart_get_settings_pages', $settings );

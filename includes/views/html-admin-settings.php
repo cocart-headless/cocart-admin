@@ -27,7 +27,7 @@ $header_position = ( $has_sections > 1 ) ? ' style="top: 36px;"' : '';
 					'<img src="%1$s" srcset="%2$s 2x" alt="%3$s"/>',
 					esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/logo.png' ),
 					esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/logo@2x.png' ),
-					esc_html__( 'CoCart logo')
+					esc_html__( 'CoCart logo' )
 				)
 				?>
 			</div>
@@ -37,7 +37,7 @@ $header_position = ( $has_sections > 1 ) ? ' style="top: 36px;"' : '';
 				<img src="<?php echo esc_url( COCART_ADMIN_URL_PATH . '/assets/images/sep.png' ); ?>" />
 			</div>
 
-			<?php
+				<?php
 				foreach ( $sections as $page => $settings ) {
 					?>
 					<a href="#<?php echo $settings->get_id(); ?>" class="tab" data-target="<?php echo $settings->get_id(); ?>-settings"><?php echo $settings->get_label(); ?></a>
