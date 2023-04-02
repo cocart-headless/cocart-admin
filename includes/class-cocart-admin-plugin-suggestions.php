@@ -40,7 +40,9 @@ class PluginSuggestionsUpdater {
 	 * @static
 	 */
 	public static function init() {
-		add_action( 'cocart_update_plugin_suggestions', array( __CLASS__, 'update_plugin_suggestions' ) );
+		if ( ! defined( 'REST_REQUEST' ) ) {
+			add_action( 'cocart_update_plugin_suggestions', array( __CLASS__, 'update_plugin_suggestions' ) );
+		}
 	}
 
 	/**
@@ -84,6 +86,7 @@ class PluginSuggestionsUpdater {
 		}
 
 		$data['suggestions'] = $body;
+
 		return update_option( 'cocart_plugin_suggestions', $data, false );
 	} // END update_plugin_suggestions()
 
@@ -94,7 +97,7 @@ class PluginSuggestionsUpdater {
 	 * @access public
 	 */
 	public function retry() {
-		if ( ! \ActionScheduler::is_initialized() ) {
+		if ( ! method_exists( '\ActionScheduler', 'is_initialized' ) ) {
 			return;
 		}
 

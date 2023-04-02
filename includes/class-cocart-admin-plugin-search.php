@@ -325,7 +325,13 @@ class PluginSearch {
 	 * @return array
 	 */
 	public function get_suggestions() {
-		$data = get_option( 'cocart_plugin_suggestions' );
+		$data = get_option(
+			'cocart_plugin_suggestions',
+			array(
+				'suggestions' => array(),
+				'updated'     => '',
+			)
+		);
 
 		// If the options have never been updated, or were updated over a week ago, request suggestions.
 		if ( empty( $data['updated'] ) || ( time() - WEEK_IN_SECONDS ) > $data['updated'] ) {
@@ -882,13 +888,21 @@ class PluginSearch {
 	 * @access public
 	 *
 	 * @static
+	 *
+	 * @return array of json API data
 	 */
 	public static function get_suggestions_api_data() {
-		if ( ! \ActionScheduler::is_initialized() ) {
+		if ( ! method_exists( '\ActionScheduler', 'is_initialized' ) ) {
 			return;
 		}
 
-		$data = get_option( 'cocart_plugin_suggestions', array() );
+		$data = get_option(
+			'cocart_plugin_suggestions',
+			array(
+				'suggestions' => array(),
+				'updated'     => '',
+			)
+		);
 
 		// If the options have never been updated, or were updated over a week ago, queue update.
 		if ( empty( $data['updated'] ) || ( time() - WEEK_IN_SECONDS ) > $data['updated'] ) {
