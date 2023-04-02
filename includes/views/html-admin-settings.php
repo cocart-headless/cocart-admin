@@ -13,15 +13,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$sections        = CoCart\Admin\Settings::get_settings();
+$has_sections    = count( $sections );
+$header_position = ( $has_sections > 1 ) ? ' style="top: 36px;"' : '';
 ?>
 <div class="wrap cocart settings-page">
 
-	<header class="logo" style="background: #6032b0 url(<?php echo esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/header-logo-small.png' ); ?>) 2rem center no-repeat;">
+	<header<?php echo $header_position; ?>>
+		<div class="page-title">
+			<div class="logo-image">
+				<?php
+				printf(
+					'<img src="%1$s" srcset="%2$s 2x" alt="%3$s"/>',
+					esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/logo.png' ),
+					esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/logo@2x.png' ),
+					esc_html__( 'CoCart logo')
+				)
+				?>
+			</div>
+
+			<?php if ( $has_sections > 1 ) { ?>
+			<div class="logo-sep">
+				<img src="<?php echo esc_url( COCART_ADMIN_URL_PATH . '/assets/images/sep.png' ); ?>" />
+			</div>
+
+			<?php
+				foreach ( $sections as $page => $settings ) {
+					?>
+					<a href="#<?php echo $settings->get_id(); ?>" class="tab" data-target="<?php echo $settings->get_id(); ?>-settings"><?php echo $settings->get_label(); ?></a>
+					<?php
+				}
+			}
+			?>
+		</div>
 	</header>
 
 	<div class="container">
-
-		<h2><?php echo apply_filters( 'cocart_setting_label_' . $current_tab, esc_html__( 'Headless Settings', 'cart-rest-api-for-woocommerce' ) ); ?></h2>
 
 		<div class="content">
 
@@ -29,23 +56,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="save-results"></div>
 
-			<?php
-			CoCart\Admin\Settings::show_messages();
-
-			do_action( 'cocart_settings_' . $current_tab );
-			?>
+			<div class="loading-settings" style="font-size: xx-large; padding: 4rem;"><?php _e( 'Loading settings', 'cart-rest-api-for-woocommerce' ); ?></div>
 
 			<?php
-			if ( ! empty( CoCart\Admin\Settings::get_settings( $current_tab ) ) ) {
-				submit_button( esc_attr__( 'Save Changes', 'cart-rest-api-for-woocommerce' ), 'primary', 'save-cocart', true );
+			foreach ( $sections as $page => $settings ) {
+				echo '<h2 id="' . $settings->get_id() . '-settings">' . $settings->get_label() . ' ' . esc_html__( 'Settings', 'cart-rest-api-for-woocommerce' ) . '</h2>';
+
+				do_action( 'cocart_settings_page_' . $page );
 			}
 			?>
-			<input type="hidden" name="cocart-settings" value="<?php echo $current_tab; ?>" />
+
+			<?php submit_button( esc_attr__( 'Save Changes', 'cart-rest-api-for-woocommerce' ), 'primary', 'save-cocart', true ); ?>
 			<?php wp_nonce_field( 'cocart-settings' ); ?>
 
 			</form>
 
 		</div>
 	</div>
+
+	<footer>
+	<?php
+	if ( ! Help::is_cocart_pro_activated() ) {
+		$url = 'https://wordpress.org/support/plugin/cart-rest-api-for-woocommerce/reviews/?filter=5#new-post';
+
+		echo sprintf(
+			wp_kses( /* translators: $1$s - CoCart plugin name; $2$s - WP.org review link; $3$s - WP.org review link. */
+				__( 'Please rate %1$s <a href="%2$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%3$s" target="_blank" rel="noopener">WordPress.org</a> to help us spread the word.', 'cart-rest-api-for-woocommerce' ),
+				[
+					'a' => [
+						'href'   => [],
+						'target' => [],
+						'rel'    => [],
+					],
+				]
+			),
+			'<strong>CoCart</strong>',
+			$url,
+			$url
+		);
+	}
+	?>
+	</footer>
 
 </div>

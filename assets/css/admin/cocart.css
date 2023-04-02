@@ -308,11 +308,6 @@ body.cocart .error {
 .cocart #wpcontent {
   min-height: auto; }
 
-.cocart #wpfooter {
-  display: grid;
-  position: relative;
-  text-align: center; }
-
 .cocart .woocommerce-layout__header h1.woocommerce-layout__header-heading {
   opacity: 0; }
 
@@ -323,10 +318,8 @@ body.cocart .error {
   top: 0;
   width: 100%; }
   .cocart.settings-page header {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
     position: fixed;
-    top: 36px;
+    top: 40px;
     z-index: 9999; }
     .cocart.settings-page header .page-title {
       align-items: center;
@@ -378,9 +371,13 @@ body.cocart .error {
         font-size: 23px;
         margin: 0;
         padding: 20px 20px 20px 0; }
+  .cocart.settings-page footer {
+    display: inline;
+    padding: 10px 32px; }
   .cocart.settings-page .container {
     background-color: transparent;
     border: none;
+    box-shadow: none;
     margin: 0;
     max-width: 100%;
     width: 100%; }
@@ -389,12 +386,24 @@ body.cocart .error {
     padding-left: 32px; }
   .cocart.settings-page h2 {
     border-bottom: 1px solid #ddd;
+    display: none;
     font-size: 23px;
     font-weight: 300;
     margin-bottom: 10px;
-    margin-top: 30px;
     padding-bottom: 30px; }
+    .cocart.settings-page h2.active {
+      display: inherit; }
   .cocart.settings-page .notice p {
     font-size: inherit;
     line-height: inherit;
     margin-bottom: 0.5em; }
+  .cocart.settings-page table {
+    display: none; }
+    .cocart.settings-page table.active {
+      display: initial; }
+  .cocart.settings-page #save-cocart {
+    opacity: 0;
+    visibility: hidden; }
+    .cocart.settings-page #save-cocart.active {
+      opacity: 1;
+      visibility: visible; }

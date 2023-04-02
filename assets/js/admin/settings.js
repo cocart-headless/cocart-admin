@@ -1,4 +1,41 @@
 ( function ( $ ) {
+	$( window ).ready( function(){
+		$( '.loading-settings' ).remove();
+
+		// Set first tab as active.
+		$( '.cocart header a.tab:first-of-type' ).addClass( 'active' );
+
+		// Show first settings section.
+		$( '.cocart #settings-form h2:first-of-type' ).addClass( 'active' );
+		$( '.cocart #settings-form table:first-of-type' ).addClass( 'active' );
+
+		// If page loaded with hash, display settings section.
+		if ( window.location.hash != false ) {
+			var section = window.location.hash.split('#')[1] + '-settings';
+
+			$( '.cocart header a.tab' ).removeClass( 'active' );
+			$( '.cocart #settings-form h2' ).removeClass( 'active' );
+			$( '.cocart #settings-form table' ).removeClass( 'active' );
+
+			$( '.cocart header a.tab[data-target=' + section + ']' ).addClass( 'active' );
+			$( '.cocart #settings-form h2#' + section ).addClass( 'active' );
+			$( '.cocart #settings-form table#' + section ).addClass( 'active' );
+		}
+
+		// Change to settings section on navigation click.
+		$( '.cocart header a.tab' ).click( function(e){
+			var section = $(this).data("target");
+
+			$( '.cocart header a.tab' ).removeClass( 'active' );
+			$( '.cocart #settings-form h2' ).removeClass( 'active' );
+			$( '.cocart #settings-form table' ).removeClass( 'active' );
+
+			$( '.cocart header a.tab[data-target=' + section + ']' ).addClass( 'active' );
+			$( '.cocart #settings-form h2#' + section ).addClass( 'active' );
+			$( '.cocart #settings-form table#' + section ).addClass( 'active' );
+		});
+	});
+
 	$( document ).ready( function(){
 		$( 'input[type="submit"]#save-cocart' ).click( function(e){
 			// Prevent Default functionality
@@ -39,15 +76,16 @@
 						obj[field.name] = field.value;
 					}
 				}
+
 				return obj;
 			}, {});
 
-			var settings = $( 'input[name="cocart-settings"]' ).val();
+			//var settings = $( 'input[name="cocart-settings"]' ).val();
 
 			// Save settings.
 			$.ajax({
 				method: 'POST',
-				url: cocart_params.root + 'cocart/settings/save?settings=' + settings + '&_wpnonce=' + cocart_params.nonce,
+				url: cocart_params.root + 'cocart/settings/save?_wpnonce=' + cocart_params.nonce,
 				data: JSON.stringify( formData, null, ' ' ),
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json',
@@ -55,7 +93,7 @@
 					$( '.save-results' ).html( '<div class="notice notice-success"></div>' );
 					$( '.notice-success' ).append( "<p><strong>" + cocart_params.saved_message + "</strong></p>" ).show();
 
-					if ( settings === 'general' && typeof response['general']['salt_key'] !== "undefined" ) {
+					if ( typeof response['general']['salt_key'] !== "undefined" ) {
 						$( 'input[type="text"]#salt_key' ).val( response['general']['salt_key'] );
 					}
 				},

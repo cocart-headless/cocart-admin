@@ -27,7 +27,7 @@ class GeneralSettings extends Page {
 	 */
 	public function __construct() {
 		$this->id    = 'general';
-		$this->label = esc_html__( 'Headless Settings', 'cart-rest-api-for-woocommerce' );
+		$this->label = esc_html__( 'General', 'cart-rest-api-for-woocommerce' );
 
 		parent::__construct();
 	} // END __construct()
@@ -41,7 +41,7 @@ class GeneralSettings extends Page {
 	 */
 	public function get_settings() {
 		$settings[] = array(
-			'id'   => 'headless-' . $this->id,
+			'id'   => $this->id,
 			'type' => 'title',
 		);
 
@@ -67,7 +67,7 @@ class GeneralSettings extends Page {
 		);
 
 		$settings[] = array(
-			'id'   => 'headless-' . $this->id,
+			'id'   => $this->id,
 			'type' => 'sectionend',
 		);
 

@@ -192,12 +192,22 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 	 *
 	 * @access public
 	 *
-	 * @param string $settings_group The settings group to get.
+	 * @param string $settings_section The settings section to get.
 	 *
 	 * @return array The settings.
 	 */
-	public function get_settings( string $settings_group ) {
-		return CoCart\Admin\Settings::get_settings( $settings_group );
+	public function get_settings( string $settings_section = '' ) {
+		$settings = CoCart\Admin\Settings::get_settings( $settings_section );
+
+		if ( empty( $settings_section ) ) {
+			foreach ( $settings as $page => $options ) {
+				$sections[ $page ] = $options->get_settings();
+			}
+
+			return $sections;
+		}
+
+		return $settings;
 	} // END get_settings()
 
 	/**
@@ -214,8 +224,7 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 			wp_send_json_error( array( 'message' => __( 'Nonce verification failed.', 'cart-rest-api-for-woocommerce' ) ) );
 		}
 
-		$settings_group = $request->get_param( 'settings' ); // The parameter will determine which settings to validate against.
-		$settings       = $this->get_settings( $settings_group );
+		$sections = $this->get_settings();
 
 		if ( $request->get_param( 'form' ) === 'post' ) {
 			$settings_received = json_decode( $request->get_body() );
@@ -228,7 +237,7 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 		 */
 		$data = array();
 		foreach ( $settings_received as $field => $value ) {
-			if ( in_array( $field, array( 'cocart-settings', 'save_step', '_wpnonce', '_wp_http_referer' ) ) ) {
+			if ( in_array( $field, array( 'save_step', '_wpnonce', '_wp_http_referer' ) ) ) {
 				continue;
 			}
 
@@ -237,34 +246,36 @@ class CoCart_REST_Settings_Controller extends \WP_Rest_Controller {
 
 		$data_to_save = get_option( 'cocart_settings', array() );
 
-		if ( is_array( $settings ) && ! empty( $settings ) ) {
-			foreach ( $settings as $setting ) {
-				// Skip if no setting type.
-				if ( ! $setting['type'] || $setting['type'] === 'title' || $setting['type'] === 'sectionend' ) {
-					continue;
-				}
+		if ( is_array( $sections ) && ! empty( $sections ) ) {
+			foreach ( $sections as $page => $settings ) {
+				foreach ( $settings as $setting ) {
+					// Skip if no setting type.
+					if ( ! $setting['type'] || $setting['type'] === 'title' || $setting['type'] === 'sectionend' ) {
+						continue;
+					}
 
-				// Skip if the ID doesn't exist in the data received.
-				if ( ! array_key_exists( $setting['id'], $data ) ) {
-					continue;
-				}
+					// Skip if the ID doesn't exist in the data received.
+					if ( ! array_key_exists( $setting['id'], $data ) ) {
+						continue;
+					}
 
-				// Sanitize the input.
-				$setting_type = $setting['type'];
-				$output       = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $data[ $setting['id'] ], $this->errors, $setting );
+					// Sanitize the input.
+					$setting_type = $setting['type'];
+					$output       = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $data[ $setting['id'] ], $this->errors, $setting );
 
-				if ( $setting_type == 'checkbox' && $output == false ) {
-					continue;
-				}
+					if ( $setting_type == 'checkbox' && $output == false ) {
+						continue;
+					}
 
-				// Encrypt salt key.
-				if ( $setting['id'] === 'salt_key' ) {
-					$output = md5( $output );
-				}
+					// Encrypt salt key.
+					if ( $setting['id'] === 'salt_key' ) {
+						$output = md5( $output );
+					}
 
-				// Add the option to the list of ones that we need to save.
-				if ( ! empty( $output ) && ! is_wp_error( $output ) ) {
-					$data_to_save[ $settings_group ][ $setting['id'] ] = $output;
+					// Add the option to the list of ones that we need to save.
+					if ( ! empty( $output ) && ! is_wp_error( $output ) ) {
+						$data_to_save[ $page ][ $setting['id'] ] = $output;
+					}
 				}
 			}
 		}

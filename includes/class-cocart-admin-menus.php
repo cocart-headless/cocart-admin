@@ -265,8 +265,6 @@ class Menus {
 	 * @since 4.0.0 Introduced.
 	 */
 	public static function settings_page() {
-		global $current_section, $current_tab;
-
 		include_once dirname( __FILE__ ) . '/views/html-admin-settings.php';
 	} // END settings_page()
 

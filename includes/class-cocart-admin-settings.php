@@ -4,7 +4,7 @@
  *
  * @author  Sébastien Dumont
  * @package CoCart\Admin\Settings
- * @since   4.0.0 Introduced.
+ * @since   4.0.0
  * @license GPL-2.0+
  */
 
@@ -65,82 +65,41 @@ class Settings {
 	 * @access public
 	 *
 	 * @static
+	 *
+	 * @return array Returns an array of settings.
 	 */
 	public static function prep_settings_page() {
 		if ( empty( self::$settings ) ) {
 			include_once dirname( __FILE__ ) . '/abstracts/abstract-cocart-settings.php';
 
-			$settings = array();
+			$settings = array(
+				'general' => include dirname( __FILE__ ) . '/settings/class-cocart-admin-settings-general.php'
+			);
 
-			$settings['general'] = include dirname( __FILE__ ) . '/settings/class-cocart-admin-settings-general.php';
-
-			self::$settings = $settings;
+			self::$settings = apply_filters( 'cocart_get_settings_pages', $settings );
 		}
 
 		return self::$settings;
 	} // END prep_settings_page()
 
 	/**
-	 * Returns the settings for a specific section.
+	 * Returns all settings or the settings for a specific section.
 	 *
 	 * @access public
 	 *
 	 * @static
 	 *
-	 * @param string $section
+	 * @param string $section Section of settings to get.
 	 *
 	 * @return array
 	 */
-	public static function get_settings( $section ) {
-		if ( ! empty( self::$settings[ $section ] ) ) {
+	public static function get_settings( $section = '' ) {
+		if ( ! empty( $section ) && ! empty( self::$settings[ $section ] ) ) {
 			return self::$settings[ $section ]->get_settings();
+		} else {
+			return self::$settings;
 		}
 	} // END get_settings()
-
-	/**
-	 * Add a message
-	 *
-	 * @access public
-	 *
-	 * @static
-	 *
-	 * @param string $text Message.
-	 */
-	public static function add_message( $text ) {
-		self::$messages[] = $text;
-	} // END add_message()
-
-	/**
-	 * Add an error
-	 *
-	 * @access public
-	 *
-	 * @static
-	 *
-	 * @param string $text Error.
-	 */
-	public static function add_error( $text ) {
-		self::$errors[] = $text;
-	} // END add_error()
-
-	/**
-	 * Output messages and errors.
-	 *
-	 * @access public
-	 *
-	 * @static
-	 */
-	public static function show_messages() {
-		if ( count( self::$errors ) > 0 ) {
-			foreach ( self::$errors as $error ) {
-				echo '<div class="notice notice-error"><p><strong>' . esc_html( $error ) . '</strong></p></div>';
-			}
-		} elseif ( count( self::$messages ) > 0 ) {
-			foreach ( self::$messages as $message ) {
-				echo '<div class="notice notice-success"><p><strong>' . esc_html( $message ) . '</strong></p></div>';
-			}
-		}
-	} // END show_messages()
 
 	/**
 	 * Get a setting from the settings API.
@@ -169,7 +128,6 @@ class Settings {
 
 			// Get value.
 			$option_values = get_option( 'cocart_settings', '' )[ $section ][ $option_name ];
-			// $option_values = $option_values[$section][$option_name];
 
 			$key = key( $option_array[ $option_name ] );
 
@@ -594,6 +552,8 @@ class Settings {
 	 * Helper function to get the formatted description and tip HTML for a
 	 * given form field. Plugins can call this when implementing their own custom
 	 * settings types.
+	 *
+	 * @access public
 	 *
 	 * @param array $value The form field value array.
 	 *

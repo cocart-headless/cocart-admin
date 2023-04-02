@@ -3,12 +3,6 @@
 		min-height: auto;
 	}
 
-	#wpfooter {
-		display: grid;
-		position: relative;
-		text-align: center;
-	}
-
 	.woocommerce-layout__header h1.woocommerce-layout__header-heading {
 		opacity: 0;
 	}
@@ -21,10 +15,8 @@
 		width: 100%;
 
 		header {
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-			margin-bottom: 20px;
 			position: fixed;
-			top: 36px;
+			top: 40px;
 			z-index: 9999;
 
 			.page-title {
@@ -99,9 +91,15 @@
 			}
 		}
 
+		footer {
+			display: inline;
+			padding: 10px 32px;
+		}
+
 		.container {
 			background-color: transparent;
 			border: none;
+			box-shadow: none;
 			margin: 0;
 			max-width: 100%;
 			width:100%;
@@ -114,17 +112,39 @@
 
 		h2 {
 			border-bottom: 1px solid #ddd;
+			display: none;
 			font-size: 23px;
 			font-weight: 300;
 			margin-bottom: 10px;
-			margin-top: 30px;
 			padding-bottom: 30px;
+
+			&.active {
+				display: inherit;
+			}
 		}
 
 		.notice p {
 			font-size: inherit;
 			line-height: inherit;
 			margin-bottom: 0.5em;
+		}
+
+		table {
+			display: none;
+
+			&.active {
+				display: initial;
+			}
+		}
+
+		#save-cocart {
+			opacity: 0;
+			visibility: hidden;
+
+			&.active {
+				opacity: 1;
+				visibility: visible;
+			}
 		}
 	}
 }
