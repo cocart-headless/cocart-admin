@@ -20,6 +20,14 @@ contact_links:
     url: https://github.com/co-cart/cocart-session-api
     about: If you have issues related to the Sessions API specifically, please report them to this repository.
 
+  - name: 🔥 Pro Issue
+    url: https://github.com/co-cart/cocart-pro-reports
+    about: If you have issues related to CoCart Pro, please report them to this repository.
+
   - name: ❓ Support Question
     url: https://wordpress.org/support/plugin/cart-rest-api-for-woocommerce/
     about: If you have a question please use the support forum!
+
+  - name: 😄 Discord
+    url: https://cocartapi.com/discord
+    about: Join the official community for CoCart on Discord.
