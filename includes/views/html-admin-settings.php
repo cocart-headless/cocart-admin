@@ -40,7 +40,7 @@ $header_position = ( $has_sections > 1 ) ? ' style="top: 36px;"' : '';
 				<?php
 				foreach ( $sections as $page => $settings ) {
 					?>
-					<a href="#<?php echo $settings->get_id(); ?>" class="tab" data-target="<?php echo $settings->get_id(); ?>-settings"><?php echo $settings->get_label(); ?></a>
+					<a href="#<?php echo $settings->get_id(); ?>" class="tab" data-target="<?php echo $settings->get_id(); ?>"><?php echo $settings->get_label(); ?></a>
 					<?php
 				}
 			}
@@ -76,19 +76,19 @@ $header_position = ( $has_sections > 1 ) ? ' style="top: 36px;"' : '';
 
 	<footer>
 	<?php
-	if ( ! Help::is_cocart_pro_activated() ) {
+	if ( ! CoCart\Help::is_cocart_pro_activated() ) {
 		$url = 'https://wordpress.org/support/plugin/cart-rest-api-for-woocommerce/reviews/?filter=5#new-post';
 
 		echo sprintf(
 			wp_kses( /* translators: $1$s - CoCart plugin name; $2$s - WP.org review link; $3$s - WP.org review link. */
 				__( 'Please rate %1$s <a href="%2$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%3$s" target="_blank" rel="noopener">WordPress.org</a> to help us spread the word.', 'cart-rest-api-for-woocommerce' ),
-				[
-					'a' => [
-						'href'   => [],
-						'target' => [],
-						'rel'    => [],
-					],
-				]
+				array(
+					'a' => array(
+						'href'   => array(),
+						'target' => array(),
+						'rel'    => array(),
+					),
+				)
 			),
 			'<strong>CoCart</strong>',
 			$url,

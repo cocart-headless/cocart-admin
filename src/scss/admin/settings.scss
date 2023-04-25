@@ -103,6 +103,10 @@
 			margin: 0;
 			max-width: 100%;
 			width:100%;
+
+			.content li {
+				margin-left: initial;
+			}
 		}
 
 		.content {
@@ -112,15 +116,10 @@
 
 		h2 {
 			border-bottom: 1px solid #ddd;
-			display: none;
 			font-size: 23px;
 			font-weight: 300;
 			margin-bottom: 10px;
 			padding-bottom: 30px;
-
-			&.active {
-				display: inherit;
-			}
 		}
 
 		.notice p {
@@ -129,11 +128,11 @@
 			margin-bottom: 0.5em;
 		}
 
-		table {
+		h2, h3, table, div.section-description, div.aftertable {
 			display: none;
 
 			&.active {
-				display: initial;
+				display: inherit;
 			}
 		}
 

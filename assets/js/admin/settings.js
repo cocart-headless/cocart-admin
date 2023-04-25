@@ -11,15 +11,21 @@
 
 		// If page loaded with hash, display settings section.
 		if ( window.location.hash != false ) {
-			var section = window.location.hash.split('#')[1] + '-settings';
+			var section = window.location.hash.split('#')[1];
 
 			$( '.cocart header a.tab' ).removeClass( 'active' );
 			$( '.cocart #settings-form h2' ).removeClass( 'active' );
+			$( '.cocart #settings-form h3' ).removeClass( 'active' );
+			$( '.cocart #settings-form div.section-description' ).removeClass( 'active' );
 			$( '.cocart #settings-form table' ).removeClass( 'active' );
+			$( '.cocart #settings-form div.aftertable' ).removeClass( 'active' );
 
 			$( '.cocart header a.tab[data-target=' + section + ']' ).addClass( 'active' );
-			$( '.cocart #settings-form h2#' + section ).addClass( 'active' );
-			$( '.cocart #settings-form table#' + section ).addClass( 'active' );
+			$( '.cocart #settings-form h2#' + section + '-settings' ).addClass( 'active' );
+			$( '.cocart #settings-form h3#' + section + '-title').addClass( 'active' );
+			$( '.cocart #settings-form div#' + section + '-description').addClass( 'active' );
+			$( '.cocart #settings-form table#' + section + '-settings' ).addClass( 'active' );
+			$( '.cocart #settings-form div#' + section + '-aftertable' ).addClass( 'active' );
 		}
 
 		// Change to settings section on navigation click.
@@ -28,20 +34,22 @@
 
 			$( '.cocart header a.tab' ).removeClass( 'active' );
 			$( '.cocart #settings-form h2' ).removeClass( 'active' );
+			$( '.cocart #settings-form h3' ).removeClass( 'active' );
+			$( '.cocart #settings-form div.section-description' ).removeClass( 'active' );
 			$( '.cocart #settings-form table' ).removeClass( 'active' );
+			$( '.cocart #settings-form div.aftertable' ).removeClass( 'active' );
 
 			$( '.cocart header a.tab[data-target=' + section + ']' ).addClass( 'active' );
-			$( '.cocart #settings-form h2#' + section ).addClass( 'active' );
-			$( '.cocart #settings-form table#' + section ).addClass( 'active' );
+			$( '.cocart #settings-form h2#' + section + '-settings' ).addClass( 'active' );
+			$( '.cocart #settings-form h3#' + section + '-title').addClass( 'active' );
+			$( '.cocart #settings-form div#' + section + '-description').addClass( 'active' );
+			$( '.cocart #settings-form table#' + section + '-settings' ).addClass( 'active' );
+			$( '.cocart #settings-form div#' + section + '-aftertable' ).addClass( 'active' );
 		});
 	});
 
 	$( document ).ready( function(){
-		var formChanged = false;
-
 		$( '#settings-form' ).on( 'keyup change paste', 'input, select, textarea', function(){
-			formChanged = true;
-
 			$( 'input[type="submit"]#save-cocart' ).addClass( 'active' );
 		});
 
@@ -57,8 +65,7 @@
 
 			// Salt Key validation.
 			var skip_salt = false;
-
-			var salt_key = $( 'input[type="text"]#salt_key' ).val();
+			var salt_key  = $( 'input[type="text"]#salt_key' ).val();
 
 			// Check if salt key is already hashed so we don't hash a hash.
 			var is_salt_hashed = salt_key.match( /^[a-f0-9]{32}$/gi ) ? true : false;
@@ -87,8 +94,6 @@
 
 				return obj;
 			}, {});
-
-			//var settings = $( 'input[name="cocart-settings"]' ).val();
 
 			// Save settings.
 			$.ajax({
