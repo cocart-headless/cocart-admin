@@ -399,7 +399,7 @@ body.cocart .error {
   .cocart.settings-page h2, .cocart.settings-page h3, .cocart.settings-page table, .cocart.settings-page div.section-description, .cocart.settings-page div.aftertable {
     display: none; }
     .cocart.settings-page h2.active, .cocart.settings-page h3.active, .cocart.settings-page table.active, .cocart.settings-page div.section-description.active, .cocart.settings-page div.aftertable.active {
-      display: initial; }
+      display: inherit; }
   .cocart.settings-page #save-cocart {
     opacity: 0;
     visibility: hidden; }
