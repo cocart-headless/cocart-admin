@@ -58,10 +58,18 @@ class PluginActionLinks {
 					),
 					$page
 					/* translators: %s: CoCart */
-				) . '" aria-label="' . sprintf( esc_attr__( 'Getting Started with %s', 'cart-rest-api-for-woocommerce' ), 'CoCart' ) . '" style="color: #6032b0; font-weight: 600;">' . esc_attr__( 'Getting Started', 'cart-rest-api-for-woocommerce' ) . '</a>',
+				) . '" aria-label="' . sprintf( esc_attr__( 'Getting Started with %s', 'cart-rest-api-for-woocommerce' ), 'CoCart' ) . '">' . esc_attr__( 'Getting Started', 'cart-rest-api-for-woocommerce' ) . '</a>',
+				'settings' => '<a href="' . add_query_arg(
+					array(
+						'page'    => 'cocart',
+						'section' => 'settings',
+					),
+					$page
+					/* translators: %s: CoCart */
+				) . '" aria-label="' . sprintf( esc_attr__( 'Settings for %s', 'cart-rest-api-for-woocommerce' ), 'CoCart' ) . '">' . esc_attr__( 'Settings', 'cart-rest-api-for-woocommerce' ) . '</a>',
 			);
 
-			return array_merge( $action_links, $links );
+			$links = array_merge( $action_links, $links );
 		}
 
 		if ( Help::is_cocart_pro_activated() ) {
@@ -69,7 +77,7 @@ class PluginActionLinks {
 			// We don't want users to deactivate CoCart Lite when CoCart Pro is active.
 			unset( $links['deactivate'] );
 
-			$no_deactivation_explanation = '<span style="color: #initial">' . sprintf(
+			$no_deactivation_explanation = '<span style="color: initial">' . sprintf(
 				/* translators: %s expands to CoCart Pro */
 				__( 'Required by %s', 'cart-rest-api-for-woocommerce' ),
 				'CoCart Pro'
