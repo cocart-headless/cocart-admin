@@ -48,6 +48,20 @@
 		});
 	});
 
+	// Warn user that the changed settings will be lost if navigated away from the page.
+	$( function() {
+		var formChanged = false;
+
+		$( 'input, textarea, select, checkbox' ).on( 'change', function ( event ) {
+			if ( ! formChanged ) {
+				window.onbeforeunload = function () {
+					return cocart_params.i18n_nav_warning;
+				};
+				formChanged = true;
+			}
+		} );
+	} );
+
 	$( document ).ready( function(){
 		$( '#settings-form' ).on( 'keyup change paste', 'input, select, textarea', function(){
 			$( 'input[type="submit"]#save-cocart' ).addClass( 'active' );
@@ -56,6 +70,9 @@
 		$( 'input[type="submit"]#save-cocart' ).click( function(e){
 			// Prevent Default functionality
 			e.preventDefault();
+
+			// Remove navigation warning.
+			window.onbeforeunload = '';
 
 			// Empties save results from previous save.
 			$( '.save-results' ).empty();
