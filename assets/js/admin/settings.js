@@ -82,20 +82,23 @@
 
 			// Salt Key validation.
 			var skip_salt = false;
-			var salt_key  = $( 'input[type="text"]#salt_key' ).val();
-
-			// Check if salt key is already hashed so we don't hash a hash.
-			var is_salt_hashed = salt_key.match( /^[a-f0-9]{32}$/gi ) ? true : false;
-
-			if ( is_salt_hashed ) {
-				console.log( 'Salt key is already hashed! Skipped saving field.' );
-				skip_salt = true;
-			}
 
 			// If salt key field is disabled then it's defined, so we don't save this field.
 			if ( $( 'input[type="text"]#salt_key' ).prop( 'disabled' ) ) {
 				console.log( 'Salt key is already hashed in wp-config.php file! Skipped saving field.' );
 				skip_salt = true;
+			}
+
+			if ( ! skip_salt ) {
+				var salt_key = $( 'input[type="text"]#salt_key' ).val();
+
+				// Check if salt key is already hashed so we don't hash a hash.
+				var is_salt_hashed = salt_key.match( /^[a-f0-9]{32}$/gi ) ? true : false;
+
+				if ( is_salt_hashed ) {
+					console.log( 'Salt key is already hashed! Skipped saving field.' );
+					skip_salt = true;
+				}
 			}
 
 			// Prepare posted data.
