@@ -219,7 +219,9 @@ class Menus {
 
 		switch ( $current_section ) {
 			case 'getting-started':
+				self::get_header( 'getting-started' );
 				self::getting_started_content();
+				self::get_footer();
 				break;
 
 			case 'settings':
@@ -227,19 +229,49 @@ class Menus {
 				break;
 
 			case 'upgrade':
+				self::get_header( 'upgrade-cocart' );
 				self::upgrade_cocart_content();
+				self::get_footer();
 				break;
 
 			default:
+				self::get_header( $current_section );
+
 				/**
 				 * Triggers when the current section specified is custom.
 				 *
 				 * @since 2.0.1 Introduced.
 				 */
 				do_action( 'cocart_page_section_' . strtolower( str_replace( '-', '_', $current_section ) ) );
+
+				self::get_footer();
 				break;
 		}
 	} // END cocart_page()
+
+	/**
+	 * Gets the CoCart page header.
+	 *
+	 * @access protected
+	 *
+	 * @since 4.0.0 Introduced.
+	 *
+	 * @param string $section The class used to identify the page.
+	 */
+	protected static function get_header( $section = '' ) {
+		include_once dirname( __FILE__ ) . '/views/templates/page-header.php';
+	} // END get_header()
+
+	/**
+	 * Gets the CoCart page footer.
+	 *
+	 * @access protected
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	protected static function get_footer() {
+		include_once dirname( __FILE__ ) . '/views/templates/page-footer.php';
+	} // END get_footer()
 
 	/**
 	 * Getting Started content.

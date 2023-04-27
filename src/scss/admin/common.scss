@@ -28,6 +28,29 @@
 		content: none;
 	}
 
+	header {
+		position: fixed;
+		top: 40px;
+		z-index: 9999;
+
+		.page-title {
+			align-items: center;
+			display: flex;
+			font-size: 14px;
+			padding: 0;
+
+			@include media('<=phone') {
+				display: block;
+				padding-top: 20px;
+			}
+
+			.logo-image {
+				align-items: center;
+				justify-content: center;
+			}
+		}
+	}
+
 	.container {
 		background-color: $white;
 		border: 1px solid $lightgrey;
@@ -35,7 +58,7 @@
 		box-shadow: 0 2px 30px $shadow;
 		color: $black;
 		float: left;
-		margin: 20px 6px;
+		margin: 20px 1rem 20px 0;
 		max-width: 800px;
 		text-align: left;
 		width: calc(100% - 20px);

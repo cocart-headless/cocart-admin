@@ -15,25 +15,8 @@
 		width: 100%;
 
 		header {
-			position: fixed;
-			top: 40px;
-			z-index: 9999;
-
 			.page-title {
-				align-items: center;
-				display: flex;
-				font-size: 14px;
 				padding: 0 20px;
-
-				@include media('<=phone') {
-					display: block;
-					padding-top: 20px;
-				}
-
-				.logo-image {
-					align-items: center;
-					justify-content: center;
-				}
 
 				.logo-sep {
 					margin: 0 15px;

@@ -20,13 +20,30 @@
 .cocart .woocommerce-layout__header-breadcrumbs span:nth-child(2)::before {
   content: none; }
 
+.cocart header {
+  position: fixed;
+  top: 40px;
+  z-index: 9999; }
+  .cocart header .page-title {
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+    padding: 0; }
+    @media (max-width: 320px) {
+      .cocart header .page-title {
+        display: block;
+        padding-top: 20px; } }
+    .cocart header .page-title .logo-image {
+      align-items: center;
+      justify-content: center; }
+
 .cocart .container {
   background-color: #fff;
   border: 1px solid #e5e5e5;
   box-shadow: 0 2px 30px rgba(0, 0, 0, 0.04);
   color: #292929;
   float: right;
-  margin: 20px 6px;
+  margin: 20px 0 20px 1rem;
   max-width: 800px;
   text-align: right;
   width: calc(100% - 20px); }
@@ -317,60 +334,47 @@ body.cocart .error {
   position: relative;
   top: 0;
   width: 100%; }
-  .cocart.settings-page header {
-    position: fixed;
-    top: 40px;
-    z-index: 9999; }
-    .cocart.settings-page header .page-title {
-      align-items: center;
-      display: flex;
-      font-size: 14px;
-      padding: 0 20px; }
+  .cocart.settings-page header .page-title {
+    padding: 0 20px;
+    /*.page-title {
+					background-color: #fff;
+					display: inline-block;
+					font-size: 23px;
+					margin: 0;
+					padding: 20px 20px 20px 0;
+				}*/ }
+    .cocart.settings-page header .page-title .logo-sep {
+      margin: 0 15px; }
       @media (max-width: 320px) {
-        .cocart.settings-page header .page-title {
-          display: block;
-          padding-top: 20px; } }
-      .cocart.settings-page header .page-title .logo-image {
-        align-items: center;
-        justify-content: center; }
-      .cocart.settings-page header .page-title .logo-sep {
-        margin: 0 15px; }
-        @media (max-width: 320px) {
-          .cocart.settings-page header .page-title .logo-sep {
-            display: none; } }
-      .cocart.settings-page header .page-title a.tab {
-        border-bottom: 4px solid #fff;
-        box-shadow: none;
-        color: #787c82;
-        display: inline-block;
-        font-weight: 600;
-        margin-left: 30px;
-        margin-top: -4px;
-        padding: 20px 0 18px;
-        text-decoration: none; }
-        .cocart.settings-page header .page-title a.tab.active {
-          border-color: #6032b0;
-          color: #2c3338; }
-          .cocart.settings-page header .page-title a.tab.active:hover {
-            border-color: #6131af; }
-        .cocart.settings-page header .page-title a.tab:hover {
-          border-color: #a7aaad; }
-      .cocart.settings-page header .page-title a.action {
-        color: #fff;
-        font-weight: 600;
-        line-height: 28px;
-        margin: 14px 10px 14px 0;
-        min-height: 30px;
-        vertical-align: top; }
-        @media (max-width: 320px) {
-          .cocart.settings-page header .page-title a.action {
-            margin-right: 0; } }
-      .cocart.settings-page header .page-title .page-title {
-        background-color: #fff;
-        display: inline-block;
-        font-size: 23px;
-        margin: 0;
-        padding: 20px 0 20px 20px; }
+        .cocart.settings-page header .page-title .logo-sep {
+          display: none; } }
+    .cocart.settings-page header .page-title a.tab {
+      border-bottom: 4px solid #fff;
+      box-shadow: none;
+      color: #787c82;
+      display: inline-block;
+      font-weight: 600;
+      margin-left: 30px;
+      margin-top: -4px;
+      padding: 20px 0 18px;
+      text-decoration: none; }
+      .cocart.settings-page header .page-title a.tab.active {
+        border-color: #6032b0;
+        color: #2c3338; }
+        .cocart.settings-page header .page-title a.tab.active:hover {
+          border-color: #6131af; }
+      .cocart.settings-page header .page-title a.tab:hover {
+        border-color: #a7aaad; }
+    .cocart.settings-page header .page-title a.action {
+      color: #fff;
+      font-weight: 600;
+      line-height: 28px;
+      margin: 14px 10px 14px 0;
+      min-height: 30px;
+      vertical-align: top; }
+      @media (max-width: 320px) {
+        .cocart.settings-page header .page-title a.action {
+          margin-right: 0; } }
   .cocart.settings-page footer {
     display: inline;
     padding: 10px 32px; }
