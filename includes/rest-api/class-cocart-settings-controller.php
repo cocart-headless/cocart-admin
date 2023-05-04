@@ -87,11 +87,13 @@ class CoCart_REST_Settings_Controller {
 	 *
 	 * @access public
 	 *
-	 * @return bool|\WP_Error
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
+	 * @return true|WP_Error True if the request has write access, WP_Error object otherwise.
 	 */
-	public function get_options_permission() {
+	public function get_options_permission( $request ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			return new \WP_Error( 'cocart_rest_permission_denied', __( 'Permission Denied.', 'cart-rest-api-for-woocommerce' ), array( 'status' => 401 ) );
+			return new \WP_Error( 'cocart_rest_permission_denied', __( 'Permission Denied.', 'cart-rest-api-for-woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
