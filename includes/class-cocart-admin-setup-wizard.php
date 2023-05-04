@@ -500,17 +500,15 @@ class SetupWizard {
 	public function cocart_setup_wizard_settings_save() {
 		check_admin_referer( 'cocart-setup' );
 
-		$args = array(
-			'sslverify'   => false,
-			'headers'     => array(
-				'Content-Type' => 'application/json; charset=utf-8',
-			),
-			'body'        => wp_json_encode( $_POST ),
-			'data_format' => 'body',
+		$request = new \WP_REST_Request( 'POST', '/cocart/settings/save' );
+		$request->set_header( 'content-type', 'application/json' );
+		$request->set_query_params(
+			array(
+				'form' => 'post'
+			)
 		);
-
-		$resturl  = esc_url_raw( rest_url() ) . 'cocart/settings/save?settings=general&form=post&_wpnonce=' . wp_create_nonce( 'wp_rest' );
-		$response = wp_remote_post( $resturl, $args );
+		$request->set_body( wp_json_encode( $_POST ) );
+		$response = rest_do_request( $request );
 
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
