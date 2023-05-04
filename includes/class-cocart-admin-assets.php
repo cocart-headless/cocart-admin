@@ -58,7 +58,6 @@ class Assets {
 			wp_enqueue_script( COCART_SLUG . '-admin' );
 			wp_localize_script( COCART_SLUG . '-admin', 'cocart_params', array(
 				'root'             => esc_url_raw( rest_url() ),
-				'nonce'            => wp_create_nonce( 'wp_rest' ),
 				'saved_message'    => esc_html__( 'Settings saved successfully.', 'cart-rest-api-for-woocommerce' ),
 				'i18n_nav_warning' => __( 'The changes you made will be lost if you navigate away from this page.', 'cart-rest-api-for-woocommerce' ),
 			) );
