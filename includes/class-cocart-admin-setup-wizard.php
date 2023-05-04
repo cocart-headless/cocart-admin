@@ -469,7 +469,7 @@ class SetupWizard {
 
 			<h1><?php esc_html_e( 'Settings', 'cart-rest-api-for-woocommerce' ); ?></h1>
 
-			<?php do_action( 'cocart_settings_general' ); ?>
+			<?php do_action( 'cocart_settings_page_general' ); ?>
 
 			<p><em>
 			<?php
