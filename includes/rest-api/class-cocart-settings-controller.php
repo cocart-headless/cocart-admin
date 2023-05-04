@@ -270,10 +270,6 @@ class CoCart_REST_Settings_Controller {
 	 * @return void
 	 */
 	public function save_options( \WP_REST_Request $request ) {
-		if ( ! check_ajax_referer( 'wp_rest', '_wpnonce', false ) ) {
-			wp_send_json_error( array( 'message' => __( 'Nonce verification failed.', 'cart-rest-api-for-woocommerce' ) ) );
-		}
-
 		$sections = $this->get_settings();
 
 		if ( $request->get_param( 'form' ) === 'post' ) {
