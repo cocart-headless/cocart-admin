@@ -51,7 +51,7 @@ class CoCart_REST_Settings_Controller {
 		add_filter( 'cocart_settings_sanitize_textarea', array( $this, 'sanitize_textarea_field' ) );
 		add_filter( 'cocart_settings_sanitize_radio', array( $this, 'sanitize_radio_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_select', array( $this, 'sanitize_select_field' ), 10, 2 );
-		add_filter( 'cocart_settings_sanitize_checkbox', array( $this, 'sanitize_checkbox_field' ), 10, 2 );
+		add_filter( 'cocart_settings_sanitize_checkbox', array( $this, 'sanitize_checkbox_field' ) );
 		add_filter( 'cocart_settings_sanitize_multiselect', array( $this, 'sanitize_multiple_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_multicheckbox', array( $this, 'sanitize_multiple_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_file', array( $this, 'sanitize_file_field' ) );
@@ -109,8 +109,6 @@ class CoCart_REST_Settings_Controller {
 	 * @return string
 	 */
 	public function sanitize_text_field( $value ) {
-		$value = is_null( $value ) ? '' : $value;
-
 		return wp_kses_post( trim( stripslashes( $value ) ) );
 	} // END sanitize_text_field()
 
@@ -124,8 +122,6 @@ class CoCart_REST_Settings_Controller {
 	 * @return string
 	 */
 	public function sanitize_textarea_field( $value ) {
-		$value = is_null( $value ) ? '' : $value;
-
 		return wp_kses(
 			trim( stripslashes( $value ) ),
 			array_merge(
@@ -179,20 +175,14 @@ class CoCart_REST_Settings_Controller {
 	 *
 	 * @access public
 	 *
-	 * @param string $value   Settings value.
-	 * @param array  $setting Details of the settings to validate with.
+	 * @param string $value Settings value.
 	 *
 	 * @return void
 	 */
-	public function sanitize_checkbox_field( $value, $setting ) {
-		if ( in_array( $value, array( 'yes', 'no' ) ) ) {
-			return $value;
-		} elseif ( empty( $value ) ) {
-			$value = isset( $setting['default'] ) ? $setting['default'] : 'no';
-			return $value;
-		} else {
-			return new WP_Error( 'cocart_rest_value_invalid', __( 'An invalid setting value was passed.', 'cart-rest-api-for-woocommerce' ), array( 'status' => 400 ) );
-		}
+	public function sanitize_checkbox_field( $value ) {
+		$value = '1' === $value || 'yes' === $value ? 'yes' : 'no';
+
+		return $value;
 	} // END sanitize_checkbox_field()
 
 	/**
@@ -295,22 +285,19 @@ class CoCart_REST_Settings_Controller {
 		if ( is_array( $sections ) && ! empty( $sections ) ) {
 			foreach ( $sections as $page => $settings ) {
 				foreach ( $settings as $setting ) {
-					// Skip if no setting type.
-					if ( ! $setting['type'] || $setting['type'] === 'title' || $setting['type'] === 'sectionend' ) {
-						continue;
-					}
+					$setting_type = $setting['type'];
 
-					// Skip if the ID doesn't exist in the data received.
-					if ( ! array_key_exists( $setting['id'], $data ) ) {
+					// Skip if no setting type.
+					if ( ! $setting_type || $setting_type === 'title' || $setting_type === 'sectionend' ) {
 						continue;
 					}
 
 					// Sanitize the input.
-					$setting_type = $setting['type'];
-					$output = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $data[ $setting['id'] ], $setting, $this->errors );
+					$raw_data     = isset( $data[ $setting['id'] ] ) ? $data[ $setting['id'] ] : '';
+					$output       = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $raw_data, $setting, $this->errors );
 
-					if ( $setting_type == 'checkbox' && $output == false ) {
-						continue;
+					if ( is_wp_error( $output ) ) {
+						return $output;
 					}
 
 					// Encrypt salt key.
@@ -319,9 +306,7 @@ class CoCart_REST_Settings_Controller {
 					}
 
 					// Add the option to the list of ones that we need to save.
-					if ( ! empty( $output ) && ! is_wp_error( $output ) ) {
-						$data_to_save[ $page ][ $setting['id'] ] = $output;
-					}
+					$data_to_save[ $page ][ $setting['id'] ] = $output;
 				}
 			}
 		}
