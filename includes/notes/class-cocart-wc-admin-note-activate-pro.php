@@ -37,6 +37,8 @@ class CoCart_WC_Admin_Activate_Pro_Note extends WCAdminNotes {
 
 	/**
 	 * Constructor
+	 *
+	 * @access public
 	 */
 	public function __construct() {
 		self::activate_plugin();
@@ -47,10 +49,12 @@ class CoCart_WC_Admin_Activate_Pro_Note extends WCAdminNotes {
 	 * Add note.
 	 *
 	 * @access public
+	 *
 	 * @static
-	 * @since   2.4.0 Introduced.
-	 * @since   3.2.0 Dropped support for WooCommerce less than version 4.8
-	 * @version 3.2.0
+	 *
+	 * @since 2.4.0 Introduced.
+	 * @since 3.2.0 Dropped support for WooCommerce less than version 4.8
+	 *
 	 * @param string $note_name Note name.
 	 * @param string $seconds   How many seconds since CoCart was installed before the notice is shown.
 	 * @param string $source    Source of the note.
@@ -103,12 +107,14 @@ class CoCart_WC_Admin_Activate_Pro_Note extends WCAdminNotes {
 	/**
 	 * Get note arguments.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @static
-	 * @since   2.4.0 Introduced.
-	 * @since   3.2.0 Dropped support for WooCommerce less than version 4.8
-	 * @version 3.2.0
-	 * @return  array
+	 *
+	 * @since 2.4.0 Introduced.
+	 * @since 3.2.0 Dropped support for WooCommerce less than version 4.8
+	 *
+	 * @return array
 	 */
 	public static function get_note_args() {
 		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_ACTIONED;

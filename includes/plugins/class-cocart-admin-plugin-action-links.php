@@ -40,7 +40,7 @@ class PluginActionLinks {
 	 *
 	 * @param array $links An array of plugin links.
 	 *
-	 * @return  array $links
+	 * @return array $links
 	 */
 	public function plugin_action_links( $links ) {
 		if ( version_compare( get_option( 'cocart_version' ), COCART_VERSION, '<' ) ) {
@@ -59,7 +59,7 @@ class PluginActionLinks {
 					$page
 					/* translators: %s: CoCart */
 				) . '" aria-label="' . sprintf( esc_attr__( 'Getting Started with %s', 'cart-rest-api-for-woocommerce' ), 'CoCart' ) . '">' . esc_attr__( 'Getting Started', 'cart-rest-api-for-woocommerce' ) . '</a>',
-				'settings' => '<a href="' . add_query_arg(
+				'settings'        => '<a href="' . add_query_arg(
 					array(
 						'page'    => 'cocart',
 						'section' => 'settings',

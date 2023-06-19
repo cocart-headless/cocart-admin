@@ -29,6 +29,8 @@ class CoCart_WC_Admin_Need_Help_Note extends WCAdminNotes {
 
 	/**
 	 * Constructor
+	 *
+	 * @access public
 	 */
 	public function __construct() {
 		self::add_note( self::NOTE_NAME, 8 * DAY_IN_SECONDS );
@@ -38,7 +40,9 @@ class CoCart_WC_Admin_Need_Help_Note extends WCAdminNotes {
 	 * Add note.
 	 *
 	 * @access public
+	 *
 	 * @static
+	 *
 	 * @param string $note_name Note name.
 	 * @param string $seconds   How many seconds since CoCart was installed before the notice is shown.
 	 * @param string $source    Source of the note.
@@ -60,12 +64,15 @@ class CoCart_WC_Admin_Need_Help_Note extends WCAdminNotes {
 	/**
 	 * Get note arguments.
 	 *
-	 * @access  public
+	 * @access public
+	 *
 	 * @static
-	 * @since   2.3.0 Introduced.
-	 * @since   3.2.0 Dropped support for WooCommerce less than version 4.8
-	 * @version 4.0.0
-	 * @return  array
+	 *
+	 * @since 2.3.0 Introduced.
+	 * @since 3.2.0 Dropped support for WooCommerce less than version 4.8
+	 * @since 4.0.0 Updated to use namespaces.
+	 *
+	 * @return array
 	 */
 	public static function get_note_args() {
 		$status = \Automattic\WooCommerce\Admin\Notes\Note::E_WC_ADMIN_NOTE_UNACTIONED;

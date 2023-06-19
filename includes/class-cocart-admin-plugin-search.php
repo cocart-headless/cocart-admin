@@ -25,6 +25,10 @@ class PluginSearch {
 	/**
 	 * Singleton constructor.
 	 *
+	 * @access public
+	 *
+	 * @static
+	 *
 	 * @return PluginSearch
 	 */
 	public static function init() {
@@ -35,7 +39,7 @@ class PluginSearch {
 		}
 
 		return $instance;
-	}
+	} // END init()
 
 	/**
 	 * Constructor.

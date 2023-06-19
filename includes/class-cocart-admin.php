@@ -140,8 +140,8 @@ class Package {
 	 *
 	 * @static
 	 *
-	 * @since   1.2.0 Introduced.
-	 * @version 4.0.0
+	 * @since 1.2.0 Introduced.
+	 * @since 4.0.0 Moved setup wizard to be included in `cocart_settings()` instead.
 	 */
 	public static function includes() {
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-assets.php';                            // Admin Assets.

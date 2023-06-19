@@ -38,8 +38,8 @@ class Assets {
 	 *
 	 * @access public
 	 *
-	 * @since   1.2.0
-	 * @version 4.0.0
+	 * @since 1.2.0 Introduced.
+	 * @since 4.0.0 Added Javascript for the settings page.
 	 */
 	public function admin_styles() {
 		$screen    = get_current_screen();
@@ -69,12 +69,12 @@ class Assets {
 	 *
 	 * @access public
 	 *
-	 * @since   1.2.0
+	 * @since   1.2.0 Introduced.
 	 * @version 3.0.7
 	 *
-	 * @param string $classes - Classes already registered.
+	 * @param string $classes Classes already registered.
 	 *
-	 * @return string $classes - All classes registered.
+	 * @return string $classes All classes registered.
 	 */
 	public function admin_body_class( $classes ) {
 		$screen    = get_current_screen();

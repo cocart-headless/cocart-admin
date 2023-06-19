@@ -11,7 +11,7 @@
 
 		// If page loaded with hash, display settings section.
 		if ( window.location.hash != false ) {
-			var section = window.location.hash.split('#')[1];
+			var section = window.location.hash.split( '#' )[1];
 
 			$( '.cocart header a.tab' ).removeClass( 'active' );
 			$( '.cocart #settings-form h2' ).removeClass( 'active' );
@@ -22,15 +22,15 @@
 
 			$( '.cocart header a.tab[data-target=' + section + ']' ).addClass( 'active' );
 			$( '.cocart #settings-form h2#' + section + '-settings' ).addClass( 'active' );
-			$( '.cocart #settings-form h3#' + section + '-title').addClass( 'active' );
-			$( '.cocart #settings-form div#' + section + '-description').addClass( 'active' );
+			$( '.cocart #settings-form h3#' + section + '-title' ).addClass( 'active' );
+			$( '.cocart #settings-form div#' + section + '-description' ).addClass( 'active' );
 			$( '.cocart #settings-form table#' + section + '-settings' ).addClass( 'active' );
 			$( '.cocart #settings-form div#' + section + '-aftertable' ).addClass( 'active' );
 		}
 
 		// Change to settings section on navigation click.
 		$( '.cocart header a.tab' ).click( function(e){
-			var section = $(this).data("target");
+			var section = $( this ).data( "target" );
 
 			$( '.cocart header a.tab' ).removeClass( 'active' );
 			$( '.cocart #settings-form h2' ).removeClass( 'active' );
@@ -41,8 +41,8 @@
 
 			$( '.cocart header a.tab[data-target=' + section + ']' ).addClass( 'active' );
 			$( '.cocart #settings-form h2#' + section + '-settings' ).addClass( 'active' );
-			$( '.cocart #settings-form h3#' + section + '-title').addClass( 'active' );
-			$( '.cocart #settings-form div#' + section + '-description').addClass( 'active' );
+			$( '.cocart #settings-form h3#' + section + '-title' ).addClass( 'active' );
+			$( '.cocart #settings-form div#' + section + '-description' ).addClass( 'active' );
 			$( '.cocart #settings-form table#' + section + '-settings' ).addClass( 'active' );
 			$( '.cocart #settings-form div#' + section + '-aftertable' ).addClass( 'active' );
 		});
@@ -118,7 +118,7 @@
 			// Save settings.
 			$.ajax({
 				method: 'POST',
-				url: cocart_params.root + 'cocart/settings/save?_wpnonce=' + cocart_params.nonce,
+				url: cocart_params.root + 'cocart/settings/save',
 				data: JSON.stringify( formData, null, ' ' ),
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json',

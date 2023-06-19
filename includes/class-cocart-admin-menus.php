@@ -37,8 +37,8 @@ class Menus {
 	 *
 	 * @access public
 	 *
-	 * @since   2.0.0 Introduced.
-	 * @version 3.1.0
+	 * @since 2.0.0 Introduced.
+	 * @since 4.0.0 Added settings sub-menu.
 	 */
 	public function admin_menu() {
 		$section = ! isset( $_GET['section'] ) ? 'getting-started' : trim( sanitize_key( wp_unslash( $_GET['section'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -280,8 +280,7 @@ class Menus {
 	 *
 	 * @static
 	 *
-	 * @since   2.0.0 Introduced.
-	 * @version 2.6.0
+	 * @since 2.0.0 Introduced.
 	 */
 	public static function getting_started_content() {
 		include_once dirname( __FILE__ ) . '/views/html-getting-started.php';
@@ -318,8 +317,8 @@ class Menus {
 	 *
 	 * @access public
 	 *
-	 * @since   3.1.0 Introduced.
-	 * @version 4.0.0
+	 * @since 3.1.0 Introduced.
+	 * @since 4.0.0 Added support for settings page.
 	 *
 	 * @param $parent_file string The parent file.
 	 *

@@ -30,7 +30,7 @@ class PluginSuggestionsUpdater {
 	 */
 	public static function load() {
 		add_action( 'init', array( __CLASS__, 'init' ) );
-	}
+	} // END load()
 
 	/**
 	 * Schedule events and hook appropriate actions.
@@ -43,7 +43,7 @@ class PluginSuggestionsUpdater {
 		if ( ! defined( 'REST_REQUEST' ) ) {
 			add_action( 'cocart_update_plugin_suggestions', array( __CLASS__, 'update_plugin_suggestions' ) );
 		}
-	}
+	} // END init()
 
 	/**
 	 * Fetches new plugin data, updates CoCart plugin suggestions.

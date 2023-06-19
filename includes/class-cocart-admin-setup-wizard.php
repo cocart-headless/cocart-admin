@@ -504,7 +504,7 @@ class SetupWizard {
 		$request->set_header( 'content-type', 'application/json' );
 		$request->set_query_params(
 			array(
-				'form' => 'post'
+				'form' => 'post',
 			)
 		);
 		$request->set_body( wp_json_encode( $_POST ) );

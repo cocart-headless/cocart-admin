@@ -22,6 +22,7 @@ abstract class SettingsPage {
 	 * Setting page id.
 	 *
 	 * @access protected
+	 *
 	 * @var    string $id
 	 */
 	protected $id = '';
@@ -30,6 +31,7 @@ abstract class SettingsPage {
 	 * Setting page label.
 	 *
 	 * @access protected
+	 *
 	 * @var    string $label
 	 */
 	protected $label = '';
@@ -50,6 +52,7 @@ abstract class SettingsPage {
 	 * Get settings page ID.
 	 *
 	 * @access public
+	 *
 	 * @return string
 	 */
 	public function get_id() {
@@ -60,6 +63,7 @@ abstract class SettingsPage {
 	 * Get settings page label.
 	 *
 	 * @access public
+	 *
 	 * @return string
 	 */
 	public function get_label() {
@@ -70,7 +74,9 @@ abstract class SettingsPage {
 	 * Add this page to settings.
 	 *
 	 * @access public
+	 *
 	 * @param  array $pages
+	 *
 	 * @return array $pages
 	 */
 	public function add_settings_page( $pages ) {
@@ -83,6 +89,7 @@ abstract class SettingsPage {
 	 * Get settings array
 	 *
 	 * @access public
+	 *
 	 * @return array
 	 */
 	public function get_settings() {
