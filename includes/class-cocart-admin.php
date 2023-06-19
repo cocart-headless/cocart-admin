@@ -44,6 +44,7 @@ class Package {
 
 		// Admin screens.
 		add_action( 'current_screen', array( __CLASS__, 'conditional_includes' ) );
+		add_action( 'admin_init', array( __CLASS__, 'cocart_settings' ) );
 		add_action( 'admin_init', array( __CLASS__, 'admin_redirects' ) );
 
 		// REST API.
@@ -146,12 +147,24 @@ class Package {
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-assets.php';                            // Admin Assets.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-menus.php';                             // Admin Menus.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-notices.php';                           // Plugin Notices.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-tracker.php';                    // Plugin Tracker.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-suggestions.php';                // Plugin Suggestions.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-search.php';                     // Plugin Search.
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php';                          // Plugin Settings.
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-tracker.php';                    // Plugin Tracker.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-wc-admin-notices.php';                  // WooCommerce Admin Notices.
 		include_once COCART_ABSPATH . 'includes/classes/admin/class-cocart-wc-admin-system-status.php'; // WooCommerce System Status.
+	} // END includes()
+
+	/**
+	 * Include CoCart Settings and Setup Wizard.
+	 *
+	 * @access public
+	 *
+	 * @static
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	public static function cocart_settings() {
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php'; // Plugin Settings.
 
 		// Setup Wizard.
 		if ( ! empty( $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -161,7 +174,7 @@ class Package {
 					break;
 			}
 		}
-	} // END includes()
+	} // END cocart_settings()
 
 	/**
 	 * Include admin files conditionally.
