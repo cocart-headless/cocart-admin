@@ -72,12 +72,17 @@ class Settings {
 		if ( empty( self::$settings ) ) {
 			include_once dirname( __FILE__ ) . '/abstracts/abstract-cocart-settings.php';
 
-			$settings = array(
+			self::$settings = array(
 				'general' => include dirname( __FILE__ ) . '/settings/class-cocart-admin-settings-general.php',
 			);
-
-			self::$settings = apply_filters( 'cocart_get_settings_pages', $settings );
 		}
+
+		/**
+		 * Filters the settings pages.
+		 *
+		 * @since 4.0.0 Introduced.
+		 */
+		self::$settings = apply_filters( 'cocart_get_settings_pages', self::$settings );
 
 		return self::$settings;
 	} // END prep_settings_page()
@@ -225,35 +230,40 @@ class Settings {
 				// Section Titles.
 				case 'title':
 					if ( ! empty( $value['title'] ) ) {
-						echo '<h2>' . esc_html( $value['title'] ) . '</h2>';
+						echo '<h3 id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-title" class="section-title">' . esc_html( $value['title'] ) . '</h3>';
 					}
 					if ( ! empty( $value['desc'] ) ) {
-						echo '<div id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-description">';
+						echo '<div id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-description" class="section-description">';
 						echo wp_kses_post( wpautop( wptexturize( $value['desc'] ) ) );
 						echo '</div>';
 					}
 					echo '<table class="form-table" id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-settings">' . "\n\n";
-					if ( ! empty( $value['id'] ) ) {
+					if ( ! empty( $value['id'] ) && has_action( 'cocart_settings_' . sanitize_title( $value['id'] ) ) ) {
+						echo '<tr><td colspan="2">';
 						do_action( 'cocart_settings_' . sanitize_title( $value['id'] ) );
+						echo '</td></tr>';
 					}
 
 					break;
 
 				// Section Ends.
 				case 'sectionend':
-					if ( ! empty( $value['id'] ) ) {
+					if ( ! empty( $value['id'] ) && has_action( 'cocart_settings_' . sanitize_title( $value['id'] ) . '_end' ) ) {
+						echo '<tr><td colspan="2">';
 						do_action( 'cocart_settings_' . sanitize_title( $value['id'] ) . '_end' );
+						echo '</td></tr>';
 					}
 					echo '</table>';
-					if ( ! empty( $value['id'] ) ) {
+					if ( ! empty( $value['id'] ) && has_action( 'cocart_settings_' . sanitize_title( $value['id'] ) . '_after' ) ) {
+						echo '<div id="' . esc_attr( sanitize_title( $value['id'] ) ) . '-aftertable" class="aftertable">';
 						do_action( 'cocart_settings_' . sanitize_title( $value['id'] ) . '_after' );
+						echo '</div>';
 					}
 					break;
 
 				// Standard text inputs and subtypes like 'number'.
 				case 'text':
 				case 'password':
-				case 'datetime':
 				case 'datetime-local':
 				case 'date':
 				case 'month':
@@ -379,12 +389,12 @@ class Settings {
 						</th>
 						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 							<fieldset>
-								<?php echo esc_html( $description ); ?>
+								<?php echo $description; ?>
 								<ul>
 								<?php
 								foreach ( $value['options'] as $key => $val ) {
 									?>
-									<li>
+									<li style="list-style:none;">
 										<label><input
 											name="<?php echo esc_attr( $value['id'] ); ?>"
 											value="<?php echo esc_attr( $key ); ?>"
@@ -428,6 +438,8 @@ class Settings {
 						$visibility_class[] = 'show_options_if_checked';
 					}
 
+					$must_disable = $value['disabled'] ?? false;
+
 					if ( ! isset( $value['checkboxgroup'] ) || 'start' === $value['checkboxgroup'] ) {
 						?>
 							<tr valign="top" class="<?php echo esc_attr( implode( ' ', $visibility_class ) ); ?>">
@@ -450,11 +462,13 @@ class Settings {
 					?>
 						<label for="<?php echo esc_attr( $value['id'] ); ?>">
 							<input
+								<?php echo $must_disable ? 'disabled' : ''; ?>
 								name="<?php echo esc_attr( $value['id'] ); ?>"
 								id="<?php echo esc_attr( $value['id'] ); ?>"
 								type="checkbox"
 								class="<?php echo esc_attr( isset( $value['class'] ) ? $value['class'] : '' ); ?>"
 								value="1"
+								<?php disabled( $value['disabled'] ?? false ); ?>
 								<?php checked( $option_value, 'yes' ); ?>
 								<?php echo implode( ' ', $custom_attributes ); ?>
 							/> <?php echo esc_html( $description ); ?>
@@ -474,60 +488,11 @@ class Settings {
 					}
 					break;
 
-				case 'single_select_page_with_search':
-					$option_value = $value['value'];
-					$page         = get_post( $option_value );
-
-					if ( ! is_null( $page ) ) {
-						$page                = get_post( $option_value );
-						$option_display_name = sprintf(
-							/* translators: 1: page name 2: page ID */
-							__( '%1$s (ID: %2$s)', 'cart-rest-api-for-woocommerce' ),
-							$page->post_title,
-							$option_value
-						);
-					}
-					?>
-					<tr valign="top" class="single_select_page">
-						<th scope="row" class="titledesc">
-							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></label>
-						</th>
-						<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-							<select
-								name="<?php echo esc_attr( $value['id'] ); ?>"
-								id="<?php echo esc_attr( $value['id'] ); ?>"
-								style="<?php echo esc_attr( $value['css'] ); ?>"
-								class="<?php echo esc_attr( $value['class'] ); ?>"
-								<?php echo implode( ' ', $custom_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-								data-placeholder="<?php esc_attr_e( 'Search for a page&hellip;', 'cart-rest-api-for-woocommerce' ); ?>"
-								data-allow_clear="true"
-								data-exclude="<?php echo wc_esc_json( wp_json_encode( $value['args']['exclude'] ) ); ?>"
-								>
-								<option value=""></option>
-								<?php
-								if ( ! empty( $value['options'] ) ) {
-									foreach ( $value['options'] as $option => $value ) {
-										echo '<option value="' . $value . '">' . $option . '</option>';
-									}
-								}
-								?>
-								<?php if ( ! is_null( $page ) ) { ?>
-									<option value="<?php echo esc_attr( $option_value ); ?>" selected="selected">
-									<?php echo wp_strip_all_tags( $option_display_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-									</option>
-								<?php } ?>
-							</select> <?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-						</td>
-					</tr>
-					<?php
-					break;
-
 				case 'button':
-					if ( isset( $value['url'] ) && ! empty( $value['url'] ) ) {
-						?>
+					?>
 					<tr valign="top" id="button_<?php echo esc_attr( $value['id'] ); ?>">
 						<th scope="row" class="titledesc">
-							<a href="<?php echo esc_html( $value['url'] ); ?>" class="button button-secondary <?php echo esc_attr( $value['class'] ); ?>">
+							<a href="<?php echo esc_html( ! empty( $value['url'] ) ? $value['url'] : '#' ); ?>" target="<?php echo esc_attr( ! empty( $value['target'] ) ? $value['target'] : '' ); ?>" class="button button-secondary <?php echo esc_attr( $value['class'] ); ?>">
 								<?php echo esc_html( $value['value'] ); ?>
 							</a>
 						</th>
@@ -535,8 +500,7 @@ class Settings {
 							<?php echo $description; ?>
 						</td>
 					</tr>
-						<?php
-					}
+					<?php
 					break;
 
 				// Default: run an action.

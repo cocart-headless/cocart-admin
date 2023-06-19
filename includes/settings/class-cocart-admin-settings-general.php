@@ -53,17 +53,23 @@ class GeneralSettings extends Page {
 			'placeholder' => 'https://',
 			'css'         => 'width:25em;',
 			'desc'        => esc_html__( 'The full URL to your headless front-end, including https://. This is used for rewriting product permalinks to point to your front-end site.', 'cart-rest-api-for-woocommerce' ),
-			'autoload'    => false,
 		);
 
 		$settings[] = array(
-			'title'    => esc_html__( 'Salt Key', 'cart-rest-api-for-woocommerce' ),
-			'id'       => 'salt_key',
-			'type'     => 'text',
-			'default'  => '',
-			'css'      => 'width:25em;',
-			'desc'     => esc_html__( 'This key is used to protect certain features from being misused. Enter a plain word or phrase.', 'cart-rest-api-for-woocommerce' ),
-			'autoload' => false,
+			'title'   => esc_html__( 'Disable WordPress Access?', 'cart-rest-api-for-woocommerce' ),
+			'id'      => 'disable_wp_access',
+			'type'    => 'checkbox',
+			'default' => 'no',
+			'desc'    => esc_html__( 'If enabled, users who are not administrators cannot access the WordPress site. Will redirect users to "Front-end site URL" instead if set above.', 'cart-rest-api-for-woocommerce' ),
+		);
+
+		$settings[] = array(
+			'title'   => esc_html__( 'Salt Key', 'cart-rest-api-for-woocommerce' ),
+			'id'      => 'salt_key',
+			'type'    => 'text',
+			'default' => '',
+			'css'     => 'width:25em;',
+			'desc'    => esc_html__( 'This key is used to protect certain features from being misused. Enter a plain word or phrase.', 'cart-rest-api-for-woocommerce' ),
 		);
 
 		$settings[] = array(
