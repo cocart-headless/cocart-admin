@@ -22,11 +22,6 @@
 	"support": {
 		"issues": "https://github.com/co-cart/cocart-admin/issues"
 	},
-	"autoload": {
-		"classmap": [
-			"includes/"
-		]
-	},
 	"require": {
 		"composer/installers": "2.2.0"
 	},
