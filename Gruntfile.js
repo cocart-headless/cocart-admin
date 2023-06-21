@@ -121,8 +121,8 @@ module.exports = function(grunt) {
 			dist: {
 				expand: true,
 				src: [
+					'<%= dirs.css %>/admin/*.css',
 					'!<%= dirs.css %>/admin/*.min.css',
-					'<%= dirs.css %>/admin/*.css'
 				],
 				ext: '.css'
 			}
@@ -140,8 +140,8 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: '<%= dirs.css %>/admin',
 					src: [
-						'!*.min.css',
 						'*.css',
+						'!*.min.css',
 					],
 					dest: '<%= dirs.css %>/admin',
 					ext: '.min.css'
@@ -153,8 +153,8 @@ module.exports = function(grunt) {
 		watch: {
 			postcss: {
 				files: [
+					'<%= dirs.css %>/admin/*.css',
 					'!<%= dirs.css %>/admin/*.min.css',
-					'<%= dirs.css %>/admin/*.css'
 				],
 				tasks: ['postcss'],
 				options: {
