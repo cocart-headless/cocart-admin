@@ -10,7 +10,7 @@
 	],
 	"license": "MIT",
 	"prefer-stable": true,
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
 	"authors": [
 		{
 			"name": "Sébastien Dumont",
