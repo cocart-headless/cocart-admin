@@ -47,7 +47,7 @@ class PluginTracker {
 	 */
 	public function appsero_init_tracker() {
 		if ( ! class_exists( '\Appsero\Client' ) ) {
-			require_once untrailingslashit( plugin_dir_path( COCART_FILE ) ) . '/vendor/appsero/Client.php';
+			require_once untrailingslashit( plugin_dir_path( COCART_FILE ) ) . '/vendor/appsero/client/src/Client.php';
 		}
 
 		// Should WooCommerce be deactivated by mistake, prevent site from crashing by ignoring the tracker.
@@ -70,7 +70,7 @@ class PluginTracker {
 			array(
 				'products'          => $this->insights->get_post_count( 'product' ),
 				'orders'            => $this->get_order_count(),
-				'cocart_version'    => COCART_VERSION,
+				'cocart_version'    => class_exists( 'CoCart_Pro' ) && version_compare( COCART_PRO_VERSION, '1.0.0', '>' ) ? COCART_PRO_VERSION : COCART_VERSION,
 				'is_pro'            => class_exists( 'CoCart_Pro' ) ? 'Yes' : 'No',
 				'wc_version'        => function_exists( 'WC' ) ? WC()->version : WC_VERSION,
 				'user_language'     => Help::get_user_language(),
@@ -86,17 +86,17 @@ class PluginTracker {
 		);
 
 		if ( class_exists( 'CoCart_Pro' ) ) {
+			$client->set_textdomain( 'cocart-pro' );
 			$this->insights->hide_notice()->init();
 			$this->insights->optin();
 		} else {
+			$client->set_textdomain( 'cart-rest-api-for-woocommerce' );
 			$this->insights->init();
 		}
-
-		$client->set_textdomain( 'cart-rest-api-for-woocommerce' );
 	} // END appsero_init_tracker()
 
 	/**
-	 * Get number of orders
+	 * Get number of orders.
 	 *
 	 * @access protected
 	 *
