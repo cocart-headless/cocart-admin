@@ -634,21 +634,19 @@ class SetupWizard {
 		echo wp_kses_post(
 			sprintf(
 				/* translators: %s: CoCart */
-				__( 'Now that you have %s installed your ready to start developing your headless store. We recommend that you have <code>WP_DEBUG</code> enabled to help you while testing.', 'cart-rest-api-for-woocommerce' ),
+				__( 'Before you get started we recommend that you have<code>WP_DEBUG</code> enabled to help you while testing the API.', 'cart-rest-api-for-woocommerce' ),
 				'CoCart'
 			)
 		);
 		?>
 		</p>
 
-		<p><?php esc_html_e( 'In the API reference you will find the API routes available with examples in a few languages.', 'cart-rest-api-for-woocommerce' ); ?></p>
-
 		<p>
 			<?php
 			echo wp_kses_post(
 				sprintf(
 					/* translators: 1: Developers Hub link, 2: CoCart */
-					__( 'At the <a href="%1$s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
+					__( 'At the <a href="%1$s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s, keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
 					$docs_url,
 					'CoCart'
 				)
@@ -658,7 +656,7 @@ class SetupWizard {
 
 		<p>
 			<?php
-			esc_html_e( 'It also provides answers to most common questions should you find that you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
+			esc_html_e( 'There you will also find answers to most common questions should you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
 			?>
 		</p>
 
@@ -758,9 +756,6 @@ class SetupWizard {
 						<a class="button" href="<?php echo esc_url( admin_url() ); ?>">
 							<?php esc_html_e( 'Visit Dashboard', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
-						<a class="button" href="<?php echo esc_url( 'https://www.npmjs.com/package/@cocart/cocart-rest-api' ); ?>" target="_blank">
-							<?php esc_html_e( 'Download CoCart JS', 'cart-rest-api-for-woocommerce' ); ?>
-						</a>
 						<a class="button" href="<?php echo esc_url( 'https://marketplace.visualstudio.com/items?itemName=sebastien-dumont.cocart-vscode' ); ?>" target="_blank">
 							<?php esc_html_e( 'Install CoCart VSCode Extension', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
@@ -773,7 +768,7 @@ class SetupWizard {
 		</ul>
 
 		<p class="tweet-share">
-			<a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-text="<?php echo esc_html( $this->tweets[ $tweet ] ); ?>" data-url="https://cocart.xyz/" data-hashtags="WooCommerce" data-related="WooCommerce" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-text="<?php echo esc_html( $this->tweets[ $tweet ] ); ?>" data-url="https://cocart.xyz/" data-hashtags="CoCart" data-related="CoCart" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 		</p>
 
 		<p class="next-steps-help-text"><?php echo wp_kses_post( $help_text ); ?></p>
