@@ -46,7 +46,7 @@ $dev_hub_url   = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, es
 			<?php
 			printf(
 				/* translators: 1: CoCart, 2: WooCommerce */
-				esc_html__( 'Thank you for choosing %1$s - the #1 customizable WordPress REST API for %2$s that lets you build headless ecommerce using your favorite technologies.', 'cart-rest-api-for-woocommerce' ),
+				esc_html__( 'Thank you for choosing %1$s - the #1 customizable REST API collection for %2$s that takes the pain out of developing.', 'cart-rest-api-for-woocommerce' ),
 				'CoCart',
 				'WooCommerce'
 			);
@@ -56,10 +56,9 @@ $dev_hub_url   = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, es
 		<p>
 			<?php
 			printf(
-				/* translators: 1: CoCart, 2: WooCommerce */
-				esc_html__( '%1$s provides support for managing the user session, alternative options for doing this task do exist; however, their usage can be limited to applications of the same origin as the WordPress installation. This is due to %2$s using cookies to store user session tokens.', 'cart-rest-api-for-woocommerce' ),
-				'CoCart',
-				'WooCommerce'
+				/* translators: 1: CoCart */
+				esc_html__( 'Your one step closer to building a headless store or a POS application. Optimized for performance and designed for developers, %s provides support out-of-the-box experience that manages the cart sessions for both guest and registered customers without the need of being on the same origin as the WordPress installation.', 'cart-rest-api-for-woocommerce' ),
+				'CoCart'
 			);
 			?>
 		</p>
@@ -68,7 +67,7 @@ $dev_hub_url   = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, es
 			<?php
 			printf(
 				/* translators: %s: CoCart */
-				esc_html__( '%s provides the utilities to change this behavior during any cart request and passes the required information to HTTP Header so it can be cached client-side. The use of an HTTP Authorization header is optional allowing users to shop as a guest.', 'cart-rest-api-for-woocommerce' ),
+				esc_html__( '%s does not store cookies which allows the developer to cache the session client-side with the use of authentication being optional.', 'cart-rest-api-for-woocommerce' ),
 				'CoCart'
 			);
 			?>
@@ -79,21 +78,19 @@ $dev_hub_url   = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, es
 			echo wp_kses_post(
 				sprintf(
 					/* translators: %s: CoCart */
-					__( 'Now that you have %s installed your ready to start developing your headless store. We recommend that you have <code>WP_DEBUG</code> enabled to help you while testing.', 'cart-rest-api-for-woocommerce' ),
+					__( 'Before you get started we recommend that you have<code>WP_DEBUG</code> enabled to help you while testing the API.', 'cart-rest-api-for-woocommerce' ),
 					'CoCart'
 				)
 			);
 			?>
 		</p>
 
-		<p><?php esc_html_e( 'In the API reference you will find the API routes available with examples in a few languages.', 'cart-rest-api-for-woocommerce' ); ?></p>
-
 		<p>
 			<?php
 			echo wp_kses_post(
 				sprintf(
 					/* translators: 1: Developers Hub link, 2: CoCart */
-					__( 'At the <a href="%s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
+					__( 'At the <a href="%s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s, keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
 					$dev_hub_url,
 					'CoCart'
 				)
@@ -103,7 +100,7 @@ $dev_hub_url   = CoCart\Help::build_shortlink( add_query_arg( $campaign_args, es
 
 		<p>
 			<?php
-			esc_html_e( 'It also provides answers to most common questions should you find that you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
+			esc_html_e( 'There you will also find answers to most common questions should you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
 			?>
 		</p>
 
