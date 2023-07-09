@@ -298,12 +298,12 @@ class SetupWizard {
 	/**
 	 * Initial "store setup" step.
 	 *
-	 * New Store, Multiple Domains.
+	 * New Store, Multiple Domains, JWT Authentication.
 	 *
 	 * @access public
 	 *
-	 * @since   3.1.0 Introduced.
-	 * @version 4.0.0
+	 * @since 3.1.0 Introduced.
+	 * @since 4.0.0 Added option to install JWT Authentication.
 	 */
 	public function cocart_setup_wizard_store_setup() {
 		$sessions_transferred = get_transient( 'cocart_setup_wizard_sessions_transferred' );
@@ -375,6 +375,12 @@ class SetupWizard {
 				<option value="yes"><?php echo esc_html__( 'Yes', 'cart-rest-api-for-woocommerce' ); ?></option>
 			</select>
 
+			<label for="jwt_authentication"><?php esc_html_e( 'Do you require support for JWT Authentication?', 'cart-rest-api-for-woocommerce' ); ?></label>
+			<select id="jwt_authentication" name="jwt_authentication" aria-label="<?php esc_attr_e( 'JWT Authentication', 'cart-rest-api-for-woocommerce' ); ?>" class="select-input dropdown">
+				<option value="no"><?php echo esc_html__( 'No', 'cart-rest-api-for-woocommerce' ); ?></option>
+				<option value="yes"><?php echo esc_html__( 'Yes', 'cart-rest-api-for-woocommerce' ); ?></option>
+			</select>
+
 			<p class="cocart-setup-wizard-actions step">
 				<button class="button button-primary button-large" value="<?php esc_attr_e( 'Continue', 'cart-rest-api-for-woocommerce' ); ?>" name="save_step"><?php esc_html_e( 'Continue', 'cart-rest-api-for-woocommerce' ); ?></button>
 			</p>
@@ -390,9 +396,10 @@ class SetupWizard {
 	public function cocart_setup_wizard_store_setup_save() {
 		check_admin_referer( 'cocart-setup' );
 
-		$is_store_new     = get_transient( 'cocart_setup_wizard_store_new' );
-		$store_new        = isset( $_POST['store_new'] ) ? ( 'yes' === wc_clean( wp_unslash( $_POST['store_new'] ) ) ) : $is_store_new;
-		$multiple_domains = isset( $_POST['multiple_domains'] ) && ( 'yes' === wc_clean( wp_unslash( $_POST['multiple_domains'] ) ) );
+		$is_store_new       = get_transient( 'cocart_setup_wizard_store_new' );
+		$store_new          = isset( $_POST['store_new'] ) ? ( 'yes' === wc_clean( wp_unslash( $_POST['store_new'] ) ) ) : $is_store_new;
+		$multiple_domains   = isset( $_POST['multiple_domains'] ) && ( 'yes' === wc_clean( wp_unslash( $_POST['multiple_domains'] ) ) );
+		$jwt_authentication = isset( $_POST['jwt_authentication'] ) && ( 'yes' === wc_clean( wp_unslash( $_POST['jwt_authentication'] ) ) );
 
 		$next_step = ''; // Next step.
 
@@ -404,6 +411,11 @@ class SetupWizard {
 		// If true and CoCart Cors is not already installed then it will be installed in the background.
 		if ( $multiple_domains ) {
 			$this->install_cocart_cors();
+		}
+
+		// If true and CoCart JWT Authentication is not already installed then it will be installed in the background.
+		if ( $jwt_authentication ) {
+			$this->install_cocart_jwt();
 		}
 
 		// Redirect to next step.
@@ -555,6 +567,26 @@ class SetupWizard {
 			);
 		}
 	} // END install_cocart_cors()
+
+	/**
+	 * Helper method to install CoCart JWT Authentication.
+	 *
+	 * @access protected
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	protected function install_cocart_jwt() {
+		// Only those who can install plugins will be able to install CoCart JWT Autentication.
+		if ( current_user_can( 'install_plugins' ) ) {
+			$this->install_plugin(
+				'cocart-jwt-authentication',
+				array(
+					'name'      => 'CoCart - JWT Authentication',
+					'repo-slug' => 'cocart-jwt-authentication',
+				)
+			);
+		}
+	} // END install_cocart_jwt()
 
 	/**
 	 * Helper method to retrieve the current user's email address.
