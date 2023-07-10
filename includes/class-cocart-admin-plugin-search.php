@@ -181,18 +181,11 @@ class PluginSearch {
 			?>
 			<div class="cocart-plugin-install-dashboard">
 				<p>
-					<?php
-					echo sprintf(
-						/* translators: %1$s: https://cocart.xyz/add-ons/, %2$s: https://cocart.xyz/woocommerce-extensions/ */
-						__( 'These plugins support, extend and expand the functionality of CoCart while other plugins provide tools for your headless needs. You may learn more about each of the <a href="%1$s" target="_blank">CoCart add-ons</a> and <a href="%2$s" target="_blank">WooCommerce extensions</a> from CoCart\'s official website.', 'cart-rest-api-for-woocommerce' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						esc_url( COCART_STORE_URL . 'add-ons/' ),
-						esc_url( COCART_STORE_URL . 'woocommerce-extensions/' )
-					);
-					?>
+					<?php esc_html_e( 'These plugins suggestions are provided to help with decoupling your store for headless needs. Some plugins may or may not support or extend the functionality of CoCart. You may learn more about each of them via their card listed below.', 'cart-rest-api-for-woocommerce' ); ?>
 				</p>
 
 				<p>
-					<?php esc_html_e( 'Some of these plugins require a 3rd party plugin or extension to support it’s features. See plugin requirement at the bottom of each plugin card.', 'cart-rest-api-for-woocommerce' ); ?>
+					<?php esc_html_e( 'Please note: Other than CoCart, we do not provide support for any WooCommerce extension or third party plugin unless stated otherwise. See plugin requirements at the bottom of each plugin card.', 'cart-rest-api-for-woocommerce' ); ?>
 				</p>
 
 			</div>
