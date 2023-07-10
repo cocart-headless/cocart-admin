@@ -439,7 +439,15 @@ class SetupWizard {
 
 			<h1><?php esc_html_e( 'Sessions', 'cart-rest-api-for-woocommerce' ); ?></h1>
 
-			<p><?php esc_html_e( 'Your current WooCommerce sessions will be transferred over to CoCart session table. This will run in the background until completed. Once transferred, all customers carts will be accessible again.', 'cart-rest-api-for-woocommerce' ); ?></p>
+			<p><?php
+			printf(
+				/* translators: 1: WooCommerce, 2: CoCart */
+				esc_html__( 'Your current %1$s sessions will be transferred over to %2$s session table. This will run in the background until completed. Once transferred, all customers carts will be accessible again.', 'cart-rest-api-for-woocommerce' ),
+				'WooCommerce',
+				'CoCart'
+			);
+			?>
+			</p>
 
 			<p class="cocart-setup-wizard-actions step">
 				<button class="button button-primary button-large" value="<?php esc_attr_e( 'Transfer Sessions', 'cart-rest-api-for-woocommerce' ); ?>" name="save_step"><?php esc_html_e( 'Transfer Sessions', 'cart-rest-api-for-woocommerce' ); ?></button>
