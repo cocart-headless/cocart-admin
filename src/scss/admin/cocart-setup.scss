@@ -86,7 +86,7 @@ body {
 			vertical-align: top;
 
 			select,
-			input {
+			input:not( [type='checkbox'] ) {
 				box-sizing: border-box;
 				width: 100%;
 			}
