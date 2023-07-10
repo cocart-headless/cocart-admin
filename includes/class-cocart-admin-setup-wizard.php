@@ -635,7 +635,7 @@ class SetupWizard {
 		echo wp_kses_post(
 			sprintf(
 				/* translators: %s: CoCart */
-				__( 'Before you get started we recommend that you have<code>WP_DEBUG</code> enabled to help you while testing the API.', 'cart-rest-api-for-woocommerce' ),
+				__( 'Before you get started we recommend that you have <code>WP_DEBUG</code> enabled to help you while testing the API.', 'cart-rest-api-for-woocommerce' ),
 				'CoCart'
 			)
 		);
