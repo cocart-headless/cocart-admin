@@ -474,6 +474,7 @@ class SetupWizard {
 	 * @since 4.0.0 Introduced.
 	 */
 	public function cocart_setup_wizard_settings() {
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php';
 		?>
 		<form method="post" class="settings-step">
 			<input type="hidden" name="save_step" value="setting_setup" />
