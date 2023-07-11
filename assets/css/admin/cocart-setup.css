@@ -174,7 +174,7 @@ body {
   .cocart-setup-wizard-content .form-table td {
     vertical-align: top; }
     .cocart-setup-wizard-content .form-table td select,
-    .cocart-setup-wizard-content .form-table td input {
+    .cocart-setup-wizard-content .form-table td input:not([type='checkbox']) {
       box-sizing: border-box;
       width: 100%; }
     .cocart-setup-wizard-content .form-table td input[size] {

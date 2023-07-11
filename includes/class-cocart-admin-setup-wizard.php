@@ -298,12 +298,12 @@ class SetupWizard {
 	/**
 	 * Initial "store setup" step.
 	 *
-	 * New Store, Multiple Domains.
+	 * New Store, Multiple Domains, JWT Authentication.
 	 *
 	 * @access public
 	 *
-	 * @since   3.1.0 Introduced.
-	 * @version 4.0.0
+	 * @since 3.1.0 Introduced.
+	 * @since 4.0.0 Added option to install JWT Authentication.
 	 */
 	public function cocart_setup_wizard_store_setup() {
 		$sessions_transferred = get_transient( 'cocart_setup_wizard_sessions_transferred' );
@@ -375,6 +375,12 @@ class SetupWizard {
 				<option value="yes"><?php echo esc_html__( 'Yes', 'cart-rest-api-for-woocommerce' ); ?></option>
 			</select>
 
+			<label for="jwt_authentication"><?php esc_html_e( 'Do you require support for JWT Authentication?', 'cart-rest-api-for-woocommerce' ); ?></label>
+			<select id="jwt_authentication" name="jwt_authentication" aria-label="<?php esc_attr_e( 'JWT Authentication', 'cart-rest-api-for-woocommerce' ); ?>" class="select-input dropdown">
+				<option value="no"><?php echo esc_html__( 'No', 'cart-rest-api-for-woocommerce' ); ?></option>
+				<option value="yes"><?php echo esc_html__( 'Yes', 'cart-rest-api-for-woocommerce' ); ?></option>
+			</select>
+
 			<p class="cocart-setup-wizard-actions step">
 				<button class="button button-primary button-large" value="<?php esc_attr_e( 'Continue', 'cart-rest-api-for-woocommerce' ); ?>" name="save_step"><?php esc_html_e( 'Continue', 'cart-rest-api-for-woocommerce' ); ?></button>
 			</p>
@@ -390,9 +396,10 @@ class SetupWizard {
 	public function cocart_setup_wizard_store_setup_save() {
 		check_admin_referer( 'cocart-setup' );
 
-		$is_store_new     = get_transient( 'cocart_setup_wizard_store_new' );
-		$store_new        = isset( $_POST['store_new'] ) ? ( 'yes' === wc_clean( wp_unslash( $_POST['store_new'] ) ) ) : $is_store_new;
-		$multiple_domains = isset( $_POST['multiple_domains'] ) && ( 'yes' === wc_clean( wp_unslash( $_POST['multiple_domains'] ) ) );
+		$is_store_new       = get_transient( 'cocart_setup_wizard_store_new' );
+		$store_new          = isset( $_POST['store_new'] ) ? ( 'yes' === wc_clean( wp_unslash( $_POST['store_new'] ) ) ) : $is_store_new;
+		$multiple_domains   = isset( $_POST['multiple_domains'] ) && ( 'yes' === wc_clean( wp_unslash( $_POST['multiple_domains'] ) ) );
+		$jwt_authentication = isset( $_POST['jwt_authentication'] ) && ( 'yes' === wc_clean( wp_unslash( $_POST['jwt_authentication'] ) ) );
 
 		$next_step = ''; // Next step.
 
@@ -404,6 +411,11 @@ class SetupWizard {
 		// If true and CoCart Cors is not already installed then it will be installed in the background.
 		if ( $multiple_domains ) {
 			$this->install_cocart_cors();
+		}
+
+		// If true and CoCart JWT Authentication is not already installed then it will be installed in the background.
+		if ( $jwt_authentication ) {
+			$this->install_cocart_jwt();
 		}
 
 		// Redirect to next step.
@@ -427,7 +439,15 @@ class SetupWizard {
 
 			<h1><?php esc_html_e( 'Sessions', 'cart-rest-api-for-woocommerce' ); ?></h1>
 
-			<p><?php esc_html_e( 'Your current WooCommerce sessions will be transferred over to CoCart session table. This will run in the background until completed. Once transferred, all customers carts will be accessible again.', 'cart-rest-api-for-woocommerce' ); ?></p>
+			<p><?php
+			printf(
+				/* translators: 1: WooCommerce, 2: CoCart */
+				esc_html__( 'Your current %1$s sessions will be transferred over to %2$s session table. This will run in the background until completed. Once transferred, all customers carts will be accessible again.', 'cart-rest-api-for-woocommerce' ),
+				'WooCommerce',
+				'CoCart'
+			);
+			?>
+			</p>
 
 			<p class="cocart-setup-wizard-actions step">
 				<button class="button button-primary button-large" value="<?php esc_attr_e( 'Transfer Sessions', 'cart-rest-api-for-woocommerce' ); ?>" name="save_step"><?php esc_html_e( 'Transfer Sessions', 'cart-rest-api-for-woocommerce' ); ?></button>
@@ -462,6 +482,7 @@ class SetupWizard {
 	 * @since 4.0.0 Introduced.
 	 */
 	public function cocart_setup_wizard_settings() {
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php';
 		?>
 		<form method="post" class="settings-step">
 			<input type="hidden" name="save_step" value="setting_setup" />
@@ -557,6 +578,26 @@ class SetupWizard {
 	} // END install_cocart_cors()
 
 	/**
+	 * Helper method to install CoCart JWT Authentication.
+	 *
+	 * @access protected
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	protected function install_cocart_jwt() {
+		// Only those who can install plugins will be able to install CoCart JWT Autentication.
+		if ( current_user_can( 'install_plugins' ) ) {
+			$this->install_plugin(
+				'cocart-jwt-authentication',
+				array(
+					'name'      => 'CoCart - JWT Authentication',
+					'repo-slug' => 'cocart-jwt-authentication',
+				)
+			);
+		}
+	} // END install_cocart_jwt()
+
+	/**
 	 * Helper method to retrieve the current user's email address.
 	 *
 	 * @access protected
@@ -602,21 +643,19 @@ class SetupWizard {
 		echo wp_kses_post(
 			sprintf(
 				/* translators: %s: CoCart */
-				__( 'Now that you have %s installed your ready to start developing your headless store. We recommend that you have <code>WP_DEBUG</code> enabled to help you while testing.', 'cart-rest-api-for-woocommerce' ),
+				__( 'Before you get started we recommend that you have <code>WP_DEBUG</code> enabled to help you while testing the API.', 'cart-rest-api-for-woocommerce' ),
 				'CoCart'
 			)
 		);
 		?>
 		</p>
 
-		<p><?php esc_html_e( 'In the API reference you will find the API routes available with examples in a few languages.', 'cart-rest-api-for-woocommerce' ); ?></p>
-
 		<p>
 			<?php
 			echo wp_kses_post(
 				sprintf(
 					/* translators: 1: Developers Hub link, 2: CoCart */
-					__( 'At the <a href="%1$s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s and keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
+					__( 'At the <a href="%1$s" target="_blank">developers hub</a> you can find all the resources you need to be productive with %2$s, keep track of everything that is happening with the plugin including development decisions and scoping of future versions.', 'cart-rest-api-for-woocommerce' ),
 					$docs_url,
 					'CoCart'
 				)
@@ -626,7 +665,7 @@ class SetupWizard {
 
 		<p>
 			<?php
-			esc_html_e( 'It also provides answers to most common questions should you find that you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
+			esc_html_e( 'There you will also find answers to most common questions should you need help and is the best place to look first before contacting support.', 'cart-rest-api-for-woocommerce' );
 			?>
 		</p>
 
@@ -726,9 +765,6 @@ class SetupWizard {
 						<a class="button" href="<?php echo esc_url( admin_url() ); ?>">
 							<?php esc_html_e( 'Visit Dashboard', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
-						<a class="button" href="<?php echo esc_url( 'https://www.npmjs.com/package/@cocart/cocart-rest-api' ); ?>" target="_blank">
-							<?php esc_html_e( 'Download CoCart JS', 'cart-rest-api-for-woocommerce' ); ?>
-						</a>
 						<a class="button" href="<?php echo esc_url( 'https://marketplace.visualstudio.com/items?itemName=sebastien-dumont.cocart-vscode' ); ?>" target="_blank">
 							<?php esc_html_e( 'Install CoCart VSCode Extension', 'cart-rest-api-for-woocommerce' ); ?>
 						</a>
@@ -741,7 +777,7 @@ class SetupWizard {
 		</ul>
 
 		<p class="tweet-share">
-			<a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-text="<?php echo esc_html( $this->tweets[ $tweet ] ); ?>" data-url="https://cocart.xyz/" data-hashtags="WooCommerce" data-related="WooCommerce" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-text="<?php echo esc_html( $this->tweets[ $tweet ] ); ?>" data-url="https://cocart.xyz/" data-hashtags="CoCart" data-related="CoCart" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 		</p>
 
 		<p class="next-steps-help-text"><?php echo wp_kses_post( $help_text ); ?></p>

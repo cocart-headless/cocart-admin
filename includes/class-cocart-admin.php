@@ -141,7 +141,7 @@ class Package {
 	 * @static
 	 *
 	 * @since 1.2.0 Introduced.
-	 * @since 4.0.0 Moved setup wizard to be included in `cocart_settings()` instead.
+	 * @since 4.0.0 Moved settings to be included in `cocart_settings()` instead.
 	 */
 	public static function includes() {
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-assets.php';                            // Admin Assets.
@@ -152,19 +152,6 @@ class Package {
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-plugin-tracker.php';                    // Plugin Tracker.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-wc-admin-notices.php';                  // WooCommerce Admin Notices.
 		include_once COCART_ABSPATH . 'includes/classes/admin/class-cocart-wc-admin-system-status.php'; // WooCommerce System Status.
-	} // END includes()
-
-	/**
-	 * Include CoCart Settings and Setup Wizard.
-	 *
-	 * @access public
-	 *
-	 * @static
-	 *
-	 * @since 4.0.0 Introduced.
-	 */
-	public static function cocart_settings() {
-		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php'; // Plugin Settings.
 
 		// Setup Wizard.
 		if ( ! empty( $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -174,6 +161,19 @@ class Package {
 					break;
 			}
 		}
+	} // END includes()
+
+	/**
+	 * Include CoCart Settings.
+	 *
+	 * @access public
+	 *
+	 * @static
+	 *
+	 * @since 4.0.0 Introduced.
+	 */
+	public static function cocart_settings() {
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-settings.php';
 	} // END cocart_settings()
 
 	/**
