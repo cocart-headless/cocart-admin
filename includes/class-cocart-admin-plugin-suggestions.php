@@ -87,7 +87,9 @@ class PluginSuggestionsUpdater {
 
 		$data['suggestions'] = $body;
 
-		return update_option( 'cocart_plugin_suggestions', $data, false );
+		update_option( 'cocart_plugin_suggestions', $data, false );
+
+		return $data;
 	} // END update_plugin_suggestions()
 
 	/**
