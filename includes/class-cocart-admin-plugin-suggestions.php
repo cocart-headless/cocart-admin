@@ -29,7 +29,7 @@ class PluginSuggestionsUpdater {
 	 * @static
 	 */
 	public static function load() {
-		add_action( 'init', array( __CLASS__, 'init' ) );
+		add_action( 'admin_init', array( __CLASS__, 'init' ) );
 	} // END load()
 
 	/**

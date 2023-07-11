@@ -607,7 +607,7 @@ class PluginSearch {
 			return $links;
 		}
 
-		// Add link pointing to a relevant doc page in CoCart.xyz.
+		// Add link pointing to a relevant page.
 		if ( ! empty( $plugin['learn_more'] ) ) {
 			$links['cocart-learn-more'] = '<a
 				class="cocart-plugin-search__learn-more button"
