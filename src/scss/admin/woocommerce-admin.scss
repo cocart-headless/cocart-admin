@@ -1,0 +1,31 @@
+.cocart {
+
+	.woocommerce-layout__header-breadcrumbs {
+		margin :0;
+	}
+
+	.woocommerce-layout__header-breadcrumbs span:first-child {
+		display: none;
+	}
+
+	.woocommerce-layout__header-breadcrumbs span:nth-child( 2 )::before {
+		content: none;
+	}
+
+	.woocommerce-layout__header h1.woocommerce-layout__header-heading {
+		opacity: 0;
+	}
+
+}
+
+.has-woocommerce-navigation {
+	header {
+		&.has-sections {
+			top: 4px;
+		}
+
+		&.no-sections {
+			top: 8px;
+		}
+	}
+}

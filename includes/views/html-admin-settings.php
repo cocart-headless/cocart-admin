@@ -13,13 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$sections        = CoCart\Admin\Settings::get_settings();
-$has_sections    = count( $sections );
-$header_position = ( $has_sections > 1 ) ? ' style="top: 36px;"' : '';
+$sections     = CoCart\Admin\Settings::get_settings();
+$has_sections = count( $sections );
+$header_class = ( $has_sections > 1 ) ? 'has-sections' : 'no-sections';
 ?>
 <div class="wrap cocart settings-page">
 
-	<header<?php echo $header_position; ?>>
+	<header class="<?php echo $header_class; ?>">
 		<div class="page-title">
 			<div class="logo-image">
 				<?php

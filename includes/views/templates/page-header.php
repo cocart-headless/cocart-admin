@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="wrap cocart <?php echo $section; ?>">
 
-	<header>
+	<header class="no-sections">
 		<div class="page-title">
 			<div class="logo-image">
 				<?php
