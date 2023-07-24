@@ -27,7 +27,7 @@ $header_position = ( $has_sections > 1 ) ? ' style="top: 36px;"' : '';
 					'<img src="%1$s" srcset="%2$s 2x" alt="%3$s"/>',
 					esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/logo.png' ),
 					esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/logo@2x.png' ),
-					esc_html__( 'CoCart logo' )
+					'CoCart Logo'
 				)
 				?>
 			</div>
