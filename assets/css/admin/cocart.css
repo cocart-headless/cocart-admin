@@ -383,6 +383,9 @@ body.cocart .error {
   .cocart.settings-page .content {
     padding: 0;
     padding-left: 32px; }
+  .cocart.settings-page .loading-settings {
+    font-size: xx-large;
+    padding: 4rem; }
   .cocart.settings-page h2 {
     border-bottom: 1px solid #ddd;
     font-size: 23px;

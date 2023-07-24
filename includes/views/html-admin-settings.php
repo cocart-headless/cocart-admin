@@ -56,7 +56,7 @@ $header_position = ( $has_sections > 1 ) ? ' style="top: 36px;"' : '';
 
 			<div class="save-results"></div>
 
-			<div class="loading-settings" style="font-size: xx-large; padding: 4rem;"><?php _e( 'Loading settings', 'cart-rest-api-for-woocommerce' ); ?></div>
+			<div class="loading-settings"><?php _e( 'Loading settings', 'cart-rest-api-for-woocommerce' ); ?></div>
 
 			<?php
 			foreach ( $sections as $page => $settings ) {
