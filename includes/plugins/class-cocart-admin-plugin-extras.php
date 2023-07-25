@@ -75,13 +75,12 @@ class PluginExtras {
 		$matches = array();
 
 		foreach ( $plugins as $file => $plugin ) {
-			if ( 'CoCart' !== $plugin['Name'] && ( stristr( $plugin['Name'], 'cocart' ) || stristr( $plugin['Description'], 'cocart' ) ) ) {
-				$matches[ $file ] = $plugin;
+			if ( COCART_PLUGIN_BASENAME === $file ) {
+				continue;
 			}
 
-			// Remove core plugin from matches.
-			if ( 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php' === $file ) {
-				unset( $matches['cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php'] );
+			if ( 'CoCart' !== $plugin['Name'] && ( stristr( $plugin['Name'], 'cocart' ) || stristr( $plugin['Description'], 'cocart' ) ) ) {
+				$matches[ $file ] = $plugin;
 			}
 		}
 
