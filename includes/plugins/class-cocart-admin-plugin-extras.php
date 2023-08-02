@@ -79,7 +79,7 @@ class PluginExtras {
 				continue;
 			}
 
-			if ( 'CoCart' !== $plugin['Name'] && ( stristr( $plugin['Name'], 'cocart' ) || stristr( $plugin['Description'], 'cocart' ) ) ) {
+			if ( 'CoCart Pro' !== $plugin['Name'] && ( stristr( $plugin['Name'], 'cocart' ) || stristr( $plugin['Description'], 'cocart' ) ) ) {
 				$matches[ $file ] = $plugin;
 			}
 		}
