@@ -74,6 +74,7 @@ class Settings {
 
 			self::$settings = array(
 				'general' => include dirname( __FILE__ ) . '/settings/class-cocart-admin-settings-general.php',
+				'cart'    => include dirname( __FILE__ ) . '/settings/class-cocart-admin-settings-cart.php',
 			);
 		}
 

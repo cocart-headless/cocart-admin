@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="wrap cocart <?php echo $section; ?>">
 
-	<header>
+	<header class="no-sections">
 		<div class="page-title">
 			<div class="logo-image">
 				<?php
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					'<img src="%1$s" srcset="%2$s 2x" alt="%3$s"/>',
 					esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/logo.png' ),
 					esc_url( COCART_ADMIN_URL_PATH . '/assets/images/brand/logo@2x.png' ),
-					esc_html__( 'CoCart logo' )
+					'CoCart Logo'
 				)
 				?>
 			</div>

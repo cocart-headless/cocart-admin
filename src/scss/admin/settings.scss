@@ -3,10 +3,6 @@
 		min-height: auto;
 	}
 
-	.woocommerce-layout__header h1.woocommerce-layout__header-heading {
-		opacity: 0;
-	}
-
 	&.settings-page {
 		margin: 0 !important;
 		padding: 0 !important;
@@ -87,6 +83,11 @@
 		.content {
 			padding: 0;
 			padding-left: 32px;
+		}
+
+		.loading-settings {
+			font-size: xx-large;
+			padding: 4rem;
 		}
 
 		h2 {

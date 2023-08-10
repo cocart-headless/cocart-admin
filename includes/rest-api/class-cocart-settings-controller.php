@@ -87,7 +87,7 @@ class CoCart_REST_Settings_Controller {
 	 *
 	 * @access public
 	 *
-	 * @param WP_REST_Request $request Full details about the request.
+	 * @param WP_REST_Request $request Request used to generate the response.
 	 *
 	 * @return true|WP_Error True if the request has write access, WP_Error object otherwise.
 	 */

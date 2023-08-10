@@ -16,22 +16,18 @@
 		padding: 0;
 	}
 
-	.woocommerce-layout__header-breadcrumbs {
-		margin :0;
-	}
-
-	.woocommerce-layout__header-breadcrumbs span:first-child {
-		display: none;
-	}
-
-	.woocommerce-layout__header-breadcrumbs span:nth-child( 2 )::before {
-		content: none;
-	}
-
 	header {
 		position: fixed;
 		top: 40px;
 		z-index: 9999;
+
+		&.has-sections {
+			top: 36px;
+		}
+
+		&.no-sections {
+			top: 40px;
+		}
 
 		.page-title {
 			align-items: center;
