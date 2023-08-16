@@ -51,7 +51,7 @@ class CoCart_REST_Settings_Controller {
 		add_filter( 'cocart_settings_sanitize_textarea', array( $this, 'sanitize_textarea_field' ) );
 		add_filter( 'cocart_settings_sanitize_radio', array( $this, 'sanitize_radio_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_select', array( $this, 'sanitize_select_field' ), 10, 2 );
-		add_filter( 'cocart_settings_sanitize_checkbox', array( $this, 'sanitize_checkbox_field' ) );
+		add_filter( 'cocart_settings_sanitize_checkbox', array( $this, 'sanitize_checkbox_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_multiselect', array( $this, 'sanitize_multiple_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_multicheckbox', array( $this, 'sanitize_multiple_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_file', array( $this, 'sanitize_file_field' ) );
@@ -177,11 +177,17 @@ class CoCart_REST_Settings_Controller {
 	 * @access public
 	 *
 	 * @param string $value Settings value.
+	 * @param array  $setting Details of the settings to validate with.
 	 *
 	 * @return void
 	 */
-	public function sanitize_checkbox_field( $value ) {
-		$value = '1' === $value || 'yes' === $value ? 'yes' : 'no';
+	public function sanitize_checkbox_field( $value, $setting ) {
+		if ( empty( $value ) ) {
+			$value = isset( $setting['default'] ) ? $setting['default'] : 'no';
+		}
+		else {
+			$value = ! is_null( $value ) ? 'yes' : 'no';
+		}
 
 		return $value;
 	} // END sanitize_checkbox_field()
