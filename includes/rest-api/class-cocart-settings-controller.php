@@ -109,6 +109,7 @@ class CoCart_REST_Settings_Controller {
 	 * @return string
 	 */
 	public function sanitize_text_field( $value ) {
+		$value = is_null( $value ) ? '' : $value;
 		return wp_kses_post( trim( stripslashes( $value ) ) );
 	} // END sanitize_text_field()
 
