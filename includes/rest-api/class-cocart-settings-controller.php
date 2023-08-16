@@ -293,10 +293,7 @@ class CoCart_REST_Settings_Controller {
 					}
 
 					// Sanitize the input.
-					$raw_data = isset( $data[ $setting['id'] ] ) ? $data[ $setting['id'] ] : '';
-					if ( empty( $raw_data ) ) {
-						continue;
-					}
+					$raw_data = ! empty( $data[ $setting['id'] ] ) ? $data[ $setting['id'] ] : '';
 
 					$output = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $raw_data, $setting, $this->errors );
 
