@@ -308,6 +308,41 @@ class Settings {
 					<?php
 					break;
 
+				// Token
+				case 'token':
+					$option_value = $value['value'];
+
+					?><tr valign="top">
+						<th scope="row" class="titledesc">
+							<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?></label>
+						</th>
+						<td class="forminp forminp-token">
+							<input
+								name="<?php echo esc_attr( $value['id'] ); ?>"
+								id="<?php echo esc_attr( $value['id'] ); ?>"
+								type="text"
+								style="<?php echo esc_attr( $value['css'] ); ?>"
+								value="<?php echo sanitize_text_field( $option_value ); ?>"
+								class="<?php echo esc_attr( $value['class'] ); ?>"
+								placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
+								readonly="readonly"
+								<?php echo implode( ' ', $custom_attributes ); ?>
+								/> 
+
+							<a
+							class="generate-token"
+							href="#"
+							title="<?php empty( $option_value ) ? esc_attr_e( 'Generate Token', 'cart-rest-api-for-woocommerce' ) : esc_attr_e( 'Regenerate Token', 'cart-rest-api-for-woocommerce' ); ?>"
+							>
+								<?php empty( $option_value ) ? esc_html_e( 'Generate', 'cart-rest-api-for-woocommerce' ) : esc_html_e( 'Regenerate', 'cart-rest-api-for-woocommerce' ); ?>
+							</a>
+
+							<?php echo $description; ?>
+						</td>
+					</tr>
+					<?php
+					break;
+
 				// Textarea.
 				case 'textarea':
 					$option_value = $value['value'];

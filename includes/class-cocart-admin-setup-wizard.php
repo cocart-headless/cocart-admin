@@ -87,6 +87,8 @@ class SetupWizard {
 	 * Hooked onto 'admin_enqueue_scripts'.
 	 *
 	 * @access public
+	 *
+	 * @since 4.0.0 Added Javascript for the setup wizard.
 	 */
 	public function enqueue_scripts() {
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
@@ -97,6 +99,13 @@ class SetupWizard {
 		if ( $suffix ) {
 			wp_style_add_data( 'cocart-setup', 'suffix', '.min' );
 		}
+
+		wp_register_script( 'cocart-setup', COCART_ADMIN_URL_PATH . '/assets/js/admin/setup-wizard' . $suffix . '.js', array( 'jquery' ), $version );
+		wp_localize_script( 'cocart-setup', 'cocart_params', array(
+			'i18n_regenerate_token' => __( 'Are you sure you want to regenerate your access token?', 'cart-rest-api-for-woocommerce' ),
+			'ajax_url'              => admin_url( 'admin-ajax.php' ),
+			'generate_token_nonce'  => wp_create_nonce( 'regenerate_token' )
+		) );
 	} // END enqueue_scripts()
 
 	/**
@@ -212,6 +221,7 @@ class SetupWizard {
 			?>
 			</title>
 			<?php do_action( 'admin_enqueue_scripts' ); ?>
+			<?php wp_print_scripts( 'cocart-setup' ); ?>
 			<?php do_action( 'admin_print_styles' ); ?>
 			<?php do_action( 'admin_head' ); ?>
 		</head>
@@ -497,7 +507,7 @@ class SetupWizard {
 			echo wp_kses_post(
 				sprintf(
 					/* translators: %s: Link to settings page. */
-					__( 'You can fetch your encrypted salt key from the <a href="%s" target="_blank">settings page</a> any time. You can also update the salt key and immediately get the new encryption salt key once saved.', 'cart-rest-api-for-woocommerce' ),
+					__( 'These settings can be accessed again via the CoCart <a href="%s" target="_blank">settings page</a> any time.', 'cart-rest-api-for-woocommerce' ),
 					esc_url( admin_url( 'admin.php?page=cocart&section=settings' ) )
 				)
 			);

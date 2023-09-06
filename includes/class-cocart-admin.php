@@ -144,6 +144,7 @@ class Package {
 	 * @since 4.0.0 Moved settings to be included in `cocart_settings()` instead.
 	 */
 	public static function includes() {
+		include_once dirname( __FILE__ ) . '/class-cocart-admin-ajax.php';                              // Admin Ajax.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-assets.php';                            // Admin Assets.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-menus.php';                             // Admin Menus.
 		include_once dirname( __FILE__ ) . '/class-cocart-admin-notices.php';                           // Plugin Notices.
@@ -326,8 +327,8 @@ class Package {
 	 * @since 3.1.0 Introduced.
 	 *
 	 * @param array  $install_actions Array of install actions.
-	 * @param string $api The API URL.
-	 * @param string $plugin_file Plugin file name.
+	 * @param string $api             The API URL.
+	 * @param string $plugin_file     Plugin file name.
 	 */
 	public static function install_plugin_complete_actions( $install_actions, $api, $plugin_file ) {
 		if ( strstr( $plugin_file, 'cocart-' ) ) {

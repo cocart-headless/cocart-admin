@@ -60,6 +60,44 @@
 				formChanged = true;
 			}
 		} );
+
+		$( 'a.generate-token' ).click( function( event ) {
+			if ( ! confirm( cocart_params.i18n_regenerate_token ) ) {
+				event.preventDefault();
+			}
+
+			event.preventDefault();
+
+			$.ajax({
+				method: 'POST',
+				dataType: 'json',
+				url: cocart_params.ajax_url,
+				data: {
+					action: 'cocart_generate_access_token',
+					regenerate_nonce: cocart_params.generate_token_nonce
+				},
+				success: function( response ) {
+					if ( response.success ) {
+						var token = response.data;
+
+						$( '.save-results' ).html( '<div class="notice notice-success"></div>' );
+						$( '.notice-success' ).append( "<p><strong>" + cocart_params.i18n_generated_new_token + "</strong></p>" ).show();
+
+						$( 'input[type="text"]#access_token' ).val( token );
+					} else {
+						$( '.save-results' ).html( '<div class="notice notice-error"></div>' );
+						$( '.notice-error' ).append( "<p><strong>" + cocart_params.i18n_no_generated_token + "</strong></p>" ).show();
+					}
+				},
+				complete: function() {
+					// Hide notice after 5 seconds.
+					setTimeout( function() {
+						$( '.notice' ).hide( 'slow' );
+					}, 5000 );
+				}
+			});
+
+		} );
 	} );
 
 	$( document ).ready( function(){
