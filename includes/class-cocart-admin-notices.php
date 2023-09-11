@@ -64,10 +64,10 @@ class Notices {
 		'check_php'           => 'check_php_notice',
 		'check_wp'            => 'check_wp_notice',
 		'check_wc'            => 'check_woocommerce_notice',
-		'plugin_review'       => 'plugin_review_notice',
-		'check_beta'          => 'check_beta_notice',
 		'base_tables_missing' => 'base_tables_missing_notice',
 		'setup_wizard'        => 'setup_wizard_notice',
+		'misc_plugin_review'  => 'plugin_review_notice',
+		'misc_check_beta'     => 'check_beta_notice',
 	);
 
 	/**
@@ -75,8 +75,8 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   1.2.0 Introduced.
-	 * @version 3.1.0
+	 * @since 1.2.0 Introduced.
+	 * @since 4.0.0 Filtered notifications for misc announcements.
 	 */
 	public function __construct() {
 		self::$install_date = get_option( 'cocart_install_date', time() );
@@ -87,6 +87,7 @@ class Notices {
 		add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
 		add_action( 'wp_loaded', array( $this, 'timed_notices' ), 11 );
 
+		add_filter( 'cocart_show_admin_notice', array( $this, 'hide_misc_announcements' ) );
 		add_action( 'shutdown', array( $this, 'store_notices' ) );
 
 		// If the current user has capabilities then add notices.
@@ -507,6 +508,25 @@ class Notices {
 	public function setup_wizard_notice() {
 		include_once dirname( __FILE__ ) . '/views/html-notice-setup-wizard.php';
 	} // END setup_wizard_notice()
+
+	/**
+	 * Hide plugin announcements that are miscellaneous
+	 * if set via the settings.
+	 *
+	 * @access public
+	 *
+	 * @since 4.0.0 Introduced.
+	 *
+	 * @return bool
+	 */
+	public function hide_misc_announcements( $notice ) {
+		$hide_announcements = cocart_get_setting( 'misc', 'hide_announcements' );
+		if ( strpos( $notice, 'misc' ) !== false && $hide_announcements === 'yes' ) {
+			return false;
+		}
+
+		return true;
+	} // END hide_misc_announcements()
 
 } // END class.
 

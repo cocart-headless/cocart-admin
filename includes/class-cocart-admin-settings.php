@@ -85,6 +85,9 @@ class Settings {
 		 */
 		self::$settings = apply_filters( 'cocart_get_settings_pages', self::$settings );
 
+		// Misc settings always go last.
+		self::$settings['misc'] = include dirname( __FILE__ ) . '/settings/class-cocart-admin-settings-misc.php';
+
 		return self::$settings;
 	} // END prep_settings_page()
 
