@@ -64,10 +64,10 @@ class Notices {
 		'check_php'           => 'check_php_notice',
 		'check_wp'            => 'check_wp_notice',
 		'check_wc'            => 'check_woocommerce_notice',
-		'plugin_review'       => 'plugin_review_notice',
-		'check_beta'          => 'check_beta_notice',
 		'base_tables_missing' => 'base_tables_missing_notice',
 		'setup_wizard'        => 'setup_wizard_notice',
+		'misc_plugin_review'  => 'plugin_review_notice',
+		'misc_check_beta'     => 'check_beta_notice',
 	);
 
 	/**
