@@ -64,11 +64,28 @@ class GeneralSettings extends Page {
 		);
 
 		$settings[] = array(
+			'title'    => esc_html__( 'Access Token', 'cart-rest-api-for-woocommerce' ),
+			'id'       => 'access_token',
+			'type'     => 'token',
+			'default'  => '',
+			'css'      => 'width:22em;',
+			'desc'     => esc_html__( 'Access token is to protect the API\'s from any unauthorized access unless provided in the headers.', 'cart-rest-api-for-woocommerce' ),
+		);
+
+		$settings[] = array(
+			'title'   => esc_html__( 'Require Access Token?', 'cart-rest-api-for-woocommerce' ),
+			'id'      => 'require_access_token',
+			'type'    => 'checkbox',
+			'default' => 'no',
+			'desc'    => esc_html__( 'If enabled, the access token above must be provided via the headers in order to use the API\'s.', 'cart-rest-api-for-woocommerce' ),
+		);
+
+		$settings[] = array(
 			'title'   => esc_html__( 'Salt Key', 'cart-rest-api-for-woocommerce' ),
 			'id'      => 'salt_key',
 			'type'    => 'text',
 			'default' => '',
-			'css'     => 'width:25em;',
+			'css'     => 'width:22em;',
 			'desc'    => esc_html__( 'This key is used to protect certain features from being misused. Enter a plain word or phrase.', 'cart-rest-api-for-woocommerce' ),
 		);
 

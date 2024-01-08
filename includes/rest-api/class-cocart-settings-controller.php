@@ -51,7 +51,7 @@ class CoCart_REST_Settings_Controller {
 		add_filter( 'cocart_settings_sanitize_textarea', array( $this, 'sanitize_textarea_field' ) );
 		add_filter( 'cocart_settings_sanitize_radio', array( $this, 'sanitize_radio_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_select', array( $this, 'sanitize_select_field' ), 10, 2 );
-		add_filter( 'cocart_settings_sanitize_checkbox', array( $this, 'sanitize_checkbox_field' ) );
+		add_filter( 'cocart_settings_sanitize_checkbox', array( $this, 'sanitize_checkbox_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_multiselect', array( $this, 'sanitize_multiple_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_multicheckbox', array( $this, 'sanitize_multiple_field' ), 10, 2 );
 		add_filter( 'cocart_settings_sanitize_file', array( $this, 'sanitize_file_field' ) );
@@ -87,7 +87,7 @@ class CoCart_REST_Settings_Controller {
 	 *
 	 * @access public
 	 *
-	 * @param WP_REST_Request $request Request used to generate the response.
+	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return true|WP_Error True if the request has write access, WP_Error object otherwise.
 	 */
@@ -109,6 +109,7 @@ class CoCart_REST_Settings_Controller {
 	 * @return string
 	 */
 	public function sanitize_text_field( $value ) {
+		$value = is_null( $value ) ? '' : $value;
 		return wp_kses_post( trim( stripslashes( $value ) ) );
 	} // END sanitize_text_field()
 
@@ -176,11 +177,17 @@ class CoCart_REST_Settings_Controller {
 	 * @access public
 	 *
 	 * @param string $value Settings value.
+	 * @param array  $setting Details of the settings to validate with.
 	 *
 	 * @return void
 	 */
-	public function sanitize_checkbox_field( $value ) {
-		$value = '1' === $value || 'yes' === $value ? 'yes' : 'no';
+	public function sanitize_checkbox_field( $value, $setting ) {
+		if ( empty( $value ) ) {
+			$value = isset( $setting['default'] ) ? $setting['default'] : 'no';
+		}
+		else {
+			$value = ! is_null( $value ) ? 'yes' : 'no';
+		}
 
 		return $value;
 	} // END sanitize_checkbox_field()
@@ -293,10 +300,7 @@ class CoCart_REST_Settings_Controller {
 					}
 
 					// Sanitize the input.
-					$raw_data = isset( $data[ $setting['id'] ] ) ? $data[ $setting['id'] ] : '';
-					if ( empty( $raw_data ) ) {
-						continue;
-					}
+					$raw_data = ! empty( $data[ $setting['id'] ] ) ? $data[ $setting['id'] ] : '';
 
 					$output = apply_filters( 'cocart_settings_sanitize_' . $setting_type, $raw_data, $setting, $this->errors );
 

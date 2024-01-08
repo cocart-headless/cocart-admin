@@ -4,7 +4,7 @@
  *
  * @author  Sébastien Dumont
  * @package CoCart\Admin
- * @since   1.2.0
+ * @since   1.2.0 Introduced.
  * @version 4.0.0
  * @license GPL-2.0+
  */
@@ -27,7 +27,7 @@ class Assets {
 	 */
 	public function __construct() {
 		// Registers and enqueue Stylesheets.
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
 		// Adds admin body classes.
 		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
@@ -41,7 +41,7 @@ class Assets {
 	 * @since 1.2.0 Introduced.
 	 * @since 4.0.0 Added Javascript for the settings page.
 	 */
-	public function admin_styles() {
+	public function admin_enqueue_scripts() {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 		$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
@@ -57,12 +57,17 @@ class Assets {
 			wp_register_script( COCART_SLUG . '-admin', COCART_ADMIN_URL_PATH . '/assets/js/admin/settings' . $suffix . '.js', array( 'jquery' ), COCART_VERSION );
 			wp_enqueue_script( COCART_SLUG . '-admin' );
 			wp_localize_script( COCART_SLUG . '-admin', 'cocart_params', array(
-				'root'             => esc_url_raw( rest_url() ),
-				'saved_message'    => esc_html__( 'Settings saved successfully.', 'cart-rest-api-for-woocommerce' ),
-				'i18n_nav_warning' => __( 'The changes you made will be lost if you navigate away from this page.', 'cart-rest-api-for-woocommerce' ),
+				'root'                     => esc_url_raw( rest_url() ),
+				'saved_message'            => esc_html__( 'Settings saved successfully.', 'cart-rest-api-for-woocommerce' ),
+				'i18n_nav_warning'         => __( 'The changes you made will be lost if you navigate away from this page.', 'cart-rest-api-for-woocommerce' ),
+				'i18n_regenerate_token'    => __( 'Are you sure you want to regenerate your access token?', 'cart-rest-api-for-woocommerce' ),
+				'ajax_url'                 => admin_url( 'admin-ajax.php' ),
+				'generate_token_nonce'     => wp_create_nonce( 'regenerate_token' ),
+				'i18n_generated_new_token' => __( 'New access token generated.', 'cart-rest-api-for-woocommerce' ),
+				'i18n_no_generated_token'  => __( 'Access token failed to generate.', 'cart-rest-api-for-woocommerce' )
 			) );
 		}
-	} // END admin_styles()
+	} // END admin_enqueue_scripts()
 
 	/**
 	 * Adds admin body class for CoCart page.
