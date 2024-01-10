@@ -75,8 +75,9 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since 1.2.0 Introduced.
-	 * @since 4.0.0 Filtered notifications for misc announcements.
+	 * @since 1.2.0  Introduced.
+	 * @since 3.10.0 Added notice for WordPress Playground
+	 * @since 4.0.0  Filtered notifications for misc announcements.
 	 */
 	public function __construct() {
 		self::$install_date = get_option( 'cocart_install_date', time() );
@@ -94,6 +95,9 @@ class Notices {
 		if ( Help::user_has_capabilities() ) {
 			add_action( 'admin_print_styles', array( $this, 'add_notices' ) );
 		}
+
+		// Notice for WordPress Playground.
+		add_action( 'admin_notices', array( $this, 'wordpress_playground_notice' ) );
 	} // END __construct()
 
 	/**
@@ -253,12 +257,17 @@ class Notices {
 	 *
 	 * @access public
 	 *
-	 * @since   3.0.0 Introduced.
-	 * @version 3.0.17
+	 * @since 3.0.0  Introduced.
+	 * @since 3.10.0 Prevented notices from showing if on WordPress Playground.
 	 */
 	public function add_notices() {
 		// Prevent notices from loading on the frontend.
 		if ( ! is_admin() ) {
+			return;
+		}
+
+		// Don't show notices if on WordPress Playground.
+		if ( Help::is_on_wordpress_playground() ) {
 			return;
 		}
 
@@ -508,6 +517,21 @@ class Notices {
 	public function setup_wizard_notice() {
 		include_once dirname( __FILE__ ) . '/views/html-notice-setup-wizard.php';
 	} // END setup_wizard_notice()
+
+	/**
+	 * Displays a notice if the user installed CoCart on WordPress Playground.
+	 *
+	 * @access public
+	 *
+	 * @since 3.10.0 Introduced.
+	 *
+	 * @return void
+	 */
+	public function wordpress_playground_notice() {
+		if ( Help::is_on_wordpress_playground() ) {
+			include_once dirname( __FILE__ ) . '/views/html-notice-playground.php';
+		}
+	} // END wordpress_playground_notice()
 
 	/**
 	 * Hide plugin announcements that are miscellaneous
