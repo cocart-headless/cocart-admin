@@ -23,7 +23,7 @@ abstract class SettingsPage {
 	 *
 	 * @access protected
 	 *
-	 * @var    string $id
+	 * @var string $id
 	 */
 	protected $id = '';
 
@@ -32,7 +32,7 @@ abstract class SettingsPage {
 	 *
 	 * @access protected
 	 *
-	 * @var    string $label
+	 * @var string $label
 	 */
 	protected $label = '';
 
