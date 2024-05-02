@@ -37,7 +37,7 @@
 	},
 	"devDependencies": {
 		"@lodder/grunt-postcss": "3.1.1",
-		"@wordpress/stylelint-config": "21.8.0",
+		"@wordpress/stylelint-config": "21.40.0",
 		"grunt": "1.6.1",
 		"grunt-contrib-cssmin": "5.0.0",
 		"grunt-contrib-jshint": "3.2.0",
